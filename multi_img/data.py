@@ -42,7 +42,7 @@ selected_model = 'resnet'
 dropout_rate = 0.4
 """
 
-workingOn = 'laptop' # 'server' or 'laptop
+workingOn = 'server' # 'server' or 'laptop
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
 # Global configurations
