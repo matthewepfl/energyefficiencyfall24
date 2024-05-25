@@ -141,6 +141,7 @@ def load_images_data(cluster_data):
     properties = cluster_data['Property Reference Id'].unique()
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in properties]
 
+    print([image_file.split(os.sep)[-1][:-5] for image_file in image_files])
     labels_data = labels_data[labels_data['Property Reference Id'].isin([image_file.split(os.sep)[-1][:-5] for image_file in image_files])]
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster']], on = 'Property Reference Id', how = 'inner')
 
