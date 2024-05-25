@@ -170,7 +170,7 @@ def create_image_labels_mapping(image_files, labels_data):
         print("The output of the labels is: ", labels)
         for classes in [0, 1]:
             try:
-                labels_row = labels[labels['cluster'] == str(classes)]
+                labels_row = labels[labels['cluster'] == classes]
             except:
                 continue
              
@@ -180,6 +180,7 @@ def create_image_labels_mapping(image_files, labels_data):
                 labels.pop('pathname')
                 image_labels_mapping[path] = labels
 
+    print(f'Number of samples:\tImage: {len(image_labels_mapping)}')
     return image_labels_mapping
         
 def join_multi(labels_data, image_files):
