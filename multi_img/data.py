@@ -167,22 +167,18 @@ def create_image_labels_mapping(image_files, labels_data):
     A dictionary with image file paths as keys and dicts with labels and ViewPosition as values.
     '''
     image_labels_mapping = {}
-    print("labels_data: ", labels_data)
 
     for image_path in tqdm(image_files):
         # Extract subject_id, study_id, and dicom_id from the file path
         parts = image_path.split(os.sep)
         property_id = parts[-1][:-5]
-        number = parts[-1][-5]
 
         # Find the corresponding row in the labels CSV
         labels_row = labels_data[(labels_data['Property Reference Id'] == str(property_id))]
         
         if not labels_row.empty:
             labels = labels_row.iloc[0].to_dict()
-            cluster = labels_row['cluster'].iloc[0]
-            print("labels: ", labels)
-            labels['number'] = number
+            labels.pop('pathname')
             image_labels_mapping[image_path] = labels  
 
     return image_labels_mapping
@@ -199,17 +195,17 @@ def join_multi(labels_data, image_files):
     image_labels_mapping = create_image_labels_mapping(image_files, labels_data)
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
-    df_img['number'] = df_img['number'].astype(str)
+    df_img['cluster'] = df_img['cluster'].astype(str)
 
     # Keep only PA and LATERAL images
-    df_img = df_img[df_img['number'].isin(['a', 'b'])]
+    df_img = df_img[df_img['cluster'].isin(['a', 'b'])]
 
     # Group by study_id and subject_id and ViewPosition and keep the first row
-    df_img = df_img.groupby(['Property Reference Id', 'number']).first().reset_index()
+    df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
 
     # Function to check if both PA and Lateral images are present
     def has_both_views(group):
-        return 'a' in group['number'].values and 'b' in group['number'].values
+        return 'a' in group['cluster'].values and 'b' in group['cluster'].values
 
     # Filter the DataFrame
     df_img = df_img.groupby(['Property Reference Id']).filter(has_both_views)
@@ -237,6 +233,7 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
 
     else:
         print('Splitting:\tTabular data and labels into train, val, and test sets.')
+
         # Split the study_ids into train, val, and test sets
         property_id = labels['Property Reference Id'].unique()
         np.random.seed(seed)
@@ -330,12 +327,12 @@ class MultimodalDataset(Dataset):
         for path in self.data_dict.keys():
             parts = path.split(os.sep)
             property_id = parts[-1][:-5]
-            number = parts[-1][-5]
+            cluster = parts[-1][-5]
             key = (property_id)
             if key not in organized:
                 organized[property_id] = {'a': None, 'b': None}
-            if number in ['a', 'b']:
-                organized[property_id][number] = path
+            if cluster in ['a', 'b']:
+                organized[property_id][cluster] = path
 
         print('The shape of the organized paths:', organized)
         return organized
@@ -357,20 +354,20 @@ class MultimodalDataset(Dataset):
             raise IndexError(f"Index {idx} out of range. Dataset has {len(self.organized_paths)} samples.")
         
         # Get the subject_id and study_id for this index
-        property_number_pair = list(self.organized_paths.keys())[idx]
+        property_cluster_pair = list(self.organized_paths.keys())[idx]
 
         # Get the paths for the PA and Lateral images
-        a_path = self.organized_paths[property_number_pair]['a']
-        b_path = self.organized_paths[property_number_pair]['b']
+        a_path = self.organized_paths[property_cluster_pair]['a']
+        b_path = self.organized_paths[property_cluster_pair]['b']
 
         # Get labels from the image data
         labels_path = a_path if a_path else b_path
         if not labels_path:
-            raise ValueError(f'No labels path found for {property_number_pair}.')
+            raise ValueError(f'No labels path found for {property_cluster_pair}.')
         labels = self.data_dict[labels_path]['Demand']
         label_tensor = torch.tensor(labels, dtype=torch.float32).unsqueeze(0)
         if torch.any(label_tensor < 0):
-            print(f'Negative label values for {property_number_pair}: {label_tensor}')
+            print(f'Negative label values for {property_cluster_pair}: {label_tensor}')
         
         inputs = {'labels': label_tensor}
         
