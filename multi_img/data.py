@@ -168,6 +168,7 @@ def create_image_labels_mapping(image_files, labels_data):
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         for classes in [0, 1]:
+            print(f"Type of classes: {type(classes)}, Value of classes: {classes}")
             labels_row = labels[labels['cluster'] == classes]
             if not labels_row.empty:
                 labels = labels_row.iloc[0].to_dict()
