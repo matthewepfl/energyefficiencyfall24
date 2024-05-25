@@ -173,7 +173,9 @@ def create_image_labels_mapping(image_files, labels_data):
             labels_row = labels[labels['cluster'] == classes]
             if not labels_row.empty:
                 labels = labels_row.iloc[0].to_dict()
-                image_labels_mapping[image_path] = labels
+                path = labels['pathname']
+                labels.pop('pathname')
+                image_labels_mapping[path] = labels
 
     return image_labels_mapping
         
