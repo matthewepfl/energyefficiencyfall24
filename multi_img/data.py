@@ -423,6 +423,7 @@ def prepare_data():
     lab_train, lab_val, lab_test = split(labels_data, val_size=0.1, test_size=0.15, seed=42)
 
     print('Joining:\tIntersection of tabular and image data.')
+    print("\nThe output lab_train: ", lab_train.head(20))
     image_data_train = join_multi(lab_train, image_files)
     print("\nThe output image_data_train: ", image_data_train)
     image_data_val = join_multi(lab_val, image_files)
