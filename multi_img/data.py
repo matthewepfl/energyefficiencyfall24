@@ -144,6 +144,10 @@ def load_images_data(cluster_data):
     labels_data = labels_data[labels_data['Property Reference Id'].isin([image_file.split(os.sep)[-1][:-5] for image_file in image_files])]
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster']], on = 'Property Reference Id', how = 'inner')
 
+    print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
+    print("the labels look like this: ", labels_data.head(40))
+    print("the image files look like this: ", image_files[:10])
+
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
     
