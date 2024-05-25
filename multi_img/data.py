@@ -141,11 +141,11 @@ def load_images_data(cluster_data):
     properties = cluster_data['Property Reference Id'].unique()
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in properties]
 
-    print([image_file.split(os.sep)[-1][:-5] for image_file in image_files])
+    # Cleaning of the datasets
     labels_data = labels_data[labels_data['Property Reference Id'].isin([image_file.split(os.sep)[-1][:-5] for image_file in image_files])]
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster']], on = 'Property Reference Id', how = 'inner')
-    # remove the duplicates based on property id, cluster and demand
     labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'Demand'])
+    image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
 
     print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
     print("the labels look like this: ", labels_data.head(40))
