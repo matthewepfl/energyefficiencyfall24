@@ -165,10 +165,8 @@ def create_image_labels_mapping(image_files, labels_data):
     A dictionary with image file paths as keys and dicts with labels and ViewPosition as values.
     '''
     image_labels_mapping = {}
-    print("The image files are: ", image_files[:5])
-    print("The labels data is: ", labels_data.head(5))
     count = True
-    for image_path in tqdm(image_files):
+    for image_path in tqdm(labels_data['pathname']):
         if count:
             print("The image path is: ", image_path)
         count = False
@@ -182,6 +180,7 @@ def create_image_labels_mapping(image_files, labels_data):
         if not labels_row.empty:
             labels = labels_row.iloc[0].to_dict()
             labels.pop('pathname')
+            print("The labels are: ", labels)
             image_labels_mapping[image_path] = labels  
 
     return image_labels_mapping
