@@ -147,8 +147,6 @@ def load_images_data(cluster_data):
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
 
     print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
-    print("the labels look like this: ", labels_data.head(20))
-    print("the image files look like this: ", image_files[:10])
 
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
@@ -167,8 +165,11 @@ def create_image_labels_mapping(image_files, labels_data):
     A dictionary with image file paths as keys and dicts with labels and ViewPosition as values.
     '''
     image_labels_mapping = {}
+    print("The image files are: ", image_files)
+    print("The labels data is: ", labels_data)
 
     for image_path in tqdm(image_files):
+        print("The image path is: ", image_path)
         # Extract subject_id, study_id, and dicom_id from the file path
         parts = image_path.split(os.sep)
         property_id = parts[-1][:-5]
@@ -416,17 +417,15 @@ def prepare_data():
     print('Loading:\tImage data (labels, files).')
     cluster_data = pd.read_csv(CLUSTERED_PATH)
     labels_data, image_files = load_images_data(cluster_data)
-    print("\nThe output labels_data: ", labels_data.head(5))
 
     # Split labels into train/val/test sets
     print('Splitting:\tLabels into train/val/test sets.')
     lab_train, lab_val, lab_test = split(labels_data, val_size=0.1, test_size=0.15, seed=42)
 
     print('Joining:\tIntersection of tabular and image data.')
-    print("\nThe output lab_train: ", lab_train.head(20))
-    image_data_test = join_multi(lab_test, image_files)
+    image_data_test = join_multi(lab_test, image_files) # lab test is correct
     
-    print("\nThe output image_data_train: ", image_data_train)
+    print("\nThe output image_data_test: ", image_data_test)
     image_data_val = join_multi(lab_val, image_files)
     image_data_train = join_multi(lab_train, image_files)
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
