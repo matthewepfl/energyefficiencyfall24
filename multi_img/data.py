@@ -165,11 +165,11 @@ def create_image_labels_mapping(image_files, labels_data):
     A dictionary with image file paths as keys and dicts with labels and ViewPosition as values.
     '''
     image_labels_mapping = {}
-    for image_path in tqdm(labels_data['pathname']):
-        labels = labels_data[labels_data['pathname'] == image_path]
+    for property in tqdm(labels_data['Property Reference Id'].unique()):
+        labels = labels_data[labels_data['Property Reference Id'] == property]
         print("The labels: ", labels)
         for classes in [0, 1]:
-            print(labels['cluster'].iloc[0], classes)
+            print(type(labels['cluster'].iloc[0]), type(classes))
             labels_row = labels[labels['cluster'] == classes]
             if not labels_row.empty:
                 labels = labels_row.iloc[0].to_dict()
