@@ -168,11 +168,12 @@ def create_image_labels_mapping(image_files, labels_data):
     for image_path in tqdm(labels_data['pathname']):
 
         labels = labels_data[labels_data['pathname'] == image_path]
+        print("The labels: ", labels)
         for classes in [0, 1]:
             labels_row = labels[labels['cluster'] == classes]
+            print("The labels_row: ", labels_row)
             if not labels_row.empty:
                 labels = labels_row.iloc[0].to_dict()
-                labels.pop('pathname')
                 image_labels_mapping[image_path] = labels
 
     return image_labels_mapping
