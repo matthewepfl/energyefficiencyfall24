@@ -42,7 +42,7 @@ selected_model = 'resnet'
 dropout_rate = 0.4
 """
 
-workingOn = 'server' # 'server' or 'laptop
+workingOn = 'laptop' # 'server' or 'laptop
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
 # Global configurations
@@ -61,6 +61,7 @@ LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'labels_train.csv')
 LABELS_VAL_PATH = os.path.join(DATA_DIR, 'labels_val.csv')
 LABELS_TEST_PATH = os.path.join(DATA_DIR, 'labels_test.csv')
 PROCESSED_PATH = os.path.join(DATA_DIR, 'processed_data')
+CLUSTERED_PATH = os.path.join(DATA_DIR, 'clustered_images_with6classes.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
 
@@ -127,7 +128,7 @@ def load_demand():
 
     return images_df
 
-def load_images_data():
+def load_images_data(cluster_data):
     '''
     Load image data: labels, image files, image metadata
     '''
@@ -136,6 +137,13 @@ def load_images_data():
     
     labels_data = load_demand()
     image_files = list_images(IMAGES_PATH)
+    
+    properties = cluster_data['Property Reference Id'].unique()
+    image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in properties]
+
+    labels_data = labels_data[labels_data['Property Reference Id'].isin([image_file.split(os.sep)[-1][:-5] for image_file in image_files])]
+    labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster']], on = 'Property Reference Id', how = 'inner')
+
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
     
@@ -395,7 +403,9 @@ def prepare_data():
     
     # Load image labels, files and metadata
     print('Loading:\tImage data (labels, files).')
-    labels_data, image_files = load_images_data()
+    cluster_data = pd.read_csv(CLUSTERED_PATH)
+    print('Cluster data shape:', cluster_data.shape, 'Columns:', cluster_data.columns)
+    labels_data, image_files = load_images_data(cluster_data)
 
     # Split labels into train/val/test sets
     print('Splitting:\tLabels into train/val/test sets.')
