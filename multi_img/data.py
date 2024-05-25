@@ -165,11 +165,13 @@ def create_image_labels_mapping(image_files, labels_data):
     A dictionary with image file paths as keys and dicts with labels and ViewPosition as values.
     '''
     image_labels_mapping = {}
-    print("The image files are: ", image_files)
-    print("The labels data is: ", labels_data)
-
+    print("The image files are: ", image_files[:5])
+    print("The labels data is: ", labels_data.head(5))
+    count = True
     for image_path in tqdm(image_files):
-        print("The image path is: ", image_path)
+        if count:
+            print("The image path is: ", image_path)
+        count = False
         # Extract subject_id, study_id, and dicom_id from the file path
         parts = image_path.split(os.sep)
         property_id = parts[-1][:-5]
