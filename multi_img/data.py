@@ -198,14 +198,14 @@ def join_multi(labels_data, image_files):
     df_img['cluster'] = df_img['cluster'].astype(str)
 
     # Keep only PA and LATERAL images
-    df_img = df_img[df_img['cluster'].isin(['a', 'b'])]
+    df_img = df_img[df_img['cluster'].isin(['0', '1'])]
 
     # Group by study_id and subject_id and ViewPosition and keep the first row
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
 
     # Function to check if both PA and Lateral images are present
     def has_both_views(group):
-        return 'a' in group['cluster'].values and 'b' in group['cluster'].values
+        return '0' in group['cluster'].values and '1' in group['cluster'].values
 
     # Filter the DataFrame
     df_img = df_img.groupby(['Property Reference Id']).filter(has_both_views)
@@ -249,9 +249,6 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         labels_train = labels[labels['Property Reference Id'].isin(study_ids_train)]
         labels_val = labels[labels['Property Reference Id'].isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].isin(study_ids_test)]
-        print("labels_train: ", labels_train.head(5))
-        print("labels_val: ", labels_val.head(5))
-        print("labels_test: ", labels_test.head(5))
 
         # Save the train, val, and test sets
         labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
@@ -320,7 +317,7 @@ class MultimodalDataset(Dataset):
         self.organized_paths = self._organize_paths()
 
         # Filter out pairs where both images are None
-        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['a'] is not None and v['b'] is not None}
+        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None}
 
     def _organize_paths(self):
         organized = {}
@@ -330,8 +327,8 @@ class MultimodalDataset(Dataset):
             cluster = parts[-1][-5]
             key = (property_id)
             if key not in organized:
-                organized[property_id] = {'a': None, 'b': None}
-            if cluster in ['a', 'b']:
+                organized[property_id] = {'0': None, '1': None}
+            if cluster in ['0', '1']:
                 organized[property_id][cluster] = path
 
         print('The shape of the organized paths:', organized)
@@ -357,8 +354,8 @@ class MultimodalDataset(Dataset):
         property_cluster_pair = list(self.organized_paths.keys())[idx]
 
         # Get the paths for the PA and Lateral images
-        a_path = self.organized_paths[property_cluster_pair]['a']
-        b_path = self.organized_paths[property_cluster_pair]['b']
+        a_path = self.organized_paths[property_cluster_pair]['0']
+        b_path = self.organized_paths[property_cluster_pair]['1']
 
         # Get labels from the image data
         labels_path = a_path if a_path else b_path
@@ -419,10 +416,10 @@ def prepare_data():
     # Split labels into train/val/test sets
     print('Splitting:\tLabels into train/val/test sets.')
     lab_train, lab_val, lab_test = split(labels_data, val_size=0.1, test_size=0.15, seed=42)
-    print(f'Split labels:\tTrain: {lab_train.head(5)}\tValidation: {lab_val.head(5)}\tTest: {lab_test.head()} samples.')
 
     print('Joining:\tIntersection of tabular and image data.')
     image_data_train = join_multi(lab_train, image_files)
+    print("\nThe output image_data_train: ", image_data_train)
     image_data_val = join_multi(lab_val, image_files)
     image_data_test = join_multi(lab_test, image_files)
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
