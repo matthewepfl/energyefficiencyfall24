@@ -165,23 +165,15 @@ def create_image_labels_mapping(image_files, labels_data):
     A dictionary with image file paths as keys and dicts with labels and ViewPosition as values.
     '''
     image_labels_mapping = {}
-    count = True
     for image_path in tqdm(labels_data['pathname']):
-        if count:
-            print("The image path is: ", image_path)
-        count = False
-        # Extract subject_id, study_id, and dicom_id from the file path
-        parts = image_path.split(os.sep)
-        property_id = parts[-1][:-5]
 
-        # Find the corresponding row in the labels CSV
-        labels_row = labels_data[(labels_data['Property Reference Id'] == str(property_id))]
-        
-        if not labels_row.empty:
-            labels = labels_row.iloc[0].to_dict()
-            labels.pop('pathname')
-            print("The labels are: ", labels)
-            image_labels_mapping[image_path] = labels  
+        labels = labels_data[labels_data['pathname'] == image_path]
+        for classes in [0, 1]:
+            labels_row = labels[labels['cluster'] == classes]
+            if not labels_row.empty:
+                labels = labels_row.iloc[0].to_dict()
+                labels.pop('pathname')
+                image_labels_mapping[image_path] = labels
 
     return image_labels_mapping
         
