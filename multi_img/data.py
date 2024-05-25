@@ -169,7 +169,6 @@ def create_image_labels_mapping(image_files, labels_data):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         print("The labels: ", labels)
         for classes in [0, 1]:
-            print(type(labels['cluster'].iloc[0]), type(classes))
             labels_row = labels[labels['cluster'] == classes]
             if not labels_row.empty:
                 labels = labels_row.iloc[0].to_dict()
