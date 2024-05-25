@@ -423,8 +423,8 @@ def prepare_data():
     # Load image labels, files and metadata
     print('Loading:\tImage data (labels, files).')
     cluster_data = pd.read_csv(CLUSTERED_PATH)
-    print('Cluster data shape:', cluster_data.shape, 'Columns:', cluster_data.columns)
     labels_data, image_files = load_images_data(cluster_data)
+    print("\nThe output labels_data: ", labels_data.head(5))
 
     # Split labels into train/val/test sets
     print('Splitting:\tLabels into train/val/test sets.')
