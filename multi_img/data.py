@@ -194,14 +194,17 @@ def join_multi(labels_data, image_files):
     # Image data
     image_labels_mapping = create_image_labels_mapping(image_files, labels_data)
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
+    print("The ouptput image_labels_mapping: ", df_img)
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
 
-    # Keep only PA and LATERAL images
+    # Keep only 0 and 1 images
     df_img = df_img[df_img['cluster'].isin(['0', '1'])]
+    print("tHe output of the filtering is: ", df_img.head(5))
 
     # Group by study_id and subject_id and ViewPosition and keep the first row
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
+    print("The output of the groupby is: ", df_img.head(5))
 
     # Function to check if both PA and Lateral images are present
     def has_both_views(group):
