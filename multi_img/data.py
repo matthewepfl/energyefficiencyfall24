@@ -174,11 +174,18 @@ def create_image_labels_mapping(image_files, labels_data):
         property_id = parts[-1][:-5]
         number = parts[-1][-5]
 
+        print("property_id: ", property_id)
+        print("number: ", number)
+
+
         # Find the corresponding row in the labels CSV
         labels_row = labels_data[(labels_data['Property Reference Id'] == str(property_id))]
+        print("labels_row: ", labels_row)
+        cluster = labels_row['cluster'].iloc[0]
         
         if not labels_row.empty:
             labels = labels_row.iloc[0].to_dict()
+            print("labels: ", labels)
             labels['number'] = number
             image_labels_mapping[image_path] = labels  
 
