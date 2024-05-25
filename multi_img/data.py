@@ -197,6 +197,7 @@ def join_multi(labels_data, image_files):
     print("The ouptput image_labels_mapping: ", df_img)
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
+    print("The output of the conversion is: ", df_img.head(5))
 
     # Keep only 0 and 1 images
     df_img = df_img[df_img['cluster'].isin(['0', '1'])]
@@ -212,6 +213,7 @@ def join_multi(labels_data, image_files):
 
     # Filter the DataFrame
     df_img = df_img.groupby(['Property Reference Id']).filter(has_both_views)
+    print("The output of the filter is: ", df_img.head(5), df_img.shape)
 
     print(f'Number of samples:\tImage: {len(df_img)}')
 
