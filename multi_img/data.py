@@ -176,13 +176,12 @@ def create_image_labels_mapping(image_files, labels_data):
                 continue
              
             if not labels_row.empty:
-                labels = labels_row.iloc[0].to_dict()
+                labels_out = labels_row.iloc[0].to_dict()
                 path = labels['pathname']
-                labels.pop('pathname')
-                image_labels_mapping[path] = labels
+                labels_out.pop('pathname')
+                image_labels_mapping[path] = labels_out
 
     print(f'Number of samples:\tImage: {len(image_labels_mapping)}')
-
 
     return image_labels_mapping
         
