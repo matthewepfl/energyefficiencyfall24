@@ -167,7 +167,7 @@ def join_multi(labels_data):
 
     # Group by study_id and subject_id and ViewPosition and keep the first row
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
-    print('The pathname of df_img:', df_img.pathname)
+    print('The pathname of df_img:', df_img.head(5))
 
     # Function to check if both PA and Lateral images are present
     # def has_both_views(group):
