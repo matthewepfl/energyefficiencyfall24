@@ -148,7 +148,7 @@ def create_image_labels_mapping(labels_data):
 
     return image_labels_mapping
         
-def join_multi(labels_data, image_files):
+def join_multi(labels_data):
     '''
     Join the image data.
     Returns: 
@@ -161,12 +161,13 @@ def join_multi(labels_data, image_files):
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
-
+    
     # Keep only 0 and 1 images
     df_img = df_img[df_img['cluster'].isin(['0', '1'])]
 
     # Group by study_id and subject_id and ViewPosition and keep the first row
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
+    print('The pathname of df_img:', df_img.pathname)
 
     # Function to check if both PA and Lateral images are present
     # def has_both_views(group):
@@ -298,7 +299,6 @@ class MultimodalDataset(Dataset):
                     print('The shape of the organized paths:', organized)
                     count += 1
 
-        print('The shape of the organized paths:', organized)
         return organized
 
     def __len__(self):
