@@ -55,8 +55,9 @@ DATA_DIR = os.path.join(BASE_DIR, 'Data')
 MODEL_SAVE_DIR = os.path.join(BASE_DIR, 'modelS/images_models')
 PATH_NUM_APPT = os.path.join(DATA_DIR, 'vacancy_rate.px')
 IMAGES_DF_PATH = os.path.join(DATA_DIR, 'images_df.csv')
-LISTINGS_PATH = os.path.join(DATA_DIR, 'listings_full.pkl')
+LISTINGS_PATH = os.path.join(DATA_DIR, 'Listings_FE.pkl')
 INQUIRIES_PATH = os.path.join(DATA_DIR, 'inquiries_full.pkl')
+ENERGY_PATH = os.path.join(DATA_DIR, 'energy_data.csv')
 LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'labels_train.csv')
 LABELS_VAL_PATH = os.path.join(DATA_DIR, 'labels_val.csv')
 LABELS_TEST_PATH = os.path.join(DATA_DIR, 'labels_test.csv')
@@ -65,39 +66,14 @@ CLUSTERED_PATH = os.path.join(DATA_DIR, 'clustered_images_with6classes.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
 
-def Demand(listings, inquiries):
-    """
-    Calculate the demand for each listing
-        input: listings, inquiries
-        output: listings with demand
-    """
+def Efficiency(efficiency):
 
-    # Filter the listings with only one advertisement version
-    listings = listings[listings["Advertisement Version Id"] == 1]
+    efficiency = efficiency[efficiency["Advertisement Version Id"] == 1]
+    efficiency['BuildingID'] = efficiency['Property Reference Id'].apply(lambda x: x.split('.')[1])
+    efficiency['ApartmentID'] = efficiency['Property Reference Id'].apply(lambda x: x.split('.')[2])
+    efficiency = efficiency.groupby(['PropertyID', 'BuildingID', "ApartmentID", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") 
 
-    # Create a Column for the Time Left and Time Passed
-    inquiries.loc[:,"Time Left"] = inquiries.loc[:,"Created"].max() - inquiries.loc[:,"Advertisement Created"]
-    inquiries.loc[:, "Time Passed"] = inquiries.loc[:,"Created"] - inquiries.loc[:,"Advertisement Created"]
-
-    # Filter inquiries
-    inquiries = inquiries[(inquiries.loc[:,"Time Left"] >= pd.Timedelta("30 days")) &
-                        (inquiries.loc[:,"Time Passed"] <= pd.Timedelta("30 days"))]
-
-    # Calculate the demand from the inquiries
-    Demand = inquiries.groupby(["Advertisement Id"]).size()
-    Demand.name = "Demand"
-
-    # Merge the demand with the listings
-    listings = listings.merge(Demand, left_on=["Advertisement Id"],
-                            right_index=True, how="left",
-                            indicator="_merge")
-
-    # Fill the missing values with 0
-    listings.loc[listings._merge == "left_only", "Demand"] = 0
-
-    # Drop the columns which are not needed
-    listings = listings.drop(columns=["Form Lead Unique", "_merge"])
-    return listings
+    return efficiency
 
 def list_images(base_path):
     '''
@@ -111,22 +87,21 @@ def list_images(base_path):
                 image_files.append(os.path.join(subdir, file))
     return image_files
 
-def load_demand():
+def load_efficiency():
     # Load the dataframes
     images_df = pd.read_csv(IMAGES_DF_PATH)                               # The pathnames and the Property Reference Ids of the images
-    listings = pd.read_pickle(LISTINGS_PATH)                              # The listings to create the Demand
-    inquiries = pd.read_pickle(INQUIRIES_PATH)                            # The inquiries to create the Demand
+    efficiency = pd.read_csv(ENERGY_PATH)                                 # The energy data to create the Efficiency
     
     # Calculate the Demand per listing
-    listings_demand = Demand(listings, inquiries)
-    listings_demand = listings_demand[~listings_demand['Property Reference Id'].duplicated(keep='last')]
+    efficiency = Efficiency(efficiency)
 
     # Merge Demand in listings and the images_df on the Property Reference Id
-    images_df = images_df[['pathname', 'Property Reference Id']].merge(listings_demand[['Property Reference Id', 'Demand']], on = 'Property Reference Id', how = 'inner')
-    images_df = images_df[images_df['Demand'].notna()]
+    images_df = images_df[['pathname', 'Property Reference Id']].merge(efficiency[['Property Reference Id', 'PropertyFE']], on = 'Property Reference Id', how = 'inner')
+    images_df = images_df[images_df['PropertyFE'].notna()]
     images_df.drop(columns = ['pathname'], inplace = True)
 
     return images_df
+
 
 def load_images_data(cluster_data):
     '''
@@ -135,7 +110,7 @@ def load_images_data(cluster_data):
     if not os.path.exists(IMAGES_PATH):
         raise ValueError(f'Images folder not found in {IMAGES_PATH}.')
     
-    labels_data = load_demand()
+    labels_data = load_efficiency()
     image_files = list_images(IMAGES_PATH)
     
     properties = cluster_data['Property Reference Id'].unique()
@@ -167,18 +142,13 @@ def create_image_labels_mapping(image_files, labels_data):
     image_labels_mapping = {}
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
-        print("The output of the labels is: ", labels)
         for classes in [0, 1]:
-            try:
-                labels_row = labels[labels['cluster'] == classes]
-            except:
-                print(f'No labels found for {property} in cluster {classes}.')
-                continue
-             
+            labels_row = labels[labels['cluster'] == classes]
             if not labels_row.empty:
                 labels_out = labels_row.iloc[0].to_dict()
-                path = labels['pathname']
+                path = str(labels['pathname'])
                 labels_out.pop('pathname')
+                print('The labels_out: ', labels_out)
                 image_labels_mapping[path] = labels_out
 
     print(f'Number of samples:\tImage: {len(image_labels_mapping)}')
