@@ -142,7 +142,7 @@ def create_image_labels_mapping(labels_data):
         for classes in [0, 1]:
             labels_row = labels[labels['cluster'] == classes]
             labels_out = labels_row.iloc[0].to_dict()
-            path = str(labels['pathname'])
+            path = str(labels_row['pathname'])
             labels_out.pop('pathname')
             image_labels_mapping[path] = labels_out
 
