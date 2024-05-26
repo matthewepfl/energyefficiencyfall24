@@ -284,7 +284,7 @@ class MultimodalDataset(Dataset):
 
     def _organize_paths(self):
         organized = {}
-        print('The shape of the data_dict:', self.data_dict)
+        count = 0
         for path in self.data_dict.keys():
             data = self.data_dict[path]
             property_id = data['Property Reference Id']
@@ -293,8 +293,10 @@ class MultimodalDataset(Dataset):
             if key not in organized:
                 organized[property_id] = {'0': None, '1': None}
             if cluster in ['0', '1']:
-                organized[property_id][cluster] = path
-                print('The shape of the organized paths:', organized)
+                organized[property_id][cluster] = str(path)
+                if count <5:
+                    print('The shape of the organized paths:', organized)
+                    count += 1
 
         print('The shape of the organized paths:', organized)
         return organized
