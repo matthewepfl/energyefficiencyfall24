@@ -141,16 +141,14 @@ def create_image_labels_mapping(labels_data):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         for classes in [0, 1]:
             labels_row = labels[labels['cluster'] == classes]
-            if not labels_row.empty:
-                print('The labels row is: ', labels_row, "for class ", classes)
-                labels_out = labels_row.iloc[0].to_dict()
-                path = str(labels['pathname'])
-                labels_out.pop('pathname')
-                image_labels_mapping[path] = labels_out
-    print('The image labels mapping is: ', image_labels_mapping[path])
+            labels_out = labels_row.iloc[0].to_dict()
+            path = str(labels['pathname'])
+            labels_out.pop('pathname')
+            image_labels_mapping[path] = labels_out
 
     print(f'Number of samples:\tImage: {len(image_labels_mapping)}')
-
+    # print me a sample of the image_labels_mapping
+    print('The image_labels_mapping is: ', image_labels_mapping)
     return image_labels_mapping
         
 def join_multi(labels_data, image_files):
