@@ -167,7 +167,6 @@ def join_multi(labels_data):
 
     # Group by study_id and subject_id and ViewPosition and keep the first row
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
-    print('The pathname of df_img:', df_img.head(5))
 
     # Function to check if both PA and Lateral images are present
     # def has_both_views(group):
@@ -296,7 +295,6 @@ class MultimodalDataset(Dataset):
             if cluster in ['0', '1']:
                 organized[property_id][cluster] = path
                 if count <5:
-                    print('The shape of the organized paths:', organized)
                     count += 1
 
         return organized
