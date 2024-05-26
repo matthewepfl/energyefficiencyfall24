@@ -178,7 +178,7 @@ def join_multi(labels_data, image_files):
 
     # # Filter the DataFrame
     # df_img = df_img.groupby(['Property Reference Id']).filter(has_both_views)
-    
+
     print(f'Number of samples:\tImage: {len(df_img)}')
 
     # Return the image data to a dictionary
@@ -413,7 +413,7 @@ def load_data(image_data, vision=None):
 if __name__ == '__main__': 
 
     image_data = prepare_data()
-
+    cluster_data = pd.read_csv(CLUSTERED_PATH)
     image_data_train, image_data_val, image_data_test = image_data['train'], image_data['val'], image_data['test']
 
     # Print the shapes of the dataframes
@@ -426,10 +426,6 @@ if __name__ == '__main__':
 
     # Delete not matched images
     all_images = set(list(image_data_train.keys()) + list(image_data_val.keys()) + list(image_data_test.keys()))
-    _, image_files = load_images_data()
-    for image_file in image_files:
-        if image_file not in all_images:
-            os.remove(image_file)
     
     print('Finished!')
 
