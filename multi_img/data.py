@@ -147,10 +147,9 @@ def create_image_labels_mapping(image_files, labels_data):
                 labels_out = labels_row.iloc[0].to_dict()
                 path = str(labels['pathname'])
                 labels_out.pop('pathname')
-                print('The labels_out: ', labels_out)
                 image_labels_mapping[path] = labels_out
 
-    print(f'Number of samples:\tImage: {len(image_labels_mapping)}')
+    print(f'Number of samples:\tImage: {len(image_labels_mapping)}, ', image_labels_mapping[:10])
 
     return image_labels_mapping
         
