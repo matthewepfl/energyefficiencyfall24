@@ -117,7 +117,7 @@ def load_images_data(cluster_data):
 
     labels_data = labels_data[labels_data['Property Reference Id'].isin([image_file.split(os.sep)[-1][:-5] for image_file in image_files])]
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster', 'pathname']], on = 'Property Reference Id', how = 'inner')
-    labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'Demand', 'pathname'])
+    labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'PropertyFE', 'pathname'])
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
 
     print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
@@ -332,7 +332,7 @@ class MultimodalDataset(Dataset):
         labels_path = a_path if a_path else b_path
         if not labels_path:
             raise ValueError(f'No labels path found for {property_cluster_pair}.')
-        labels = self.data_dict[labels_path]['Demand']
+        labels = self.data_dict[labels_path]['PropertyFE']
         label_tensor = torch.tensor(labels, dtype=torch.float32).unsqueeze(0)
         if torch.any(label_tensor < 0):
             print(f'Negative label values for {property_cluster_pair}: {label_tensor}')
