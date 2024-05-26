@@ -139,10 +139,10 @@ def create_image_labels_mapping(labels_data):
     image_labels_mapping = {}
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
-        print('The labels are IMPORTANT there are both cluster 0 and 1: ', labels)
         for classes in [0, 1]:
             labels_row = labels[labels['cluster'] == classes]
             if not labels_row.empty:
+                print('The labels row is: ', labels_row, "for class ", classes)
                 labels_out = labels_row.iloc[0].to_dict()
                 path = str(labels['pathname'])
                 labels_out.pop('pathname')
