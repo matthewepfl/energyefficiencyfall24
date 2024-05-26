@@ -149,7 +149,7 @@ def create_image_labels_mapping(image_files, labels_data):
                 labels_out.pop('pathname')
                 image_labels_mapping[path] = labels_out
 
-    print(f'Number of samples:\tImage: {len(image_labels_mapping)}, ', image_labels_mapping[:10])
+    print(f'Number of samples:\tImage: {len(image_labels_mapping)}, ', image_labels_mapping.keys(), image_labels_mapping.values())
 
     return image_labels_mapping
         
