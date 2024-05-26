@@ -142,7 +142,7 @@ def create_image_labels_mapping(labels_data):
         for classes in [0, 1]:
             labels_row = labels[labels['cluster'] == classes]
             labels_out = labels_row.iloc[0].to_dict()
-            path = str(labels_row['pathname'])
+            path = labels_row['pathname'].values[0]
             labels_out.pop('pathname')
             image_labels_mapping[path] = labels_out
 
@@ -294,7 +294,7 @@ class MultimodalDataset(Dataset):
             if key not in organized:
                 organized[property_id] = {'0': None, '1': None}
             if cluster in ['0', '1']:
-                organized[property_id][cluster] = str(path)
+                organized[property_id][cluster] = path
                 if count <5:
                     print('The shape of the organized paths:', organized)
                     count += 1
@@ -401,7 +401,6 @@ def load_data(image_data, vision=None):
     '''
     print(f'LOADING DATA (vision: {vision})')
     print(f'Loaded image data:\tTrain: {len(image_data["train"])}\tValidation: {len(image_data["val"])}\tTest: {len(image_data["test"])} samples.')
-    print("the images look like this: ", image_data['train'])
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
