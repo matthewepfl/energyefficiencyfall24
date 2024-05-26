@@ -101,7 +101,6 @@ def load_efficiency():
 
     return images_df
 
-
 def load_images_data(cluster_data):
     '''
     Load image data: labels, image files, image metadata
@@ -140,6 +139,7 @@ def create_image_labels_mapping(labels_data):
     image_labels_mapping = {}
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
+        print('The labels are IMPORTANT there are both cluster 0 and 1: ', labels)
         for classes in [0, 1]:
             labels_row = labels[labels['cluster'] == classes]
             if not labels_row.empty:
@@ -389,7 +389,7 @@ def prepare_data():
 
     print('Joining:\tIntersection of tabular and image data.')
 
-    image_data_test = join_multi(lab_test, image_files) # lab test is correct
+    image_data_test = join_multi(lab_test, image_files)
     image_data_val = join_multi(lab_val, image_files)
     image_data_train = join_multi(lab_train, image_files)
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
