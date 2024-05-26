@@ -70,6 +70,7 @@ def Efficiency(efficiency):
 
     efficiency = efficiency[efficiency["Advertisement Version Id"] == 1]
     efficiency['BuildingID'] = efficiency['Property Reference Id'].apply(lambda x: x.split('.')[1])
+    print('The efficiency: ', efficiency.columns)
     efficiency['ApartmentID'] = efficiency['Property Reference Id'].apply(lambda x: x.split('.')[2])
     efficiency = efficiency.groupby(['PropertyID', 'BuildingID', "ApartmentID", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") 
 
