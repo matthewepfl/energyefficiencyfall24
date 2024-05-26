@@ -69,9 +69,8 @@ CLUSTERED_PATH = os.path.join(DATA_DIR, 'clustered_images_with6classes.csv')
 def Efficiency(efficiency):
 
     efficiency = efficiency[efficiency["Advertisement Version Id"] == 1]
-    efficiency['BuildingID'] = efficiency['Property Reference Id'].apply(lambda x: x.split('.')[1])
-    print('The efficiency: ', efficiency.columns)
-    efficiency['ApartmentID'] = efficiency['Property Reference Id'].apply(lambda x: x.split('.')[2])
+    efficiency.loc[:,'BuildingID'] = efficiency.loc[:,'Property Reference Id'].apply(lambda x: x.split('.')[1])
+    efficiency.loc[:,'ApartmentID'] = efficiency.loc[:,'Property Reference Id'].apply(lambda x: x.split('.')[2])
     efficiency = efficiency.groupby(['PropertyID', 'BuildingID', "ApartmentID", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") 
 
     return efficiency
