@@ -387,8 +387,6 @@ def prepare_data():
 
     print('Joining:\tIntersection of tabular and image data.')
     image_data_test = join_multi(lab_test, image_files) # lab test is correct
-    
-    print("\nThe output image_data_test: ", image_data_test)
     image_data_val = join_multi(lab_val, image_files)
     image_data_train = join_multi(lab_train, image_files)
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
