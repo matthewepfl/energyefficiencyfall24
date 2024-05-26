@@ -293,6 +293,7 @@ class MultimodalDataset(Dataset):
 
     def _organize_paths(self):
         organized = {}
+        print('The shape of the data_dict:', self.data_dict)
         for path in self.data_dict.keys():
             parts = path.split(os.sep)
             property_id = parts[-1][:-5]
