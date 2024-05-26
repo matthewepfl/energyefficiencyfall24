@@ -286,14 +286,15 @@ class MultimodalDataset(Dataset):
         self.organized_paths = self._organize_paths()
 
         # Filter out pairs where both images are None
-        #self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None}
+        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None}
 
     def _organize_paths(self):
         organized = {}
         for path in self.data_dict.keys():
+            print('The path:', path)
             parts = path.split(os.sep)
             property_id = parts[-1][:-5]
-            cluster = parts[-1][-5]
+            cluster = ...
             key = (property_id)
             if key not in organized:
                 organized[property_id] = {'0': None, '1': None}
