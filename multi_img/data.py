@@ -127,12 +127,11 @@ def load_images_data(cluster_data):
     
     return labels_data, image_files
 
-def create_image_labels_mapping(image_files, labels_data):
+def create_image_labels_mapping(labels_data):
     '''
     Create a mapping from image files to their corresponding labels and view positions.
 
     Parameters:
-    - image_files: List of image file paths
     - labels_data: DataFrame containing label information
 
     Returns:
@@ -149,7 +148,7 @@ def create_image_labels_mapping(image_files, labels_data):
                 labels_out.pop('pathname')
                 image_labels_mapping[path] = labels_out
 
-    print(f'Number of samples:\tImage: {len(image_labels_mapping)}, ', image_labels_mapping.keys(), image_labels_mapping.values())
+    print(f'Number of samples:\tImage: {len(image_labels_mapping)}')
 
     return image_labels_mapping
         
@@ -162,7 +161,7 @@ def join_multi(labels_data, image_files):
     print('Join multi input data')
 
     # Image data
-    image_labels_mapping = create_image_labels_mapping(image_files, labels_data)
+    image_labels_mapping = create_image_labels_mapping(labels_data)
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
@@ -174,12 +173,12 @@ def join_multi(labels_data, image_files):
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
 
     # Function to check if both PA and Lateral images are present
-    def has_both_views(group):
-        return '0' in group['cluster'].values and '1' in group['cluster'].values
+    # def has_both_views(group):
+    #     return '0' in group['cluster'].values and '1' in group['cluster'].values
 
-    # Filter the DataFrame
-    df_img = df_img.groupby(['Property Reference Id']).filter(has_both_views)
-
+    # # Filter the DataFrame
+    # df_img = df_img.groupby(['Property Reference Id']).filter(has_both_views)
+    
     print(f'Number of samples:\tImage: {len(df_img)}')
 
     # Return the image data to a dictionary
