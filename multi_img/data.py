@@ -291,7 +291,6 @@ class MultimodalDataset(Dataset):
     def _organize_paths(self):
         organized = {}
         for path in self.data_dict.keys():
-            print('The path:', path)
             parts = path.split(os.sep)
             property_id = parts[-1][:-5]
             cluster = ...
@@ -387,6 +386,7 @@ def prepare_data():
     lab_train, lab_val, lab_test = split(labels_data, val_size=0.1, test_size=0.15, seed=42)
 
     print('Joining:\tIntersection of tabular and image data.')
+
     image_data_test = join_multi(lab_test, image_files) # lab test is correct
     image_data_val = join_multi(lab_val, image_files)
     image_data_train = join_multi(lab_train, image_files)
