@@ -286,7 +286,7 @@ class MultimodalDataset(Dataset):
         self.organized_paths = self._organize_paths()
 
         # Filter out pairs where both images are None
-        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None}
+        #self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None}
 
     def _organize_paths(self):
         organized = {}
@@ -420,11 +420,10 @@ if __name__ == '__main__':
     print(f'Image data\nTrain: {len(image_data_train)}\nVal: {len(image_data_val)}\nTest: {len(image_data_test)}')
 
     # Save the dictionaries
-    # np.save(os.path.join(PROCESSED_PATH, 'image_data_train.npy'), image_data_train)
-    # np.save(os.path.join(PROCESSED_PATH, 'image_data_val.npy'), image_data_val)
-    # np.save(os.path.join(PROCESSED_PATH, 'image_data_test.npy'), image_data_test)
+    np.save(os.path.join(PROCESSED_PATH, 'image_data_train.npy'), image_data_train)
+    np.save(os.path.join(PROCESSED_PATH, 'image_data_val.npy'), image_data_val)
+    np.save(os.path.join(PROCESSED_PATH, 'image_data_test.npy'), image_data_test)
 
-    # Delete not matched images
     all_images = set(list(image_data_train.keys()) + list(image_data_val.keys()) + list(image_data_test.keys()))
     
     print('Finished!')
