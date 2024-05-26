@@ -146,11 +146,6 @@ def create_image_labels_mapping(labels_data):
             labels_out.pop('pathname')
             image_labels_mapping[path] = labels_out
 
-    print(f'Number of samples:\tImage: {len(image_labels_mapping)}')
-    # print me a sample of the image_labels_mapping
-    for i, (k, v) in enumerate(image_labels_mapping.items()):
-        if i < 5:
-            print(f'{k}: {v}')
     return image_labels_mapping
         
 def join_multi(labels_data, image_files):
@@ -173,8 +168,6 @@ def join_multi(labels_data, image_files):
     # Group by study_id and subject_id and ViewPosition and keep the first row
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
 
-    print("The df_img is: ", df_img, df_img.shape[0])
-
     # Function to check if both PA and Lateral images are present
     # def has_both_views(group):
     #     return '0' in group['cluster'].values and '1' in group['cluster'].values
@@ -182,10 +175,8 @@ def join_multi(labels_data, image_files):
     # # Filter the DataFrame
     # df_img = df_img.groupby(['Property Reference Id']).filter(has_both_views)
 
-    print(f'Number of samples:\tImage: {len(df_img)}')
-
     # Return the image data to a dictionary
-    dict_img = df_img#.set_index('index').T.to_dict()
+    dict_img = df_img.set_index('index').T.to_dict()
 
     return dict_img
     
@@ -295,14 +286,15 @@ class MultimodalDataset(Dataset):
         organized = {}
         print('The shape of the data_dict:', self.data_dict)
         for path in self.data_dict.keys():
-            parts = path.split(os.sep)
-            property_id = parts[-1][:-5]
-            cluster = ...
+            data = self.data_dict[path]
+            property_id = data['Property Reference Id']
+            cluster = data['cluster']
             key = (property_id)
             if key not in organized:
                 organized[property_id] = {'0': None, '1': None}
             if cluster in ['0', '1']:
                 organized[property_id][cluster] = path
+                print('The shape of the organized paths:', organized)
 
         print('The shape of the organized paths:', organized)
         return organized
