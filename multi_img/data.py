@@ -194,7 +194,7 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if False: #all([os.path.exists(path) for path in paths])
+    if all([os.path.exists(path) for path in paths]):
         print('Splitting:\tLoading pre-processed train, val, and test sets.')
         labels_train = pd.read_csv(LABELS_TRAIN_PATH)
         labels_val = pd.read_csv(LABELS_VAL_PATH)
@@ -403,6 +403,7 @@ def load_data(image_data, vision=None):
     '''
     print(f'LOADING DATA (vision: {vision})')
     print(f'Loaded image data:\tTrain: {len(image_data["train"])}\tValidation: {len(image_data["val"])}\tTest: {len(image_data["test"])} samples.')
+    print("the image data looking like:", image_data['train'])
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
