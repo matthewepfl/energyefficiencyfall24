@@ -148,7 +148,9 @@ def create_image_labels_mapping(labels_data):
 
     print(f'Number of samples:\tImage: {len(image_labels_mapping)}')
     # print me a sample of the image_labels_mapping
-    print('The image_labels_mapping is: ', image_labels_mapping)
+    for i, (k, v) in enumerate(image_labels_mapping.items()):
+        if i < 5:
+            print(f'{k}: {v}')
     return image_labels_mapping
         
 def join_multi(labels_data, image_files):
