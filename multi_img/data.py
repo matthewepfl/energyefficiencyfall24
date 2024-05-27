@@ -227,7 +227,6 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
 
     return labels_train, labels_val, labels_test
 
-
 # ---------------------------------------- DATA LOADING ---------------------------------------- #
 
 def transform_image(image_size, vision=None, augment=True): 
@@ -360,7 +359,6 @@ class MultimodalDataset(Dataset):
             if 'x_b' in batch[0]:
                 inputs['x_b'] = torch.stack([x['x_b'] for x in batch if 'x_b' in x])
         return inputs
-
 
 # ---------------------------------------- MAIN FUNCTIONS ---------------------------------------- #
     
