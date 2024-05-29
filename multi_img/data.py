@@ -150,15 +150,14 @@ def create_image_labels_mapping(labels_data):
             print(f'Property {property} with class {classes} has {labels_info}')
 
         labels_out = labels_info.iloc[0].to_dict()
+        path = labels_info['pathname'].values[0]
+        labels_out.pop('pathname')
 
         for classes in [0, 1]:
             labels_out['cluster'] = classes
             if len(labels[labels['cluster'] == classes]) == 0:
                 print(f'No image found for {property} with class {classes}')
                 path = None
-            else:
-                path = labels_info['pathname'].values[0]
-            labels_out.pop('pathname')
             image_labels_mapping[path] = labels_out
 
     print(f'Number of images: {image_labels_mapping}')
