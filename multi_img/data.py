@@ -147,8 +147,6 @@ def create_image_labels_mapping(labels_data):
             except:
                 continue
 
-            print(f'Property {property} with class {classes} has {labels_info}')
-
         labels_out = labels_info.iloc[0].to_dict()
         path = labels_info['pathname'].values[0]
         labels_out.pop('pathname')
