@@ -43,7 +43,7 @@ dropout_rate = 0.4
 """
 
 workingOn = 'server' # 'server' or 'laptop
-minim_amount_classes = 5
+minim_amount_classes = 
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
 # Global configurations
@@ -63,7 +63,7 @@ LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'labels_train.csv')
 LABELS_VAL_PATH = os.path.join(DATA_DIR, 'labels_val.csv')
 LABELS_TEST_PATH = os.path.join(DATA_DIR, 'labels_test.csv')
 PROCESSED_PATH = os.path.join(DATA_DIR, 'processed_data')
-CLUSTERED_PATH = os.path.join(DATA_DIR, f'clustered_images_with{5}classes.csv')
+CLUSTERED_PATH = os.path.join(DATA_DIR, f'clustered_images_with{minim_amount_classes}classes.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
 
