@@ -115,16 +115,20 @@ def load_images_data(cluster_data):
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in properties]
 
     labels_data = labels_data[labels_data['Property Reference Id'].isin([image_file.split(os.sep)[-1][:-5] for image_file in image_files])]
+    print("AThe labels data: ", labels_data.head(10))
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster', 'pathname']], on = 'Property Reference Id', how = 'inner')
+    print("BThe labels data: ", labels_data.head(10))
     labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'PropertyFE', 'pathname'])
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
+    print("CThe labels data: ", labels_data.head(10))
+    print("DThe labels data: ", image_files.head(10))
 
     print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
 
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
     
-    return labels_data, image_files
+    return labels_data
 
 def create_image_labels_mapping(labels_data):
     '''
@@ -373,17 +377,13 @@ def prepare_data():
     # Load image labels, files and metadata
     print('Loading:\tImage data (labels, files).')
     cluster_data = pd.read_csv(CLUSTERED_PATH)
-    labels_data, image_files = load_images_data(cluster_data)
-
-    print("The labels data: ", labels_data.head())
+    data = load_images_data(cluster_data)
 
     # Split labels into train/val/test sets
     print('Splitting:\tLabels into train/val/test sets.')
-    lab_train, lab_val, lab_test = split(labels_data, val_size=0.1, test_size=0.15, seed=42)
+    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
 
     print('Joining:\tIntersection of tabular and image data.')
-
-    print("The lab_train: ", lab_train.head())
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
