@@ -43,6 +43,7 @@ dropout_rate = 0.4
 """
 
 workingOn = 'server' # 'server' or 'laptop
+minim_amount_classes = 5
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
 # Global configurations
@@ -62,7 +63,7 @@ LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'labels_train.csv')
 LABELS_VAL_PATH = os.path.join(DATA_DIR, 'labels_val.csv')
 LABELS_TEST_PATH = os.path.join(DATA_DIR, 'labels_test.csv')
 PROCESSED_PATH = os.path.join(DATA_DIR, 'processed_data')
-CLUSTERED_PATH = os.path.join(DATA_DIR, 'clustered_images_with6classes.csv')
+CLUSTERED_PATH = os.path.join(DATA_DIR, f'clustered_images_with{5}classes.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
 
@@ -144,11 +145,26 @@ def create_image_labels_mapping(labels_data):
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         for classes in [0, 1]:
-            labels_row = labels[labels['cluster'] == classes]
-            labels_out = labels_row.iloc[0].to_dict()
-            path = labels_row['pathname'].values[0]
+            try:
+                labels_info = labels[labels['cluster'] == classes]
+            except:
+                continue
+
+            print(f'Property {property} with class {classes} has {labels_info}')
+
+        labels_out = labels_info.iloc[0].to_dict()
+
+        for classes in [0, 1]:
+            labels_out['cluster'] = classes
+            if len(labels[labels['cluster'] == classes]) == 0:
+                print(f'No image found for {property} with class {classes}')
+                path = None
+            else:
+                path = labels_info['pathname'].values[0]
             labels_out.pop('pathname')
             image_labels_mapping[path] = labels_out
+
+    print(f'Number of images: {image_labels_mapping}')
 
     return image_labels_mapping
         
