@@ -142,19 +142,10 @@ def create_image_labels_mapping(labels_data):
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         for classes in [0, 1]:
-            if labels[labels['cluster'] == classes] is not None:
-                labels_info = labels[labels['cluster'] == classes]
-            else:
-                print(f'No image found for {property} with class {classes}')
-
-        labels_out = labels_info.iloc[0].to_dict()
-        path = labels_info['pathname'].values[0]
-        labels_out.pop('pathname')
-
-        for classes in [0, 1]:
-            labels_out['cluster'] = classes
-            if len(labels[labels['cluster'] == classes]) == 0:
-                path = None
+            labels_row = labels[labels['cluster'] == classes]
+            labels_out = labels_row.iloc[0].to_dict()
+            path = labels_row['pathname'].values[0]
+            labels_out.pop('pathname')
             image_labels_mapping[path] = labels_out
 
     return image_labels_mapping
