@@ -241,7 +241,6 @@ def transform_image(image_size, vision=None, augment=True):
     5. Normalize (with ImageNet mean and std)
     '''
     transforms = []
-    print("the size of the image is: ", image_size)
     size = min(image_size) # Get minimum of image height and width to crop to square
 
     # Augmentation (flips, rotations)
@@ -251,6 +250,8 @@ def transform_image(image_size, vision=None, augment=True):
         transforms.append(RandomHorizontalFlip())
 
     transforms.append(CenterCrop((size, size)))
+    # Resize to IMAGE_SIZE x IMAGE_SIZE
+    transforms.append(Resize((IMAGE_SIZE, IMAGE_SIZE)))
 
     if vision == 'vit':
         processor = ViTImageProcessor.from_pretrained(
