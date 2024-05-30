@@ -140,9 +140,9 @@ def grid_search(vision=None,
     )
 
     # Freeze layers of vision encoder
-    #if vision:
-    #    for param in model.vision_encoder.parameters():
-    #        param.requires_grad = False
+    if vision:
+       for param in model.vision_encoder.parameters():
+           param.requires_grad = False
 
     # Load data
     print('Data:\tLoading data')
@@ -182,7 +182,7 @@ if __name__ == '__main__':
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
-    print(args)
+    print(f'Arguments:\t {args}')
     grid_search(**vars(args))
     
     

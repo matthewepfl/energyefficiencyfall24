@@ -141,7 +141,7 @@ def create_image_labels_mapping(labels_data):
     image_labels_mapping = {}
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
-        for classes in [0, 1]:
+        for classes in [0, 1, 2, 3, 4, 5]:
             labels_row = labels[labels['cluster'] == classes]
             labels_out = labels_row.iloc[0].to_dict()
             path = labels_row['pathname'].values[0]
@@ -159,7 +159,7 @@ def join_multi(labels_data):
     print('Join multi input data')
 
     # Image data
-    image_labels_mapping = create_image_labels_mapping(labels_data)
+    image_labels_mapping = create_image_labels_mapping(labels_data) # 6 classes
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
@@ -169,13 +169,6 @@ def join_multi(labels_data):
 
     # Group by study_id and subject_id and ViewPosition and keep the first row
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
-
-    # Function to check if both PA and Lateral images are present
-    # def has_both_views(group):
-    #     return '0' in group['cluster'].values and '1' in group['cluster'].values
-
-    # # Filter the DataFrame
-    # df_img = df_img.groupby(['Property Reference Id']).filter(has_both_views)
 
     # Return the image data to a dictionary
     dict_img = df_img.set_index('index').T.to_dict()
@@ -259,7 +252,8 @@ def transform_image(image_size, vision=None, augment=True):
             do_normalize=False, 
             image_mean=NORM_MEAN, 
             image_std=NORM_STD, 
-            return_tensors='pt')
+            return_tensors='pt',
+        )
         transforms.append(lambda x: processor(x).pixel_values[0])
     else: 
         transforms.append(Resize((IMAGE_SIZE, IMAGE_SIZE)))
@@ -268,10 +262,7 @@ def transform_image(image_size, vision=None, augment=True):
     return Compose(transforms)
 
 class MultimodalDataset(Dataset):
-    '''
-    Dataset class for MIMIC-CXR and MIMIC-IV.
-    Handles both tabular data and images.
-    '''
+
     def __init__(self, vision, data_dict, augment=True):
         self.vision = vision
         self.data_dict = data_dict
@@ -283,22 +274,20 @@ class MultimodalDataset(Dataset):
         self.organized_paths = self._organize_paths()
 
         # Filter out pairs where both images are None
-        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None}
+        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
+                                and v['3'] is not None and v['4'] is not None and v['5'] is not None}
 
     def _organize_paths(self):
         organized = {}
-        count = 0
         for path in self.data_dict.keys():
             data = self.data_dict[path]
             property_id = data['Property Reference Id']
             cluster = data['cluster']
             key = (property_id)
             if key not in organized:
-                organized[property_id] = {'0': None, '1': None}
-            if cluster in ['0', '1']:
+                organized[property_id] = {'0': None, '1': None, '2': None, '3': None, '4': None, '5': None}
+            if cluster in ['0', '1', '2', '3', '4', '5']:
                 organized[property_id][cluster] = path
-                if count <5:
-                    count += 1
 
         return organized
 
@@ -322,11 +311,15 @@ class MultimodalDataset(Dataset):
         property_cluster_pair = list(self.organized_paths.keys())[idx]
 
         # Get the paths for the PA and Lateral images
-        a_path = self.organized_paths[property_cluster_pair]['0']
-        b_path = self.organized_paths[property_cluster_pair]['1']
+        path_0 = self.organized_paths[property_cluster_pair]['0']
+        path_1 = self.organized_paths[property_cluster_pair]['1']
+        path_2 = self.organized_paths[property_cluster_pair]['2']
+        path_3 = self.organized_paths[property_cluster_pair]['3']
+        path_4 = self.organized_paths[property_cluster_pair]['4']
+        path_5 = self.organized_paths[property_cluster_pair]['5']
 
         # Get labels from the image data
-        labels_path = a_path if a_path else b_path
+        labels_path = path_0 if path_0 else path_1 if path_1 else path_2 if path_2 else path_3 if path_3 else path_4 if path_4 else path_5
         if not labels_path:
             raise ValueError(f'No labels path found for {property_cluster_pair}.')
         labels = self.data_dict[labels_path]['PropertyFE']
@@ -338,16 +331,26 @@ class MultimodalDataset(Dataset):
         
         # Load and process PA and Lateral images
         if self.vision is not None:
-            a_image = self._load_and_process_image(a_path) \
-                if a_path else torch.zeros((3, self.size, self.size), dtype=torch.float32)
-            b_image = self._load_and_process_image(b_path) \
-                if b_path else torch.zeros((3, self.size, self.size), dtype=torch.float32)
-            if not isinstance(a_image, torch.Tensor):
-                a_image = torch.tensor(a_image)
-            if not isinstance(b_image, torch.Tensor):
-                b_image = torch.tensor(b_image)
-            inputs['x_a'] = a_image
-            inputs['x_b'] = b_image
+            image_0 = self._load_and_process_image(path_0) if path_0 else torch.zeros((3, self.size, self.size), dtype=torch.float32)
+            image_1 = self._load_and_process_image(path_1) if path_1 else torch.zeros((3, self.size, self.size), dtype=torch.float32)
+            image_2 = self._load_and_process_image(path_2) if path_2 else torch.zeros((3, self.size, self.size), dtype=torch.float32)
+            image_3 = self._load_and_process_image(path_3) if path_3 else torch.zeros((3, self.size, self.size), dtype=torch.float32)
+            image_4 = self._load_and_process_image(path_4) if path_4 else torch.zeros((3, self.size, self.size), dtype=torch.float32)
+            image_5 = self._load_and_process_image(path_5) if path_5 else torch.zeros((3, self.size, self.size), dtype=torch.float32)
+            
+            image_0 = torch.tensor(image_0) if not isinstance(image_0, torch.Tensor) else image_0
+            image_1 = torch.tensor(image_1) if not isinstance(image_1, torch.Tensor) else image_1
+            image_2 = torch.tensor(image_2) if not isinstance(image_2, torch.Tensor) else image_2
+            image_3 = torch.tensor(image_3) if not isinstance(image_3, torch.Tensor) else image_3
+            image_4 = torch.tensor(image_4) if not isinstance(image_4, torch.Tensor) else image_4
+            image_5 = torch.tensor(image_5) if not isinstance(image_5, torch.Tensor) else image_5
+
+            inputs['x_0'] = image_0
+            inputs['x_1'] = image_1
+            inputs['x_2'] = image_2
+            inputs['x_3'] = image_3
+            inputs['x_4'] = image_4
+            inputs['x_5'] = image_5
         return inputs
 
     def collate_fn(self, batch):
@@ -357,11 +360,25 @@ class MultimodalDataset(Dataset):
             inputs['labels'] = torch.stack([x['labels'] for x in batch if 'labels' in x])
 
         if self.vision is not None:
-            if 'x_a' in batch[0]:
-                inputs['x_a'] = torch.stack([x['x_a'] for x in batch if 'x_a' in x])
+            if 'x_0' in batch[0]:
+                inputs['x_0'] = torch.stack([x['x_0'] for x in batch if 'x_0' in x])
 
-            if 'x_b' in batch[0]:
-                inputs['x_b'] = torch.stack([x['x_b'] for x in batch if 'x_b' in x])
+            if 'x_1' in batch[0]:
+                inputs['x_1'] = torch.stack([x['x_1'] for x in batch if 'x_1' in x])
+
+            if 'x_2' in batch[0]:
+                inputs['x_2'] = torch.stack([x['x_2'] for x in batch if 'x_2' in x])
+
+            if 'x_3' in batch[0]:
+                inputs['x_3'] = torch.stack([x['x_3'] for x in batch if 'x_3' in x])
+
+            if 'x_4' in batch[0]:
+                inputs['x_4'] = torch.stack([x['x_4'] for x in batch if 'x_4' in x])
+
+            if 'x_5' in batch[0]:
+                inputs['x_5'] = torch.stack([x['x_5'] for x in batch if 'x_5' in x])
+
+            
         return inputs
 
 # ---------------------------------------- MAIN FUNCTIONS ---------------------------------------- #
@@ -372,18 +389,14 @@ def prepare_data():
     Split into train/val/test sets.
     Filter images based on tabular data.
     '''
-    print(f'PREPARING DATA')
+    print(f'\tPREPARING DATA\n')
     
     # Load image labels, files and metadata
-    print('Loading:\tImage data (labels, files).')
     cluster_data = pd.read_csv(CLUSTERED_PATH)
     data = load_images_data(cluster_data)
 
     # Split labels into train/val/test sets
-    print('Splitting:\tLabels into train/val/test sets.')
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
-
-    print('Joining:\tIntersection of tabular and image data.')
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
