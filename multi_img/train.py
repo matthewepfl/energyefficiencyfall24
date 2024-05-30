@@ -9,6 +9,17 @@ from transformers import EarlyStoppingCallback
 from models import *
 from data import *
 
+import logging
+logging.basicConfig(level=logging.ERROR)
+
+import warnings
+warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", category=UserWarning)  # Replace UserWarning with the specific category if known
+
+import tensorflow as tf
+tf.get_logger().setLevel('ERROR')
+
+
 workingOn = 'server'
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
