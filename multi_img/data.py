@@ -165,7 +165,7 @@ def join_multi(labels_data):
     df_img['cluster'] = df_img['cluster'].astype(str)
     
     # Keep only 0 and 1 images
-    df_img = df_img[df_img['cluster'].isin(['0', '1'])]
+    df_img = df_img[df_img['cluster'].isin(['0', '1', '2', '3', '4', '5'])]
 
     # Group by study_id and subject_id and ViewPosition and keep the first row
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
@@ -404,9 +404,8 @@ def prepare_data():
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
     print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
 
-    print("before join multi", lab_test)
+
     image_data_test = join_multi(lab_test)
-    print("the data look like: ", image_data_test)
     image_data_val = join_multi(lab_val)
     image_data_train = join_multi(lab_train)
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
