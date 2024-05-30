@@ -404,7 +404,9 @@ def prepare_data():
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
     print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
 
+    print("before join multi", lab_test)
     image_data_test = join_multi(lab_test)
+    print("the data look like: ", image_data_test)
     image_data_val = join_multi(lab_val)
     image_data_train = join_multi(lab_train)
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
@@ -420,7 +422,6 @@ def load_data(image_data, vision=None):
     '''
     print(f'LOADING DATA (vision: {vision})')
     print(f'Loaded image data:\tTrain: {len(image_data["train"])}\tValidation: {len(image_data["val"])}\tTest: {len(image_data["test"])} samples.')
-    print("the data look like: ", image_data["train"])
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
