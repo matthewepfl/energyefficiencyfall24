@@ -433,6 +433,7 @@ if __name__ == '__main__':
     image_data = prepare_data()
     cluster_data = pd.read_csv(CLUSTERED_PATH)
     image_data_train, image_data_val, image_data_test = image_data['train'], image_data['val'], image_data['test']
+    print(f'Loaded image data:\tTrain: {image_data_train.head(10)}')
 
     # Print the shapes of the dataframes
     print(f'Image data\nTrain: {len(image_data_train)}\nVal: {len(image_data_val)}\nTest: {len(image_data_test)}')
