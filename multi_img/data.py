@@ -398,9 +398,13 @@ def prepare_data():
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
     data = load_images_data(cluster_data)
+    print(f'Loaded image data:\t{len(data)} samples, looks like:\n{data.head(10)}')
+
 
     # Split labels into train/val/test sets
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
+    print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
+    print("They look like: \n", lab_train.head(10), "\n", lab_val.head(10), "\n", lab_test.head(10), "\n")
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
