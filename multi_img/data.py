@@ -398,13 +398,11 @@ def prepare_data():
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
     data = load_images_data(cluster_data)
-    print(f'Loaded image data:\t{len(data)} samples, looks like:\n{data.head(10)}')
 
 
     # Split labels into train/val/test sets
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
     print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
-    print("They look like: \n", lab_train.head(10), "\n", lab_val.head(10), "\n", lab_test.head(10), "\n")
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
@@ -422,6 +420,7 @@ def load_data(image_data, vision=None):
     '''
     print(f'LOADING DATA (vision: {vision})')
     print(f'Loaded image data:\tTrain: {len(image_data["train"])}\tValidation: {len(image_data["val"])}\tTest: {len(image_data["test"])} samples.')
+    print("the data look like: ", image_data["train"])
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
@@ -433,7 +432,6 @@ if __name__ == '__main__':
     image_data = prepare_data()
     cluster_data = pd.read_csv(CLUSTERED_PATH)
     image_data_train, image_data_val, image_data_test = image_data['train'], image_data['val'], image_data['test']
-    print(f'Loaded image data:\tTrain: {image_data_train.head(10)}')
 
     # Print the shapes of the dataframes
     print(f'Image data\nTrain: {len(image_data_train)}\nVal: {len(image_data_val)}\nTest: {len(image_data_test)}')
