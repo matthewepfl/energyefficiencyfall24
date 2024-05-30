@@ -143,7 +143,7 @@ class JointEncoder(nn.Module):
         
         if vision and vision not in ['resnet50', 'densenet121', 'vit']:
             raise ValueError(f'Vision encoder type {vision} not supported.')
-        print('Model initialization')
+
         num_params = 0
         if vision:
             print(f'\tVision encoder: {vision}')
