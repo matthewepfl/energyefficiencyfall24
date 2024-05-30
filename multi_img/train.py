@@ -165,7 +165,7 @@ if __name__ == '__main__':
     print('\nWorking on:', workingOn)
     parser = argparse.ArgumentParser()
     print('Grid search for radiology diagnosis using joint image encoders.')
-    parser.add_argument('--vision', type=str, default='vit')
+    parser.add_argument('--vision', type=str, default='resnet50')
     parser.add_argument('--hidden_dims', type=str, default=[256, 512])
     parser.add_argument('--dropout_prob', type=float, default=0.0)
     parser.add_argument('--batch_norm', action='store_true', default=False)
