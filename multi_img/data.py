@@ -193,7 +193,9 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         print('Splitting:\tTabular data and labels into train, val, and test sets.')
 
         # Split the study_ids into train, val, and test sets
-        property_id = labels['Property Reference Id'].unique()
+        property__ref_id = labels['Property Reference Id'].unique()
+        property_id = [int(i.split('.')[0]) for i in property__ref_id]
+        property_id = list(set(property_id))
         np.random.seed(seed)
         np.random.shuffle(property_id)
         num_property_ids = len(property_id)
@@ -204,9 +206,9 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         study_ids_test = property_id[num_val:num_val + num_test]
 
         # Get the tabular data and labels for the train, val, and test sets
-        labels_train = labels[labels['Property Reference Id'].isin(study_ids_train)]
-        labels_val = labels[labels['Property Reference Id'].isin(study_ids_val)]
-        labels_test = labels[labels['Property Reference Id'].isin(study_ids_test)]
+        labels_train = labels[labels['Property Reference Id'].split('.')[0].astype(int).isin(study_ids_train)]
+        labels_val = labels[labels['Property Reference Id'].split('.')[0].astype(int).isin(study_ids_val)]
+        labels_test = labels[labels['Property Reference Id'].split('.')[0].astype(int).isin(study_ids_test)]
 
         # Save the train, val, and test sets
         labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
