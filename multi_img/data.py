@@ -271,8 +271,8 @@ class MultimodalDataset(Dataset):
             self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
         
         self.organized_paths = self._organize_paths()
-        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
-                                and v['3'] is not None and v['4'] is not None and v['5'] is not None}
+        # self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
+        #                         and v['3'] is not None and v['4'] is not None and v['5'] is not None}
 
     def _organize_paths(self):
         organized = {}
@@ -283,8 +283,7 @@ class MultimodalDataset(Dataset):
             key = (property_id)
             if key not in organized:
                 organized[property_id] = {'0': None, '1': None, '2': None, '3': None, '4': None, '5': None}
-            if cluster in ['0', '1', '2', '3', '4', '5']:
-                organized[property_id][cluster] = path
+            organized[property_id][cluster] = path
 
         return organized
 
@@ -314,7 +313,6 @@ class MultimodalDataset(Dataset):
         path_3 = self.organized_paths[property_cluster_pair]['3']
         path_4 = self.organized_paths[property_cluster_pair]['4']
         path_5 = self.organized_paths[property_cluster_pair]['5']
-
 
         # Get labels from the image data
         labels_path = path_0 if path_0 else path_1 if path_1 else path_2 if path_2 else path_3 if path_3 else path_4 if path_4 else path_5
