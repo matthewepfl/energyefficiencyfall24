@@ -173,7 +173,7 @@ def join_multi(labels_data):
     # Return the image data to a dictionary
     dict_img = df_img.set_index('index').T.to_dict()
 
-    return dict_img
+    return dict_img, df_img
     
 # ---------------------------------------- PREPROCESSING ---------------------------------------- #
 
@@ -426,7 +426,9 @@ def load_data(image_data, vision=None):
 
 if __name__ == '__main__': 
 
-    image_data = prepare_data()
+    image_data, dataframe_img = prepare_data()
+    print("The shape of the dataframe_img: ", dataframe_img.shape)
+    print("The number of unique properties is: ", dataframe_img['Property Reference Id'].nunique())
     train_data, val_data, test_data = load_data(image_data, vision='vit')
 
 
