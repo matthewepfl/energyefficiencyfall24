@@ -173,7 +173,7 @@ def join_multi(labels_data):
     # Return the image data to a dictionary
     dict_img = df_img.set_index('index').T.to_dict()
 
-    return dict_img, df_img
+    return dict_img
     
 # ---------------------------------------- PREPROCESSING ---------------------------------------- #
 
@@ -400,12 +400,12 @@ def prepare_data():
     print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
 
 
-    image_data_test, dataframe_test = join_multi(lab_test)
-    image_data_val, dataframe_val = join_multi(lab_val)
-    image_data_train, dataframe_train = join_multi(lab_train)
+    image_data_test = join_multi(lab_test)
+    image_data_val = join_multi(lab_val)
+    image_data_train = join_multi(lab_train)
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
         
-    return image_data, dataframe_test, dataframe_val, dataframe_train
+    return image_data
 
 def load_data(image_data, vision=None):
     '''
@@ -415,9 +415,6 @@ def load_data(image_data, vision=None):
         vision (str): Type of vision encoder 'resnet50', 'densenet121' or 'vit' (Default: None --> No images)
     '''
     print(f'LOADING DATA (vision: {vision})')
-    print(f'Loaded image data:\tTrain: {len(image_data["train"])}\tValidation: {len(image_data["val"])}\tTest: {len(image_data["test"])} samples.')
-    # are there equal property reference ids in images_data['train']
-    print(image_data["train"])
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
@@ -426,9 +423,7 @@ def load_data(image_data, vision=None):
 
 if __name__ == '__main__': 
 
-    image_data, dataframe_test, dataframe_val, dataframe_train = prepare_data()
-    print("The shape of the dataframe_img: ", dataframe_train.shape)
-    print("The number of unique properties is: ", dataframe_train['Property Reference Id'].nunique())
+    image_data = prepare_data()
     train_data, val_data, test_data = load_data(image_data, vision='vit')
 
 

@@ -69,9 +69,7 @@ def create_trainer(model, train_data, val_data, output_dir, epochs=10, lr=1e-5, 
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
-    print(f'Moving model to device: {device}')
 
-    print('Training:\tInitializing optimizer and scheduler')
     params = [{'params': model.regression.parameters(), 
                 'lr': 0.001, 'weight_decay': 0.01}]
     if model.vision:
@@ -80,7 +78,6 @@ def create_trainer(model, train_data, val_data, output_dir, epochs=10, lr=1e-5, 
     scheduler = get_cosine_schedule_with_warmup(
         optimizer, num_warmup_steps=200, num_training_steps=len(train_data)*epochs)
 
-    print('Training:\tInitializing training arguments')
     training_args = TrainingArguments(
 
         # Training
@@ -105,7 +102,6 @@ def create_trainer(model, train_data, val_data, output_dir, epochs=10, lr=1e-5, 
         load_best_model_at_end=True,
     )
 
-    print('Training:\tInitializing MultimodalTrainer')
     trainer = MultimodalTrainer(
         model=model,
         args=training_args,
@@ -134,7 +130,6 @@ def grid_search(vision=None,
     torch.manual_seed(seed)
     np.random.seed(seed)
 
-    print('Training:\tInitializing model')
     model = JointEncoder(
         vision=vision, 
     )
@@ -160,16 +155,13 @@ def grid_search(vision=None,
 
     # Evaluate model
     if eval:
-        print('Evaluation:\tEvaluating model on test set')
         eval_results = trainer.evaluate(eval_dataset=test_data)
 
         print('Evaluation:\tResults')
         print(eval_results)
     
 if __name__ == '__main__':
-    print('\nWorking on:', workingOn)
     parser = argparse.ArgumentParser()
-    print('Grid search for radiology diagnosis using joint image encoders.')
     parser.add_argument('--vision', type=str, default='resnet50')
     parser.add_argument('--hidden_dims', type=str, default=[256, 512])
     parser.add_argument('--dropout_prob', type=float, default=0.0)
@@ -179,16 +171,13 @@ if __name__ == '__main__':
     parser.add_argument('--num_epochs', type=int, default=10)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--eval', type=bool, default=False)
-    print('Evaluation: evaluate model on test set')
     args = parser.parse_args()
 
-    print('Parsing arguments')
     if args.hidden_dims and type(args.hidden_dims) == str:
         args.hidden_dims = [int(x) for x in args.hidden_dims.split('-')]
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
-    print(f'Arguments:\t {args}')
     grid_search(**vars(args))
     
     
