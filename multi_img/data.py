@@ -400,12 +400,12 @@ def prepare_data():
     print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
 
 
-    image_data_test = join_multi(lab_test)
-    image_data_val = join_multi(lab_val)
-    image_data_train = join_multi(lab_train)
+    image_data_test, dataframe_test = join_multi(lab_test)
+    image_data_val, dataframe_val = join_multi(lab_val)
+    image_data_train, dataframe_train = join_multi(lab_train)
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
         
-    return image_data
+    return image_data, dataframe_test, dataframe_val, dataframe_train
 
 def load_data(image_data, vision=None):
     '''
@@ -426,9 +426,9 @@ def load_data(image_data, vision=None):
 
 if __name__ == '__main__': 
 
-    image_data, dataframe_img = prepare_data()
-    print("The shape of the dataframe_img: ", dataframe_img.shape)
-    print("The number of unique properties is: ", dataframe_img['Property Reference Id'].nunique())
+    image_data, dataframe_test, dataframe_val, dataframe_train = prepare_data()
+    print("The shape of the dataframe_img: ", dataframe_train.shape)
+    print("The number of unique properties is: ", dataframe_train['Property Reference Id'].nunique())
     train_data, val_data, test_data = load_data(image_data, vision='vit')
 
 
