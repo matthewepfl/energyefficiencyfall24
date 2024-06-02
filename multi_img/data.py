@@ -425,18 +425,6 @@ def load_data(image_data, vision=None):
 if __name__ == '__main__': 
 
     image_data = prepare_data()
-    cluster_data = pd.read_csv(CLUSTERED_PATH)
-    image_data_train, image_data_val, image_data_test = image_data['train'], image_data['val'], image_data['test']
+    train_data, val_data, test_data = load_data(image_data, vision='vit')
 
-    # Print the shapes of the dataframes
-    print(f'Image data\nTrain: {len(image_data_train)}\nVal: {len(image_data_val)}\nTest: {len(image_data_test)}')
-
-    # Save the dictionaries
-    np.save(os.path.join(PROCESSED_PATH, 'image_data_train.npy'), image_data_train)
-    np.save(os.path.join(PROCESSED_PATH, 'image_data_val.npy'), image_data_val)
-    np.save(os.path.join(PROCESSED_PATH, 'image_data_test.npy'), image_data_test)
-
-    all_images = set(list(image_data_train.keys()) + list(image_data_val.keys()) + list(image_data_test.keys()))
-    
-    print('Finished!')
 
