@@ -178,7 +178,7 @@ if __name__ == '__main__':
     parser.add_argument('--weight_decay', type=float, default=0.0)
     parser.add_argument('--num_epochs', type=int, default=10)
     parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--eval', action='store_true', default=False)
+    parser.add_argument('--eval', type=bool, default=False)
     print('Evaluation: evaluate model on test set')
     args = parser.parse_args()
 
