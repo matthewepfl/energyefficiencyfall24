@@ -271,8 +271,10 @@ class MultimodalDataset(Dataset):
             self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
         
         self.organized_paths = self._organize_paths()
-        # self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
-        #                         and v['3'] is not None and v['4'] is not None and v['5'] is not None}
+        print(f'Organized paths: {len(self.organized_paths)}')
+        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
+                                and v['3'] is not None and v['4'] is not None and v['5'] is not None}
+        print(f'AFTER FILTERING: Organized paths: {len(self.organized_paths)}')
 
     def _organize_paths(self):
         organized = {}
