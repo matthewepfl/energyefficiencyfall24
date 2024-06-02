@@ -315,7 +315,6 @@ class MultimodalDataset(Dataset):
         path_4 = self.organized_paths[property_cluster_pair]['4']
         path_5 = self.organized_paths[property_cluster_pair]['5']
 
-        print(f'Property: {property_cluster_pair}\nPaths: {path_0}, {path_1}, {path_2}, {path_3}, {path_4}, {path_5}')
 
         # Get labels from the image data
         labels_path = path_0 if path_0 else path_1 if path_1 else path_2 if path_2 else path_3 if path_3 else path_4 if path_4 else path_5
@@ -351,10 +350,6 @@ class MultimodalDataset(Dataset):
             inputs['x_4'] = image_4
             inputs['x_5'] = image_5
 
-            print(f'Images: {image_0.shape}, {image_1.shape}, {image_2.shape}, {image_3.shape}, {image_4.shape}, {image_5.shape}')
-            print(f'Labels: {label_tensor.shape}')
-            print(f'Inputs: {inputs.keys()}')
-            print(f'Inputs: {inputs["labels"].shape}, {inputs["x_0"].shape}, {inputs["x_1"].shape}, {inputs["x_2"].shape}, {inputs["x_3"].shape}, {inputs["x_4"].shape}, {inputs["x_5"].shape}')
         return inputs
 
     def collate_fn(self, batch):
