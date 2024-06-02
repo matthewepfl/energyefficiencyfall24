@@ -146,12 +146,14 @@ def grid_search(vision=None,
 
     # Load data
     print('Data:\tLoading data')
-    image_data = prepare_data()
+    image_data = prepare_data() # image data don't have all the clusters
     train_data, val_data, test_data = load_data(image_data, vision=vision)
 
     # Train model
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
                              epochs=num_epochs, lr=lr, batch_size = 8, 
+                            #  hidden_dims=hidden_dims, dropout_prob=dropout_prob,
+                            # batch_norm=batch_norm,
                              weight_decay=weight_decay, seed=seed)
     print('Training:\tStarting training')
     trainer.train()
@@ -160,6 +162,9 @@ def grid_search(vision=None,
     if eval:
         print('Evaluation:\tEvaluating model on test set')
         eval_results = trainer.evaluate(eval_dataset=test_data)
+
+        print('Evaluation:\tResults')
+        print(eval_results)
     
 if __name__ == '__main__':
     print('\nWorking on:', workingOn)
@@ -173,6 +178,7 @@ if __name__ == '__main__':
     parser.add_argument('--weight_decay', type=float, default=0.0)
     parser.add_argument('--num_epochs', type=int, default=10)
     parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--eval', action='store_true', default=False)
     print('Evaluation: evaluate model on test set')
     args = parser.parse_args()
 
