@@ -416,6 +416,8 @@ def load_data(image_data, vision=None):
     '''
     print(f'LOADING DATA (vision: {vision})')
     print(f'Loaded image data:\tTrain: {len(image_data["train"])}\tValidation: {len(image_data["val"])}\tTest: {len(image_data["test"])} samples.')
+    # are there equal property reference ids in images_data['train']
+    print(len(image_data["train"]['Property Reference Id'].unique()))
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
