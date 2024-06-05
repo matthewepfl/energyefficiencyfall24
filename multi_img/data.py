@@ -425,10 +425,13 @@ def load_data(image_data, vision=None):
     val_data_properties = val_data.properties
     test_data_properties = test_data.properties
 
-    # save the properties, in a numpy file
-    np.save(os.path.join(PROCESSED_PATH, 'train_properties.npy'), train_data_properties)
-    np.save(os.path.join(PROCESSED_PATH, 'val_properties.npy'), val_data_properties)
-    np.save(os.path.join(PROCESSED_PATH, 'test_properties.npy'), test_data_properties)
+    # save the properties
+    with open(os.path.join(PROCESSED_PATH, 'train_data_properties.pkl'), 'wb') as f:
+        pickle.dump(train_data_properties, f)
+    with open(os.path.join(PROCESSED_PATH, 'val_data_properties.pkl'), 'wb') as f:
+        pickle.dump(val_data_properties, f)
+    with open(os.path.join(PROCESSED_PATH, 'test_data_properties.pkl'), 'wb') as f:
+        pickle.dump(test_data_properties, f)
     return train_data, val_data, test_data
 
 if __name__ == '__main__': 
