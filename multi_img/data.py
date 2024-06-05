@@ -205,6 +205,8 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         study_ids_val = property_id[:num_val]
         study_ids_test = property_id[num_val:num_val + num_test]
 
+        print(labels['Property Reference Id'].str.split('.').get(0))
+
         # Get the tabular data and labels for the train, val, and test sets
         labels_train = labels[labels['Property Reference Id'].str.split('.').get(0).astype(int).isin(study_ids_train)]
         labels_val = labels[labels['Property Reference Id'].split('.').get(0).astype(int).isin(study_ids_val)]
