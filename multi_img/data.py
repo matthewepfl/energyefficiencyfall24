@@ -210,9 +210,9 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         print("The labels are: ", labels['Property Reference Id'].str.split('.'))
 
         # Get the tabular data and labels for the train, val, and test sets
-        labels_train = labels[labels['Property Reference Id'].str.split('.')[0].astype(int).isin(study_ids_train)]
-        labels_val = labels[labels['Property Reference Id'].split('.')[0].astype(int).isin(study_ids_val)]
-        labels_test = labels[labels['Property Reference Id'].split('.')[0].astype(int).isin(study_ids_test)]
+        labels_train = labels[labels['Property Reference Id'].str.split('.')[0].int.isin(study_ids_train)]
+        labels_val = labels[labels['Property Reference Id'].split('.')[0].int.isin(study_ids_val)]
+        labels_test = labels[labels['Property Reference Id'].split('.')[0].int.isin(study_ids_test)]
 
         # Save the train, val, and test sets
         labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
