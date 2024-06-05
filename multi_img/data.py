@@ -62,7 +62,6 @@ ENERGY_PATH = os.path.join(DATA_DIR, 'Listings_FE.csv')
 LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'labels_train.csv')
 LABELS_VAL_PATH = os.path.join(DATA_DIR, 'labels_val.csv')
 LABELS_TEST_PATH = os.path.join(DATA_DIR, 'labels_test.csv')
-PROCESSED_PATH = os.path.join(DATA_DIR, 'processed_data')
 CLUSTERED_PATH = os.path.join(DATA_DIR, f'clustered_images_with{minim_amount_classes}classes.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
@@ -425,13 +424,12 @@ def load_data(image_data, vision=None):
     val_data_properties = val_data.properties
     test_data_properties = test_data.properties
 
-    # save the properties
-    with open(os.path.join(PROCESSED_PATH, 'train_data_properties.pkl'), 'wb') as f:
-        pickle.dump(train_data_properties, f)
-    with open(os.path.join(PROCESSED_PATH, 'val_data_properties.pkl'), 'wb') as f:
-        pickle.dump(val_data_properties, f)
-    with open(os.path.join(PROCESSED_PATH, 'test_data_properties.pkl'), 'wb') as f:
-        pickle.dump(test_data_properties, f)
+    # save the properties as nmpy
+    np.save(DATA_DIR + 'train_data_properties.npy', train_data_properties)
+    np.save(DATA_DIR + 'val_data_properties.npy', val_data_properties)
+    np.save(DATA_DIR + 'test_data_properties.npy', test_data_properties)
+    
+
     return train_data, val_data, test_data
 
 if __name__ == '__main__': 
