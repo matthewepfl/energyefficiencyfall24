@@ -205,8 +205,12 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         study_ids_val = property_id[:num_val]
         study_ids_test = property_id[num_val:num_val + num_test]
 
+        print("The ids are: ", study_ids_train)
+        print("The labels are: ", labels['Property Reference Id'])
+        print("The labels are: ", labels['Property Reference Id'].str.split('.'))
+
         # Get the tabular data and labels for the train, val, and test sets
-        labels_train = labels[labels['Property Reference Id'].split('.')[0].astype(int).isin(study_ids_train)]
+        labels_train = labels[labels['Property Reference Id'].str.split('.')[0].astype(int).isin(study_ids_train)]
         labels_val = labels[labels['Property Reference Id'].split('.')[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].split('.')[0].astype(int).isin(study_ids_test)]
 
@@ -427,5 +431,7 @@ if __name__ == '__main__':
 
     image_data = prepare_data()
     train_data, val_data, test_data = load_data(image_data, vision='vit')
+
+
 
 
