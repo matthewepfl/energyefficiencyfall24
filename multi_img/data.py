@@ -273,10 +273,9 @@ class MultimodalDataset(Dataset):
             self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
         
         self.organized_paths = self._organize_paths()
-        print(f'Organized paths: {len(self.organized_paths)}')
         self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
                                 and v['3'] is not None and v['4'] is not None and v['5'] is not None}
-        print(f'AFTER FILTERING: Organized paths: {len(self.organized_paths)}')
+        self.properties = list(self.organized_paths.keys())
 
     def _organize_paths(self):
         organized = {}
@@ -421,6 +420,15 @@ def load_data(image_data, vision=None):
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
     print(f'Created datasets:\tTrain: {len(train_data)}\tValidation: {len(val_data)}\tTest: {len(test_data)} samples.')
+
+    train_data_properties = train_data.properties
+    val_data_properties = val_data.properties
+    test_data_properties = test_data.properties
+
+    # save the properties, in a numpy file
+    np.save(os.path.join(PROCESSED_PATH, 'train_properties.npy'), train_data_properties)
+    np.save(os.path.join(PROCESSED_PATH, 'val_properties.npy'), val_data_properties)
+    np.save(os.path.join(PROCESSED_PATH, 'test_properties.npy'), test_data_properties)
     return train_data, val_data, test_data
 
 if __name__ == '__main__': 
