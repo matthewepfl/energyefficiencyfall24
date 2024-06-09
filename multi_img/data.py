@@ -59,9 +59,9 @@ IMAGES_DF_PATH = os.path.join(DATA_DIR, 'images_df.csv')
 LISTINGS_PATH = os.path.join(DATA_DIR, 'Listings_FE.pkl')
 INQUIRIES_PATH = os.path.join(DATA_DIR, 'inquiries_full.pkl')
 ENERGY_PATH = os.path.join(DATA_DIR, 'Listings_FE.csv')
-LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'labels_train.csv')
-LABELS_VAL_PATH = os.path.join(DATA_DIR, 'labels_val.csv')
-LABELS_TEST_PATH = os.path.join(DATA_DIR, 'labels_test.csv')
+LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'train_data_properties.npy')
+LABELS_VAL_PATH = os.path.join(DATA_DIR, 'val_data_properties.npy')
+LABELS_TEST_PATH = os.path.join(DATA_DIR, 'test_data_properties.npy')
 CLUSTERED_PATH = os.path.join(DATA_DIR, f'clustered_images_with{minim_amount_classes}classes.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
@@ -118,7 +118,6 @@ def load_images_data(cluster_data):
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster', 'pathname']], on = 'Property Reference Id', how = 'inner')
     labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'PropertyFE', 'pathname'])
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
-
 
     print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
 
@@ -182,11 +181,11 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if False: # all([os.path.exists(path) for path in paths])
-        print('Splitting:\tLoading pre-processed train, val, and test sets.')
-        labels_train = pd.read_csv(LABELS_TRAIN_PATH)
-        labels_val = pd.read_csv(LABELS_VAL_PATH)
-        labels_test = pd.read_csv(LABELS_TEST_PATH)
+    if all([os.path.exists(path) for path in paths]):
+        print('Splitting:\LOADING pre-processed train, val, and test sets.')
+        labels_train = np.load(LABELS_TRAIN_PATH, allow_pickle=True)
+        labels_val = np.load(LABELS_VAL_PATH, allow_pickle=True)
+        labels_test = np.load(LABELS_TEST_PATH, allow_pickle=True)
 
     else:
         print('Splitting:\tTabular data and labels into train, val, and test sets.')
@@ -210,9 +209,9 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
 
         # Save the train, val, and test sets
-        labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
-        labels_val.to_csv(LABELS_VAL_PATH, index=False)
-        labels_test.to_csv(LABELS_TEST_PATH, index=False)
+        np.save(LABELS_TRAIN_PATH, labels_train)
+        np.save(LABELS_VAL_PATH, labels_val)
+        np.save(LABELS_TEST_PATH, labels_test)
 
         # Check proportions of total, train, val, and test sets
         total_len = len(labels_train) + len(labels_val) + len(labels_test)
@@ -428,7 +427,7 @@ def load_data(image_data, vision=None):
     np.save(DATA_DIR + 'train_data_properties.npy', train_data_properties)
     np.save(DATA_DIR + 'val_data_properties.npy', val_data_properties)
     np.save(DATA_DIR + 'test_data_properties.npy', test_data_properties)
-    
+
 
     return train_data, val_data, test_data
 

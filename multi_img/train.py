@@ -4,7 +4,7 @@ Grid search for demand calculation using joint image encoders.
 
 import os
 import argparse
-from transformers import TrainingArguments, Trainer, get_linear_schedule_with_warmup, get_cosine_schedule_with_warmup
+from transformers import TrainingArguments, Trainer, get_linear_schedule_with_warmup, get_cosine_schedule_with_warmup, TrainerCallback
 from transformers import EarlyStoppingCallback
 from models import *
 from data import *
@@ -50,7 +50,15 @@ class MultimodalTrainer(Trainer):
         loss = nn.MSELoss()(predictions, labels)
         return (loss, outputs) if return_outputs else loss
 
-def create_trainer(model, train_data, val_data, output_dir, epochs=10, lr=1e-5, batch_size=16, weight_decay=1e-2, seed=0):
+def create_trainer(model, 
+                   train_data, 
+                   val_data, 
+                   output_dir, 
+                   epochs=10, 
+                   lr=1e-5, 
+                   batch_size=16, 
+                   weight_decay=1e-2, 
+                   seed=0):
     '''
     Trains a Joint Encoder model. 
     W&B logging is enabled by default.
@@ -70,10 +78,12 @@ def create_trainer(model, train_data, val_data, output_dir, epochs=10, lr=1e-5, 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
 
+
     params = [{'params': model.regression.parameters(), 
                 'lr': 0.001, 'weight_decay': 0.01}]
     if model.vision:
         params.append({'params': model.vision_encoder.parameters()}) 
+
     optimizer = torch.optim.AdamW(params, lr=lr, weight_decay=weight_decay)
     scheduler = get_cosine_schedule_with_warmup(
         optimizer, num_warmup_steps=200, num_training_steps=len(train_data)*epochs)
@@ -100,6 +110,7 @@ def create_trainer(model, train_data, val_data, output_dir, epochs=10, lr=1e-5, 
         logging_steps=1,
         logging_strategy='epoch',
         load_best_model_at_end=True,
+
     )
 
     trainer = MultimodalTrainer(
@@ -111,6 +122,7 @@ def create_trainer(model, train_data, val_data, output_dir, epochs=10, lr=1e-5, 
         callbacks = [EarlyStoppingCallback(early_stopping_patience=5)],
         optimizers=(optimizer, scheduler)
     )
+
     return trainer
 
 def grid_search(vision=None, 
@@ -121,7 +133,9 @@ def grid_search(vision=None,
                 weight_decay=0.01,
                 num_epochs=10,
                 seed=0,
-                eval=False
+                train=True,
+                eval=False, 
+                checkpoint_path=None
                 ):
     '''
     Grid search for radiology diagnosis using joint image encoders. 
@@ -130,9 +144,7 @@ def grid_search(vision=None,
     torch.manual_seed(seed)
     np.random.seed(seed)
 
-    model = JointEncoder(
-        vision=vision, 
-    )
+    model = JointEncoder(vision=vision)
 
     # Freeze layers of vision encoder
     if vision:
@@ -143,22 +155,53 @@ def grid_search(vision=None,
     print('Data:\tLoading data')
     image_data = prepare_data() # image data don't have all the clusters
     train_data, val_data, test_data = load_data(image_data, vision=vision)
+    
+    if train:
+        # Train model
+        trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
+                                epochs=num_epochs, lr=lr, batch_size = 8, 
+                                weight_decay=weight_decay, seed=seed)
+        print('Training:\tStarting training')
+        trainer.train()
 
-    # Train model
-    trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
-                             epochs=num_epochs, lr=lr, batch_size = 8, 
-                            #  hidden_dims=hidden_dims, dropout_prob=dropout_prob,
-                            # batch_norm=batch_norm,
-                             weight_decay=weight_decay, seed=seed)
-    print('Training:\tStarting training')
-    trainer.train()
+        # save the model
+        model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
+        torch.save(model.state_dict(), model_path)
 
     # Evaluate model
     if eval:
-        eval_results = trainer.evaluate(eval_dataset=test_data)
+        if not train:
+            model.load_state_dict(torch.load(checkpoint_path))
+            print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
 
-        print('Evaluation:\tResults')
-        print(eval_results)
+        trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR,
+                                epochs=num_epochs, lr=lr, batch_size = 8, 
+                                weight_decay=weight_decay, seed=seed)
+        
+        evaluate(trainer, vision, lr, weight_decay, num_epochs, test_data)
+
+def evaluate(trainer, vision, lr, weight_decay, num_epochs, test_data):
+
+    eval_results = trainer.evaluate(eval_dataset=test_data)
+    print('Evaluation:\tResults')
+    print(eval_results)
+
+    # Predictions
+    predictions = trainer.predict(test_data)
+    predictions = predictions.predictions
+    labels = predictions.labels
+
+    mse = nn.MSELoss()(predictions, labels)
+    print('Evaluation:\tMSE')
+    print(mse)
+
+    # save predictions
+    predictions_path = os.path.join(CHECKPOINTS_DIR, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
+    labels_path = os.path.join(CHECKPOINTS_DIR, f'labels_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
+    torch.save(predictions, predictions_path)
+    torch.save(labels, labels_path)
+
+
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
