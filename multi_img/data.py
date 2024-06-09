@@ -181,7 +181,7 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if all([os.path.exists(path) for path in paths]):
+    if False:#all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
         labels_train = np.load(LABELS_TRAIN_PATH, allow_pickle=True)
         labels_val = np.load(LABELS_VAL_PATH, allow_pickle=True)
@@ -208,10 +208,22 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
 
+        print("the labels_train: ", labels_train.shape, labels_train[:10])
+
         # Save the train, val, and test sets
         np.save(LABELS_TRAIN_PATH, labels_train)
         np.save(LABELS_VAL_PATH, labels_val)
         np.save(LABELS_TEST_PATH, labels_test)
+
+        saved_train = np.load(LABELS_TRAIN_PATH, allow_pickle=True)
+        saved_val = np.load(LABELS_VAL_PATH, allow_pickle=True)
+        saved_test = np.load(LABELS_TEST_PATH, allow_pickle=True)
+
+        # compare the saved and the original
+        print('The comparison between the original and the saved')
+        print('The train: ', labels_train.shape, saved_train.shape)
+        print('The train: ', labels_train, saved_train)
+        
 
         # Check proportions of total, train, val, and test sets
         total_len = len(labels_train) + len(labels_val) + len(labels_test)
