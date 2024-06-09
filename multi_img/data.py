@@ -181,7 +181,7 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if False:#all([os.path.exists(path) for path in paths]):
+    if all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
         labels_train = np.load(LABELS_TRAIN_PATH, allow_pickle=True)
         labels_val = np.load(LABELS_VAL_PATH, allow_pickle=True)
@@ -207,8 +207,6 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         labels_train = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_train)]
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
-
-        print("the labels_train: ", labels_train.shape, labels_train[:10])
 
         # Save the train, val, and test sets
         labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
