@@ -133,14 +133,14 @@ def training(vision=None,
                 weight_decay=0.01,
                 num_epochs=10,
                 seed=0,
-                train=True,
+                do_train=True,
                 eval=False, 
                 checkpoint_path=None
                 ):
     '''
     Grid search for radiology diagnosis using joint image encoders. 
     '''
-    print("Training:\t", train)
+    print("Training:\t", do_train)
     print("Evaluation:\t", eval)
     print("Checkpoint path:\t", checkpoint_path)
     # Set seed
@@ -159,7 +159,7 @@ def training(vision=None,
     image_data = prepare_data() # image data don't have all the clusters
     train_data, val_data, test_data = load_data(image_data, vision=vision)
     
-    if train:
+    if do_train:
         # Train model
         trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
                                 epochs=num_epochs, lr=lr, batch_size = 8, 
@@ -173,7 +173,7 @@ def training(vision=None,
 
     # Evaluate model
     if eval:
-        if not train:
+        if not do_train:
             model.load_state_dict(torch.load(checkpoint_path))
             print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
 
@@ -217,7 +217,7 @@ if __name__ == '__main__':
     parser.add_argument('--num_epochs', type=int, default=10)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--eval', type=bool, default=False)
-    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--do_train', type=bool, default=True)
     parser.add_argument('--checkpoint_path', type=str, default=None)
     args = parser.parse_args()
 
@@ -225,7 +225,7 @@ if __name__ == '__main__':
         args.hidden_dims = [int(x) for x in args.hidden_dims.split('-')]
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
-    print("the argument of the train was input as: ", args.train)
+    print("the argument of the train was input as: ", args.do_train)
 
     training(**vars(args))
     
