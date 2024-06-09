@@ -18,6 +18,7 @@ warnings.filterwarnings("ignore", category=UserWarning)  # Replace UserWarning w
 
 import tensorflow as tf
 tf.get_logger().setLevel('ERROR')
+from typing import Optional, List, Tuple
 
 
 workingOn = 'server'
@@ -169,17 +170,17 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     torch.save(predictions, predictions_path)
     torch.save(labels, labels_path)
 
-def training(vision=None, 
-                hidden_dims=[256, 512],
-                dropout_prob=0.0,
-                batch_norm=False,
-                lr=0.001, 
-                weight_decay=0.01,
-                num_epochs=10,
-                seed=0,
-                do_train=True,
-                do_eval=False,
-                checkpoint_path=None
+def training(vision: Optional[str] = 'resnet50',
+            hidden_dims: Optional[List[int]] = None,
+            dropout_prob: float = 0.0,
+            batch_norm: bool = False,
+            lr: float = 0.001, 
+            weight_decay: float = 0.01,
+            num_epochs: int = 10,
+            seed: int = 0,
+            do_train: bool = True,
+            eval: bool = False, 
+            checkpoint_path: Optional[str] = None
                 ):
     '''
     Grid search for radiology diagnosis using joint image encoders. 
