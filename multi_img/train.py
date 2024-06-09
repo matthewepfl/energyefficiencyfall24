@@ -159,6 +159,10 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     predictions = trainer.predict(test_data)
     labels = test_data.get_labels()
 
+    # convert to list 
+    predictions = predictions.predictions.tolist()
+    labels = labels.tolist()
+
     # save predictions
     predictions_path = os.path.join(CHECKPOINTS_DIR, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
     labels_path = os.path.join(CHECKPOINTS_DIR, f'labels_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
