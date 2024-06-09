@@ -183,9 +183,9 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
     
     if all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
-        labels_train = np.load(LABELS_TRAIN_PATH, allow_pickle=True)
-        labels_val = np.load(LABELS_VAL_PATH, allow_pickle=True)
-        labels_test = np.load(LABELS_TEST_PATH, allow_pickle=True)
+        labels_train = np.load(LABELS_TRAIN_PATH)
+        labels_val = np.load(LABELS_VAL_PATH)
+        labels_test = np.load(LABELS_TEST_PATH)
 
     else:
         print('Splitting:\tTabular data and labels into train, val, and test sets.')
