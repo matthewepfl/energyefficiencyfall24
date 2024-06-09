@@ -179,7 +179,7 @@ def training(vision: Optional[str] = 'resnet50',
             num_epochs: int = 10,
             seed: int = 0,
             do_train: bool = True,
-            eval: bool = False, 
+            do_eval: bool = False, 
             checkpoint_path: Optional[str] = None
                 ):
     '''
