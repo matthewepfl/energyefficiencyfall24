@@ -225,6 +225,7 @@ if __name__ == '__main__':
         args.hidden_dims = [int(x) for x in args.hidden_dims.split('-')]
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
+    print("the argument of the train was input as: ", args.train)
 
     training(**vars(args))
     
