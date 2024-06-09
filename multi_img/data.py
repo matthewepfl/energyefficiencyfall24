@@ -211,9 +211,9 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         print("the labels_train: ", labels_train.shape, labels_train[:10])
 
         # Save the train, val, and test sets
-        pd.to_csv(LABELS_TRAIN_PATH, labels_train)
-        pd.to_csv(LABELS_VAL_PATH, labels_val)
-        pd.to_csv(LABELS_TEST_PATH, labels_test)        
+        labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
+        labels_val.to_csv(LABELS_VAL_PATH, index=False)
+        labels_test.to_csv(LABELS_TEST_PATH, index=False)  
 
         # Check proportions of total, train, val, and test sets
         total_len = len(labels_train) + len(labels_val) + len(labels_test)
