@@ -125,7 +125,7 @@ def create_trainer(model,
 
     return trainer
 
-def grid_search(vision=None, 
+def training(vision=None, 
                 hidden_dims=[256, 512],
                 dropout_prob=0.0,
                 batch_norm=False,
@@ -214,6 +214,8 @@ if __name__ == '__main__':
     parser.add_argument('--num_epochs', type=int, default=10)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--eval', type=bool, default=False)
+    parser.add_argument('--train', type=bool, default=True)
+    parser.add_argument('--checkpoint_path', type=str, default=None)
     args = parser.parse_args()
 
     if args.hidden_dims and type(args.hidden_dims) == str:
@@ -221,6 +223,6 @@ if __name__ == '__main__':
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
-    grid_search(**vars(args))
+    training(**vars(args))
     
     
