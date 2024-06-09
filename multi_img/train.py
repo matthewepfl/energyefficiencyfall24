@@ -160,10 +160,10 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     labels = test_data.get_labels()
 
     # save predictions
-    predictions_path = os.path.join(CHECKPOINTS_DIR, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
-    labels_path = os.path.join(CHECKPOINTS_DIR, f'labels_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
-    torch.save(predictions, predictions_path)
-    torch.save(labels, labels_path)
+    predictions_path = os.path.join(CHECKPOINTS_DIR, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
+    labels_path = os.path.join(CHECKPOINTS_DIR, f'labels_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
+    np.save(predictions_path, predictions)
+    np.save(labels_path, labels)
 
 def training(vision: Optional[str] = 'resnet50',
             hidden_dims: Optional[List[int]] = None,
