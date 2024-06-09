@@ -125,65 +125,30 @@ def create_trainer(model,
 
     return trainer
 
-def training(vision=None, 
-                hidden_dims=[256, 512],
-                dropout_prob=0.0,
-                batch_norm=False,
-                lr=0.001, 
-                weight_decay=0.01,
-                num_epochs=10,
-                seed=0,
-                do_train=True,
-                eval=False, 
-                checkpoint_path=None
-                ):
-    '''
-    Grid search for radiology diagnosis using joint image encoders. 
-    '''
-    print("Training:\t", do_train)
-    print("Evaluation:\t", eval)
-    print("Checkpoint path:\t", checkpoint_path)
-    # Set seed
-    torch.manual_seed(seed)
-    np.random.seed(seed)
-
-    model = JointEncoder(vision=vision)
-
-    # Freeze layers of vision encoder
+def freeze_vision_encoder_layers(model, vision: Optional[str]):
     if vision:
-       for param in model.vision_encoder.parameters():
-           param.requires_grad = False
+        for param in model.vision_encoder.parameters():
+            param.requires_grad = False
 
-    # Load data
-    print('Data:\tLoading data')
-    image_data = prepare_data() # image data don't have all the clusters
-    train_data, val_data, test_data = load_data(image_data, vision=vision)
-    
-    if do_train:
-        # Train model
-        trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
-                                epochs=num_epochs, lr=lr, batch_size = 8, 
-                                weight_decay=weight_decay, seed=seed)
-        print('Training:\tStarting training')
-        trainer.train()
+def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, vision):
+    print('Training: Starting training')
+    trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
+                            epochs=num_epochs, lr=lr, batch_size=8, 
+                            weight_decay=weight_decay, seed=seed)
+    trainer.train()
 
-        # save the model
-        model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
-        torch.save(model.state_dict(), model_path)
+    # Save the model
+    model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
+    torch.save(model.state_dict(), model_path)
 
-    # Evaluate model
-    if eval:
-        if not do_train:
-            model.load_state_dict(torch.load(checkpoint_path))
-            print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
+def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision):
+    if not do_train and checkpoint_path:
+        model.load_state_dict(torch.load(checkpoint_path))
+        print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
 
-        trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR,
-                                epochs=num_epochs, lr=lr, batch_size = 8, 
-                                weight_decay=weight_decay, seed=seed)
-        
-        evaluate(trainer, vision, lr, weight_decay, num_epochs, test_data)
-
-def evaluate(trainer, vision, lr, weight_decay, num_epochs, test_data):
+    trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR,
+                             epochs=num_epochs, lr=lr, batch_size=8, 
+                             weight_decay=weight_decay, seed=seed)
 
     eval_results = trainer.evaluate(eval_dataset=test_data)
     print('Evaluation:\tResults')
@@ -204,6 +169,44 @@ def evaluate(trainer, vision, lr, weight_decay, num_epochs, test_data):
     torch.save(predictions, predictions_path)
     torch.save(labels, labels_path)
 
+def training(vision=None, 
+                hidden_dims=[256, 512],
+                dropout_prob=0.0,
+                batch_norm=False,
+                lr=0.001, 
+                weight_decay=0.01,
+                num_epochs=10,
+                seed=0,
+                do_train=True,
+                do_eval=False,
+                checkpoint_path=None
+                ):
+    '''
+    Grid search for radiology diagnosis using joint image encoders. 
+    '''
+    print("Training:\t", do_train)
+    print("Evaluation:\t", do_eval)
+    print("Checkpoint path:\t", checkpoint_path)
+    
+    # Set seed
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+
+    model = JointEncoder(vision=vision)
+    freeze_vision_encoder_layers(model, vision)
+
+    # Load data
+    print('Data:\tLoading data')
+    image_data = prepare_data() # image data don't have all the clusters
+    train_data, val_data, test_data = load_data(image_data, vision=vision)
+    
+    if do_train:
+        train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, vision)
+
+    # Evaluate model
+    if eval:
+        evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision)
+
 
     
 if __name__ == '__main__':
@@ -216,8 +219,10 @@ if __name__ == '__main__':
     parser.add_argument('--weight_decay', type=float, default=0.0)
     parser.add_argument('--num_epochs', type=int, default=10)
     parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--eval', type=bool, default=False)
-    parser.add_argument('--do_train', type=bool, default=True)
+    parser.add_argument('--do_eval', action='store_true', help="Enable evaluation mode")
+    parser.add_argument('--no_eval', action='store_false', dest='do_eval', help="Disable evaluation mode")
+    parser.add_argument('--do_train', action='store_true', help="Enable training mode")
+    parser.add_argument('--no_train', action='store_false', dest='do_train', help="Disable training mode")
     parser.add_argument('--checkpoint_path', type=str, default=None)
     args = parser.parse_args()
 
@@ -225,7 +230,7 @@ if __name__ == '__main__':
         args.hidden_dims = [int(x) for x in args.hidden_dims.split('-')]
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
-    print("the argument of the train was input as: ", args.do_train)
+
 
     training(**vars(args))
     
