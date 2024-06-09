@@ -157,12 +157,7 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
 
     # Predictions
     predictions = trainer.predict(test_data)
-    predictions = predictions.predictions
-    labels = predictions.labels
-
-    mse = nn.MSELoss()(predictions, labels)
-    print('Evaluation:\tMSE')
-    print(mse)
+    labels = test_data.get_labels()
 
     # save predictions
     predictions_path = os.path.join(CHECKPOINTS_DIR, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
