@@ -140,6 +140,9 @@ def training(vision=None,
     '''
     Grid search for radiology diagnosis using joint image encoders. 
     '''
+    print("Training:\t", train)
+    print("Evaluation:\t", eval)
+    print("Checkpoint path:\t", checkpoint_path)
     # Set seed
     torch.manual_seed(seed)
     np.random.seed(seed)
