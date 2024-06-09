@@ -42,61 +42,85 @@ class RegressionHead(nn.Module):
     
 class DualVisionEncoder(nn.Module):
     '''
-    Dual vision encoders with six inputs (PA and lateral images, for example).
+    Dual vision encoders with dual input (PA and lateral images).
     Uses one vision encoder for each image, then concatenates the features.
 
     Args:
-        vision (str): Type of vision encoder (resnet50, densenet121, or vit)
+        vision (str): Type of vision encoder (resnet50, densenet121 or vit)
     '''
-
-    def __init__(self, vision: str):
+    def __init__(self, vision : str):
         super().__init__()
-        self.vision = vision
-        self.num_models = 6
-        self.models = []
 
-        # Load the appropriate model based on the vision type
+        self.vision = vision
+        # Load two pre-trained visual encoders
         if vision == 'resnet50':
-            for _ in range(self.num_models):
-                model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
-                embed_size = model.fc.in_features
-                model.fc = nn.Linear(embed_size, IMAGE_EMBEDDING_DIM)
-                self.models.append(model)
+            self.model_0 = models.resnet50(weights=ResNet50_Weights.DEFAULT)
+            self.model_1 = models.resnet50(weights=ResNet50_Weights.DEFAULT)
+            self.model_2 = models.resnet50(weights=ResNet50_Weights.DEFAULT)
+            self.model_3 = models.resnet50(weights=ResNet50_Weights.DEFAULT)
+            self.model_4 = models.resnet50(weights=ResNet50_Weights.DEFAULT)
+            self.model_5 = models.resnet50(weights=ResNet50_Weights.DEFAULT)
+
+            self.embed_size = self.model_0.fc.in_features # 2048
+            self.model_0.fc = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_1.fc = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_2.fc = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_3.fc = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_4.fc = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_5.fc = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
 
         elif vision == 'densenet121':
-            for _ in range(self.num_models):
-                model = models.densenet121(weights=models.DenseNet121_Weights.IMAGENET1K_V1)
-                embed_size = model.classifier.in_features
-                model.classifier = nn.Linear(embed_size, IMAGE_EMBEDDING_DIM)
-                self.models.append(model)
+            self.model_0 = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
+            self.model_1 = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
+            self.model_2 = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
+            self.model_3 = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
+            self.model_4 = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
+            self.model_5 = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
 
-        elif vision == 'vit':
-            for _ in range(self.num_models):
-                model = ViTForImageClassification.from_pretrained(
-                    'google/vit-large-patch32-384',
-                    image_size=384,
-                    patch_size=32,
-                    ignore_mismatched_sizes=True
-                )
-                embed_size = model.classifier.in_features
-                model.classifier = nn.Linear(embed_size, IMAGE_EMBEDDING_DIM)
-                self.models.append(model)
-        else:
+            self.embed_size = self.model_0.classifier.in_features # 1024
+            self.model_0.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_1.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_2.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_3.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_4.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_5.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+
+        elif vision == 'vit': 
+            self.model_0 = ViTForImageClassification.from_pretrained('google/vit-large-patch32-384', image_size=384, patch_size=32, ignore_mismatched_sizes=True)
+            self.model_1 = ViTForImageClassification.from_pretrained('google/vit-large-patch32-384', image_size=384, patch_size=32, ignore_mismatched_sizes=True)
+            self.model_2 = ViTForImageClassification.from_pretrained('google/vit-large-patch32-384', image_size=384, patch_size=32, ignore_mismatched_sizes=True)
+            self.model_3 = ViTForImageClassification.from_pretrained('google/vit-large-patch32-384', image_size=384, patch_size=32, ignore_mismatched_sizes=True)
+            self.model_4 = ViTForImageClassification.from_pretrained('google/vit-large-patch32-384', image_size=384, patch_size=32, ignore_mismatched_sizes=True)
+            self.model_5 = ViTForImageClassification.from_pretrained('google/vit-large-patch32-384', image_size=384, patch_size=32, ignore_mismatched_sizes=True)
+
+            self.embed_size = self.model_0.classifier.in_features # 1024
+            self.model_0.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_1.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_2.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_3.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_4.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+            self.model_5.classifier = nn.Linear(self.embed_size, IMAGE_EMBEDDING_DIM)
+        else: 
             raise ValueError(f'Vision encoder type {vision} not supported.')
 
-    def forward(self, *inputs):
-        if len(inputs) != self.num_models:
-            raise ValueError(f"Expected {self.num_models} inputs, but got {len(inputs)}.")
+    def forward(self, x_0, x_1, x_2, x_3, x_4, x_5):
+        if self.vision in ['resnet50', 'densenet121']:
+            features_0 = self.model_0(x_0)
+            features_1 = self.model_1(x_1)
+            features_2 = self.model_2(x_2)
+            features_3 = self.model_3(x_3)
+            features_4 = self.model_4(x_4)
+            features_5 = self.model_5(x_5)
 
-        features = []
-        for model, input in zip(self.models, inputs):
-            if self.vision == 'vit':
-                output = model(input).logits
-            else:
-                output = model(input)
-            features.append(output)
+        elif self.vision == 'vit':
+            features_0 = self.model_0(x_0).logits
+            features_1 = self.model_1(x_1).logits
+            features_2 = self.model_2(x_2).logits
+            features_3 = self.model_3(x_3).logits
+            features_4 = self.model_4(x_4).logits
+            features_5 = self.model_5(x_5).logits
 
-        combined_features = torch.cat(features, dim=1)
+        combined_features = torch.cat((features_0, features_1, features_2, features_3, features_4, features_5), dim=1)
         return combined_features
 
 class JointEncoder(nn.Module):
@@ -148,4 +172,3 @@ class JointEncoder(nn.Module):
             loss_fct = nn.MSELoss()
             outputs['loss'] = loss_fct(efficiency, labels)
         return outputs
-
