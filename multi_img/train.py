@@ -144,13 +144,15 @@ def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed,
 
 def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision):
     if not do_train and checkpoint_path:
-        model.load_state_dict(torch.load(checkpoint_path))
+        model.load_state_dict(torch.load(checkpoint_path + "pytorch"))
         print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
 
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR,
                              epochs=num_epochs, lr=lr, batch_size=8, 
                              weight_decay=weight_decay, seed=seed)
 
+    # Evaluation
+    print('Evaluation:\tStarting evaluation')
     eval_results = trainer.evaluate(eval_dataset=test_data)
     print('Evaluation:\tResults')
     print(eval_results)
@@ -164,8 +166,8 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     labels = labels.tolist()
 
     # save predictions
-    predictions_path = os.path.join(CHECKPOINTS_DIR, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
-    labels_path = os.path.join(CHECKPOINTS_DIR, f'labels_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
+    predictions_path = os.path.join(checkpoint_path, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
+    labels_path = os.path.join(checkpoint_path, f'labels_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
     np.save(predictions_path, predictions)
     np.save(labels_path, labels)
 
@@ -205,7 +207,6 @@ def training(vision: Optional[str] = 'resnet50',
 
     # Evaluate model
     if eval:
-
         evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision)
 
 
@@ -231,7 +232,6 @@ if __name__ == '__main__':
         args.hidden_dims = [int(x) for x in args.hidden_dims.split('-')]
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
-
 
     training(**vars(args))
     
