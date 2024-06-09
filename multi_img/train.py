@@ -205,6 +205,7 @@ def training(vision: Optional[str] = 'resnet50',
 
     # Evaluate model
     if eval:
+
         evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision)
 
 
