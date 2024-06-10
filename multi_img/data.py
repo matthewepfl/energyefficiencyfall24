@@ -43,7 +43,7 @@ dropout_rate = 0.4
 """
 
 workingOn = 'server' # 'server' or 'laptop
-minim_amount_classes = 6
+minim_amount_classes = 5
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
 # Global configurations
@@ -62,7 +62,7 @@ ENERGY_PATH = os.path.join(DATA_DIR, 'Listings_FE.csv')
 LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'train_data_properties.npy')
 LABELS_VAL_PATH = os.path.join(DATA_DIR, 'val_data_properties.npy')
 LABELS_TEST_PATH = os.path.join(DATA_DIR, 'test_data_properties.npy')
-CLUSTERED_PATH = os.path.join(DATA_DIR, f'clustered_images_with{minim_amount_classes}classes.csv')
+CLUSTERED_PATH = os.path.join(DATA_DIR, f'clean_clustered_images_greater{minim_amount_classes}.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
 
@@ -405,6 +405,7 @@ def prepare_data():
     
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
+    print("challenge accepted")
     data = load_images_data(cluster_data)
 
 
@@ -448,7 +449,7 @@ def load_data(image_data, vision=None):
 if __name__ == '__main__': 
 
     image_data = prepare_data()
-    train_data, val_data, test_data = load_data(image_data, vision='vit')
+    #train_data, val_data, test_data = load_data(image_data, vision='vit')
 
 
 
