@@ -173,13 +173,9 @@ def join_multi(labels_data):
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
     print('The image_labels_mapping: ', df_img.head(50))
-    
-    print('The image_labels_mapping: ', df_img.shape)
-    df_img = df_img[df_img['cluster'].isin(['0', '1', '2', '3', '4', '5'])]
-    print('The image_labels_mapping: ', df_img.shape)
 
-    # Return the image data to a dictionary
-    dict_img = df_img.set_index('index').T.to_dict()
+    # Create a dictionary
+    dict_img = df_img.T.to_dict()
 
     return dict_img
     
@@ -416,7 +412,7 @@ def prepare_data():
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
-    image_data_train = join_multi(lab_train)
+    image_data_train = join_multi(lab_train) 
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
         
     return image_data
