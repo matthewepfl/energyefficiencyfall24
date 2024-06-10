@@ -144,20 +144,20 @@ def create_image_labels_mapping(labels_data):
     image_labels_mapping = {}
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
+        propertyFE = labels['PropertyFE'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
             if labels[labels['cluster'] == classes].empty:
                 print('No labels for this cluster')
-                print(labels)
-                labels_out = {'Property Reference Id': property, 'cluster': classes}
+                labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes}
                 path = '/work/FAC/HEC/DEEP/shoude/ml_green_building/images_full_data/black.png'
                 image_labels_mapping[path] = labels_out
             else:
                 labels_row = labels[labels['cluster'] == classes]
                 labels_out = labels_row.iloc[0].to_dict()
-                print(labels_out)
                 path = labels_row['pathname'].values[0]
                 labels_out.pop('pathname')
                 image_labels_mapping[path] = labels_out
+            print('The image_labels_mapping: ', image_labels_mapping[path], 'for the path: ', path)
 
     return image_labels_mapping
         
