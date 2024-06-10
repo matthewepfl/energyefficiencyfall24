@@ -121,6 +121,14 @@ def load_images_data(cluster_data):
 
     print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
 
+    # Group by images and clusteres and select randomly the first one.
+    images_df = image_files.groupby(['Property Reference Id', 'cluster']).first().reset_index()
+
+    # Count how many images that belong to each cluster each PRI has.
+    image_counts = images_df.groupby('Property Reference Id').size()
+
+    print(image_counts.groupby(image_counts).size())
+
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
     
