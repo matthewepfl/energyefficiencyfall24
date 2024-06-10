@@ -172,11 +172,9 @@ def join_multi(labels_data):
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
-    print('The image_labels_mapping: ', df_img.head(50))
 
     # Create a dictionary
     dict_img = df_img.T.to_dict()
-    print(dict_img)
 
     return dict_img
     
@@ -284,12 +282,10 @@ class MultimodalDataset(Dataset):
 
     def _organize_paths(self):
         organized = {}
-        for i in self.data_dict.keys():
-            data = self.data_dict[i]
-            property_id = data['Property Reference Id']
-            cluster = data['cluster']
-            key = (property_id)
-            if key not in organized:
+        for property_id, cluster in self.data_dict.keys():
+            data = self.data_dict[(property_id, cluster)]
+            path = data['pathname']
+            if property_id not in organized:
                 organized[property_id] = {'0': None, '1': None, '2': None, '3': None, '4': None, '5': None}
             organized[property_id][cluster] = path
 
