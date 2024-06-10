@@ -176,6 +176,7 @@ def join_multi(labels_data):
 
     # Create a dictionary
     dict_img = df_img.T.to_dict()
+    print(dict_img)
 
     return dict_img
     
