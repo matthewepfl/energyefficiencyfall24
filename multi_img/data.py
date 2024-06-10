@@ -122,7 +122,7 @@ def load_images_data(cluster_data):
     print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
 
     # Group by images and clusteres and select randomly the first one.
-    images_df = image_files.groupby(['Property Reference Id', 'cluster']).first().reset_index()
+    images_df = labels_data.groupby(['Property Reference Id', 'cluster']).first().reset_index()
 
     # Count how many images that belong to each cluster each PRI has.
     image_counts = images_df.groupby('Property Reference Id').size()
