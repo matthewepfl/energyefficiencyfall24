@@ -142,6 +142,7 @@ def create_image_labels_mapping(labels_data):
     A dictionary with image file paths as keys and dicts with labels and ViewPosition as values.
     '''
     image_labels_mapping = {}
+    previous = len(image_labels_mapping)
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         propertyFE = labels['PropertyFE'].values[0]
@@ -159,7 +160,8 @@ def create_image_labels_mapping(labels_data):
                 path = labels_row['pathname'].values[0]
                 labels_out.pop('pathname')
                 image_labels_mapping[path] = labels_out
-        print('The image_labels_mapping: ', len(image_labels_mapping))
+        print('The image_labels_mapping: ', len(image_labels_mapping)-previous)
+        previous = len(image_labels_mapping)
 
     # CHECK
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
