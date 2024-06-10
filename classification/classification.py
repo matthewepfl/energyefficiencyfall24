@@ -126,13 +126,13 @@ if __name__ == '__main__':
 
     # Extracting features
     name = f'features_{PERCENTAGE}.npy'
-    if not os.path.exists('/scratch/sromanat/' + name):
-        print("Extracting features because", os.path.exists('/scratch/sromanat/' + name), "does not exist")
+    if not os.path.exists(SAVE_PATH + name):
+        print("Extracting features because", os.path.exists(SAVE_PATH + name), "does not exist")
         features = extract_features(img_path, model)
-        np.save('/scratch/sromanat/' + name, features)
+        np.save(SAVE_PATH + name, features)
     else:
-        print("Loading features from", '/scratch/sromanat/' + name)
-        features = np.load('/scratch/sromanat/' + name)
+        print("Loading features from", SAVE_PATH + name)
+        features = np.load(SAVE_PATH + name)
 
     # Flatten the features
     features_flattened = features.reshape(features.shape[0], -1)
