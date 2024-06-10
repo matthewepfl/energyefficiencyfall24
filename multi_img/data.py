@@ -157,14 +157,14 @@ def create_image_labels_mapping(labels_data):
                 path = labels_row['pathname'].values[0]
                 labels_out.pop('pathname')
                 image_labels_mapping[path] = labels_out
-            print('The image_labels_mapping: ', image_labels_mapping[path], 'for the path: ', path)
+            print('The image_labels_mapping: ', len(image_labels_mapping))
 
         # check that the 6 classes are done
         df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
         df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
         # group by the property reference id and check if all the classes are there
         df_img = df_img.groupby('Property Reference Id').size()
-        print("There are clusters for :", df_img.groupby(df_img).size())
+        #print("There are clusters for :", df_img.groupby(df_img).size())
 
     return image_labels_mapping
         
