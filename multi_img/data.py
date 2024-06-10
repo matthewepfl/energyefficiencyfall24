@@ -146,7 +146,7 @@ def create_image_labels_mapping(labels_data):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         propertyFE = labels['PropertyFE'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
-            if labels[labels['cluster'] == classes].empty:
+            if classes not in labels['cluster'].values:
                 print("No image for this class")
                 labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes}
                 path = '/work/FAC/HEC/DEEP/shoude/ml_green_building/images_full_data/black.png'
