@@ -121,13 +121,10 @@ def load_images_data(cluster_data):
 
     print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
 
-    # Group by images and clusteres and select randomly the first one.
+    # CHECK 
     images_df = labels_data.groupby(['Property Reference Id', 'cluster']).first().reset_index()
-
-    # Count how many images that belong to each cluster each PRI has.
     image_counts = images_df.groupby('Property Reference Id').size()
-
-    print(image_counts.groupby(image_counts).size())
+    print("There are clusters for :", image_counts.groupby(image_counts).size())
 
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
@@ -148,11 +145,19 @@ def create_image_labels_mapping(labels_data):
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         for classes in [0, 1, 2, 3, 4, 5]:
-            labels_row = labels[labels['cluster'] == classes]
-            labels_out = labels_row.iloc[0].to_dict()
-            path = labels_row['pathname'].values[0]
-            labels_out.pop('pathname')
-            image_labels_mapping[path] = labels_out
+            if labels[labels['cluster'] == classes] == None:
+                print('No labels for this cluster')
+                print(labels)
+                labels_out = {'Property Reference Id': property, 'cluster': classes}
+                path = '/work/FAC/HEC/DEEP/shoude/ml_green_building/images_full_data/black.png'
+                image_labels_mapping[path] = labels_out
+            else:
+                labels_row = labels[labels['cluster'] == classes]
+                labels_out = labels_row.iloc[0].to_dict()
+                print(labels_out)
+                path = labels_row['pathname'].values[0]
+                labels_out.pop('pathname')
+                image_labels_mapping[path] = labels_out
 
     return image_labels_mapping
         
@@ -189,7 +194,7 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if all([os.path.exists(path) for path in paths]):
+    if False:#all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
         labels_train = pd.read_csv(LABELS_TRAIN_PATH)
         labels_val = pd.read_csv(LABELS_VAL_PATH)
@@ -405,9 +410,7 @@ def prepare_data():
     
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
-    print("challenge accepted")
     data = load_images_data(cluster_data)
-
 
     # Split labels into train/val/test sets
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
