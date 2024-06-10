@@ -142,13 +142,11 @@ def create_image_labels_mapping(labels_data):
     A dictionary with image file paths as keys and dicts with labels and ViewPosition as values.
     '''
     image_labels_mapping = {}
-    previous = len(image_labels_mapping)
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         propertyFE = labels['PropertyFE'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
             if classes not in labels['cluster'].values:
-                print("No image for this class")
                 path = '/work/FAC/HEC/DEEP/shoude/ml_green_building/images_full_data/black.png'
                 labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes, 'pathname': path}
                 unique_index = (property , classes)
@@ -158,8 +156,6 @@ def create_image_labels_mapping(labels_data):
                 labels_out = labels_row.iloc[0].to_dict()
                 unique_index = (property , classes)
                 image_labels_mapping[unique_index] = labels_out
-        print('The image_labels_mapping: ', len(image_labels_mapping)-previous)
-        previous = len(image_labels_mapping)
 
     return image_labels_mapping
         
@@ -173,10 +169,14 @@ def join_multi(labels_data):
 
     # Image data
     image_labels_mapping = create_image_labels_mapping(labels_data) # 5 classes too
-    df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').drop(columns = ['index'])
-    df_img = df_img.reset_index()
+    df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
+    print('The image_labels_mapping: ', df_img.head(50))
+
+    # remove the index and replace it with numbers
+    df_img.reset_index(inplace = True)
+    df_img.drop(columns = ['level_0', 'level_1'], inplace = True)
     print('The image_labels_mapping: ', df_img.head(50))
     
     print('The image_labels_mapping: ', df_img.shape)
