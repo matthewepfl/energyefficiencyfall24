@@ -163,7 +163,7 @@ def create_image_labels_mapping(labels_data):
 
     # CHECK
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
-    print("The df_img looks like: ", df_img.head(20)
+    print("The df_img looks like: ", df_img.head(20))
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img = df_img.groupby('Property Reference Id').size()
     print("There are clusters for :", df_img.groupby(df_img).size())
