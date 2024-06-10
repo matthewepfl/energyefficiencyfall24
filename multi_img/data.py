@@ -157,7 +157,14 @@ def create_image_labels_mapping(labels_data):
                 path = labels_row['pathname'].values[0]
                 labels_out.pop('pathname')
                 image_labels_mapping[path] = labels_out
-            #print('The image_labels_mapping: ', image_labels_mapping[path], 'for the path: ', path)
+            print('The image_labels_mapping: ', image_labels_mapping[path], 'for the path: ', path)
+
+        # check that the 6 classes are done
+        df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
+        df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
+        # group by the property reference id and check if all the classes are there
+        df_img = df_img.groupby('Property Reference Id').size()
+        print("There are clusters for :", df_img.groupby(df_img).size())
 
     return image_labels_mapping
         
@@ -177,11 +184,6 @@ def join_multi(labels_data):
     print('The image_labels_mapping: ', df_img.head(50))
     
     df_img = df_img[df_img['cluster'].isin(['0', '1', '2', '3', '4', '5'])]
-
-    # Group by study_id and subject_id and ViewPosition and keep the first row
-    print("The shape of the image data: ", df_img.shape)
-    df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
-    print("The shape of the image data: ", df_img.shape)
 
     # Return the image data to a dictionary
     dict_img = df_img.set_index('index').T.to_dict()
