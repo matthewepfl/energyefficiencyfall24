@@ -321,9 +321,11 @@ class MultimodalDataset(Dataset):
         # Get labels from the image data
         labels_path = path_0 if path_0 else path_1 if path_1 else path_2 if path_2 else path_3 if path_3 else path_4 if path_4 else path_5
         print("the labels path is: ", labels_path)
+        
         if not labels_path:
             raise ValueError(f'No labels path found for {property_cluster_pair}.')
-        labels = self.data_dict[labels_path]['PropertyFE']
+        property, cluster = property_cluster_pair[0], property_cluster_pair[1]
+        labels = self.data_dict[(property, cluster)]['PropertyFE']
         label_tensor = torch.tensor(labels, dtype=torch.float32).unsqueeze(0)
         if torch.any(label_tensor < 0):
             print(f'Negative label values for {property_cluster_pair}: {label_tensor}')
