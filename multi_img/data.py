@@ -145,7 +145,7 @@ def create_image_labels_mapping(labels_data):
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         for classes in [0, 1, 2, 3, 4, 5]:
-            if labels[labels['cluster'] == classes] == None:
+            if labels[labels['cluster'] == classes].empty:
                 print('No labels for this cluster')
                 print(labels)
                 labels_out = {'Property Reference Id': property, 'cluster': classes}
