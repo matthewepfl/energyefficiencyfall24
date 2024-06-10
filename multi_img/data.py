@@ -170,16 +170,18 @@ def join_multi(labels_data):
     print('Join multi input data')
 
     # Image data
-    image_labels_mapping = create_image_labels_mapping(labels_data) # 6 classes
+    image_labels_mapping = create_image_labels_mapping(labels_data) # 5 classes too
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
+    print('The image_labels_mapping: ', df_img.head(50))
     
-    # Keep only 0 and 1 images
     df_img = df_img[df_img['cluster'].isin(['0', '1', '2', '3', '4', '5'])]
 
     # Group by study_id and subject_id and ViewPosition and keep the first row
+    print("The shape of the image data: ", df_img.shape)
     df_img = df_img.groupby(['Property Reference Id', 'cluster']).first().reset_index()
+    print("The shape of the image data: ", df_img.shape)
 
     # Return the image data to a dictionary
     dict_img = df_img.set_index('index').T.to_dict()
@@ -452,7 +454,7 @@ def load_data(image_data, vision=None):
 if __name__ == '__main__': 
 
     image_data = prepare_data()
-    #train_data, val_data, test_data = load_data(image_data, vision='vit')
+    train_data, val_data, test_data = load_data(image_data, vision='vit')
 
 
 
