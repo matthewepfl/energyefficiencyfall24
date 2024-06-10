@@ -147,7 +147,6 @@ def create_image_labels_mapping(labels_data):
         propertyFE = labels['PropertyFE'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
             if labels[labels['cluster'] == classes].empty:
-                #print('No labels for this cluster')
                 labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes}
                 path = '/work/FAC/HEC/DEEP/shoude/ml_green_building/images_full_data/black.png'
                 image_labels_mapping[path] = labels_out
@@ -157,14 +156,13 @@ def create_image_labels_mapping(labels_data):
                 path = labels_row['pathname'].values[0]
                 labels_out.pop('pathname')
                 image_labels_mapping[path] = labels_out
-            print('The image_labels_mapping: ', len(image_labels_mapping))
+        print('The image_labels_mapping: ', len(image_labels_mapping))
 
-        # check that the 6 classes are done
-        df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
-        df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
-        # group by the property reference id and check if all the classes are there
-        df_img = df_img.groupby('Property Reference Id').size()
-        #print("There are clusters for :", df_img.groupby(df_img).size())
+    # CHECK
+    df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
+    df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
+    df_img = df_img.groupby('Property Reference Id').size()
+    print("There are clusters for :", df_img.groupby(df_img).size())
 
     return image_labels_mapping
         
