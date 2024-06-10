@@ -282,10 +282,8 @@ class MultimodalDataset(Dataset):
 
     def _organize_paths(self):
         organized = {}
-        print(self.data_dict)
         for property_id, cluster in self.data_dict.keys():
             data = self.data_dict[(property_id, cluster)]
-            print(data)
             path = data['pathname']
             if property_id not in organized:
                 organized[property_id] = {'0': None, '1': None, '2': None, '3': None, '4': None, '5': None}
@@ -322,6 +320,7 @@ class MultimodalDataset(Dataset):
 
         # Get labels from the image data
         labels_path = path_0 if path_0 else path_1 if path_1 else path_2 if path_2 else path_3 if path_3 else path_4 if path_4 else path_5
+        print("the labels path is: ", labels_path)
         if not labels_path:
             raise ValueError(f'No labels path found for {property_cluster_pair}.')
         labels = self.data_dict[labels_path]['PropertyFE']
