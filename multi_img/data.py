@@ -62,7 +62,7 @@ ENERGY_PATH = os.path.join(DATA_DIR, 'Listings_FE.csv')
 LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'train_data_properties.npy')
 LABELS_VAL_PATH = os.path.join(DATA_DIR, 'val_data_properties.npy')
 LABELS_TEST_PATH = os.path.join(DATA_DIR, 'test_data_properties.npy')
-CLUSTERED_PATH = os.path.join(DATA_DIR, f'clean_clustered_images_greater{minim_amount_classes}.csv')
+CLUSTERED_PATH = os.path.join(DATA_DIR, f'Clusters_images/clean_clustered_images_greater{minim_amount_classes}.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
 
