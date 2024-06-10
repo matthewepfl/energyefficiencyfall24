@@ -161,13 +161,6 @@ def create_image_labels_mapping(labels_data):
         print('The image_labels_mapping: ', len(image_labels_mapping)-previous)
         previous = len(image_labels_mapping)
 
-    # CHECK
-    df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
-    print("The df_img looks like: ", df_img.head(20))
-    df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
-    df_img = df_img.groupby('Property Reference Id').size()
-    print("There are clusters for :", df_img.groupby(df_img).size())
-
     return image_labels_mapping
         
 def join_multi(labels_data):
@@ -180,12 +173,15 @@ def join_multi(labels_data):
 
     # Image data
     image_labels_mapping = create_image_labels_mapping(labels_data) # 5 classes too
-    df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
+    df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').drop(columns = ['index'])
+    df_img = df_img.reset_index()
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
     print('The image_labels_mapping: ', df_img.head(50))
     
+    print('The image_labels_mapping: ', df_img.shape)
     df_img = df_img[df_img['cluster'].isin(['0', '1', '2', '3', '4', '5'])]
+    print('The image_labels_mapping: ', df_img.shape)
 
     # Return the image data to a dictionary
     dict_img = df_img.set_index('index').T.to_dict()
@@ -296,8 +292,8 @@ class MultimodalDataset(Dataset):
 
     def _organize_paths(self):
         organized = {}
-        for path in self.data_dict.keys():
-            data = self.data_dict[path]
+        for i in self.data_dict.keys():
+            data = self.data_dict[i]
             property_id = data['Property Reference Id']
             cluster = data['cluster']
             key = (property_id)
