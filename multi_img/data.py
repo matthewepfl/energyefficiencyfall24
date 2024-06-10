@@ -149,22 +149,21 @@ def create_image_labels_mapping(labels_data):
         for classes in [0, 1, 2, 3, 4, 5]:
             if classes not in labels['cluster'].values:
                 print("No image for this class")
-                labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes}
                 path = '/work/FAC/HEC/DEEP/shoude/ml_green_building/images_full_data/black.png'
-                print('BEFORE:\tThe image_labels_mapping: ', len(image_labels_mapping))
-                image_labels_mapping[path] = labels_out
-                print('AFTER:\tThe image_labels_mapping: ', len(image_labels_mapping))
+                labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes, 'pathname': path}
+                unique_index = (property , classes)
+                image_labels_mapping[unique_index] = labels_out
             else:
                 labels_row = labels[labels['cluster'] == classes]
                 labels_out = labels_row.iloc[0].to_dict()
-                path = labels_row['pathname'].values[0]
-                labels_out.pop('pathname')
-                image_labels_mapping[path] = labels_out
+                unique_index = (property , classes)
+                image_labels_mapping[unique_index] = labels_out
         print('The image_labels_mapping: ', len(image_labels_mapping)-previous)
         previous = len(image_labels_mapping)
 
     # CHECK
-    df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index').reset_index()
+    df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
+    print("The df_img looks like: ", df_img.head(20)
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img = df_img.groupby('Property Reference Id').size()
     print("There are clusters for :", df_img.groupby(df_img).size())
