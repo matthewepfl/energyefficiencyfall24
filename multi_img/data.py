@@ -282,8 +282,10 @@ class MultimodalDataset(Dataset):
 
     def _organize_paths(self):
         organized = {}
+        print(self.data_dict)
         for property_id, cluster in self.data_dict.keys():
             data = self.data_dict[(property_id, cluster)]
+            print(data)
             path = data['pathname']
             if property_id not in organized:
                 organized[property_id] = {'0': None, '1': None, '2': None, '3': None, '4': None, '5': None}
