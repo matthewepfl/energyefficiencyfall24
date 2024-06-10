@@ -147,9 +147,12 @@ def create_image_labels_mapping(labels_data):
         propertyFE = labels['PropertyFE'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
             if labels[labels['cluster'] == classes].empty:
+                print("No image for this class")
                 labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes}
                 path = '/work/FAC/HEC/DEEP/shoude/ml_green_building/images_full_data/black.png'
+                print('BEFORE:\tThe image_labels_mapping: ', len(image_labels_mapping))
                 image_labels_mapping[path] = labels_out
+                print('AFTER:\tThe image_labels_mapping: ', len(image_labels_mapping))
             else:
                 labels_row = labels[labels['cluster'] == classes]
                 labels_out = labels_row.iloc[0].to_dict()
