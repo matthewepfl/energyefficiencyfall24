@@ -173,11 +173,6 @@ def join_multi(labels_data):
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
     print('The image_labels_mapping: ', df_img.head(50))
-
-    # remove the index and replace it with numbers
-    df_img.reset_index(inplace = True)
-    df_img.drop(columns = ['level_0', 'level_1'], inplace = True)
-    print('The image_labels_mapping: ', df_img.head(50))
     
     print('The image_labels_mapping: ', df_img.shape)
     df_img = df_img[df_img['cluster'].isin(['0', '1', '2', '3', '4', '5'])]
