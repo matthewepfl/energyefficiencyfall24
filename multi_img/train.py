@@ -139,12 +139,13 @@ def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed,
     trainer.train()
 
     # Save the model
+    print("The checkpoint path is: ", CHECKPOINTS_DIR)
     model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
     torch.save(model.state_dict(), model_path)
 
 def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision):
     if not do_train and checkpoint_path:
-        model.load_state_dict(torch.load(checkpoint_path))
+        model.load_state_dict(torch.load(checkpoint_path + '/pytorch_model.bin'))
         print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
 
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR,
