@@ -13,6 +13,9 @@ images_df = images_df.groupby(['Property Reference Id', 'cluster']).first().rese
 # Count how many images that belong to each cluster each PRI has.
 image_counts = images_df.groupby('Property Reference Id').size()
 
+print(image_counts)
+
+
 # for i in [3,4,5,6]:
 #     # Choose only the ones with 6 clusters.
 #     valid_property_ids = image_counts[image_counts == i].index
