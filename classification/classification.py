@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
     prediction_classification_task = kmeans.fit_predict(features_flattened)
     images_df['cluster'] = prediction_classification_task
-    images_df.to_csv(SAVE_PATH + 'Clusters_images/image_clusters.csv', index=False)
+    images_df.to_csv(SAVE_PATH + 'Clusters_images/clustered_images.csv', index=False)
 
     for i in range(best_number_of_clusters):
         plot_images_from_cluster(i, images_df)
