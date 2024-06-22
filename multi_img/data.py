@@ -189,7 +189,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if all([os.path.exists(path) for path in paths]):
+    if False:#all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
         labels_train = np.load(LABELS_TRAIN_PATH)
         labels_val = np.load(LABELS_VAL_PATH)
@@ -410,9 +410,9 @@ def load_data(image_data, vision=None):
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
     print(f'Created datasets:\tTrain: {len(train_data)}\tValidation: {len(val_data)}\tTest: {len(test_data)} samples.')
 
-    train_data_properties = train_data.properties
-    val_data_properties = val_data.properties
-    test_data_properties = test_data.properties
+    train_data_properties = np.array(train_data.properties)
+    val_data_properties =  np.array(val_data.properties)
+    test_data_properties = np.array(test_data.properties)
 
     # save the properties as nmpy
     np.save(DATA_DIR + f'/train_data_properties{minim_amount_classes}.npy', train_data_properties)
