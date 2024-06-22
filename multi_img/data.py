@@ -172,8 +172,6 @@ def join_multi(labels_data):
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
-    print('The image data: ', df_img.shape)
-    print('The image data: ', df_img.head(30))
 
     # Create a dictionary
     dict_img = df_img.T.to_dict()
@@ -415,8 +413,10 @@ def prepare_data():
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
     image_data_train = join_multi(lab_train) 
+    
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
     print(f'Loaded image data:\nTrain: {len(image_data_train)}\nValidation: {len(image_data_val)}\nTest: {len(image_data_test)}')
+    # up until here it's correct
         
     return image_data
 
@@ -428,6 +428,15 @@ def load_data(image_data, vision=None):
         vision (str): Type of vision encoder 'resnet50', 'densenet121' or 'vit' (Default: None --> No images)
     '''
     print(f'LOADING DATA (vision: {vision})')
+    print('the input looks like this:')
+    count = 0   
+    for key, value in image_data['train'].items():
+        print(key, len(value))
+        count += 1
+        if count == 25:
+            break
+
+
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
@@ -448,6 +457,7 @@ def load_data(image_data, vision=None):
 if __name__ == '__main__': 
 
     image_data = prepare_data()
+    # up until here it's correct
     train_data, val_data, test_data = load_data(image_data, vision='vit')
     print(train_data)
 
