@@ -191,9 +191,9 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
     
     if all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
-        labels_train = np.load(LABELS_TRAIN_PATH)
-        labels_val = np.load(LABELS_VAL_PATH)
-        labels_test = np.load(LABELS_TEST_PATH)
+        labels_train = pd.read_csv(LABELS_TRAIN_PATH)
+        labels_val = pd.read_csv(LABELS_VAL_PATH)
+        labels_test = pd.read_csv(LABELS_TEST_PATH)
 
     else:
         print('Splitting:\tTabular data and labels into train, val, and test sets.')
@@ -217,9 +217,9 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
 
         print('Splitting:\tSaving train, val, and test sets.')
-        np.save(LABELS_TRAIN_PATH, labels_train)
-        np.save(LABELS_VAL_PATH, labels_val)
-        np.save(LABELS_TEST_PATH, labels_test)
+        labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
+        labels_val.to_csv(LABELS_VAL_PATH, index=False)
+        labels_test.to_csv(LABELS_TEST_PATH, index=False)
 
         # Check proportions of total, train, val, and test sets
         total_len = len(labels_train) + len(labels_val) + len(labels_test)
