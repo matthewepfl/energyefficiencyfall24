@@ -169,18 +169,12 @@ def join_multi(labels_data):
 
     # Image data
     image_labels_mapping = create_image_labels_mapping(labels_data) # 5 classes too
-    for i in range(25):
-        print('The image labels mapping: ', list(image_labels_mapping.values())[i])
-        print('The image labels mapping: ', list(image_labels_mapping.keys())[i])
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
 
     # Create a dictionary
     dict_img = df_img.T.to_dict()
-    for i in range(25):
-        print('The image labels mapping: ', list(dict_img.values())[i])
-        print('The image labels mapping: ', list(dict_img.keys())[i])
 
     return dict_img
     
@@ -285,6 +279,14 @@ class MultimodalDataset(Dataset):
         self.organized_paths = self._organize_paths()
         self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
                                 and v['3'] is not None and v['4'] is not None and v['5'] is not None}
+        
+        print(f'Loaded {len(self.organized_paths)} samples.')
+        c = 0
+        for key, value in self.organized_paths.items():
+            print(key, value)
+            c += 1
+            if c == 10:
+                break
         self.properties = list(self.organized_paths.keys())
 
     def _organize_paths(self):
@@ -437,9 +439,9 @@ def load_data(image_data, vision=None):
     print('the input looks like this:')
     count = 0   
     for key, value in image_data['train'].items():
-        print(key, len(value))
+        print(key, value)
         count += 1
-        if count == 25:
+        if count == 15:
             break
 
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
