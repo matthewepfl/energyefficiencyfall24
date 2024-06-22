@@ -151,5 +151,10 @@ if __name__ == '__main__':
         plot_images_from_cluster(i, images_df)
         print(f'Cluster {i} plotted and saved')
 
-    print("The number of images in the dataset is: ", len(images_df), "and the file looks like this: \n", images_df.head())
+    print("The number of images in the dataset is: ", len(images_df), "and the file looks like this: \n", images_df.head(50))
 
+    # Group by images and clusteres and select randomly the first one.
+    images_df = images_df.groupby(['Property Reference Id', 'cluster']).first().reset_index()
+    image_counts = images_df.groupby('Property Reference Id').size()
+
+    print(image_counts.groupby(image_counts).size())
