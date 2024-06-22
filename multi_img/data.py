@@ -14,6 +14,8 @@ from torchvision import transforms
 from transformers import ViTImageProcessor
 import pickle
 from tqdm import tqdm
+from PIL import Image
+from torchvision.transforms import Compose
 
 from torchvision.transforms import (
     CenterCrop,
@@ -276,22 +278,7 @@ class MultimodalDataset(Dataset):
         if vision is not None: 
             self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
         
-        # self.organized_paths = self._organize_paths()
-        # self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
-        #                         and v['3'] is not None and v['4'] is not None and v['5'] is not None}
-        
-        self.properties = list(self.data_dict.keys())
-
-    def _organize_paths(self):
-        organized = {}
-        for property_id, cluster in self.data_dict.keys():
-            data = self.data_dict[(property_id, cluster)]
-            path = data['pathname']
-            if property_id not in organized:
-                organized[property_id] = {'0': None, '1': None, '2': None, '3': None, '4': None, '5': None}
-            organized[property_id][cluster] = path
-
-        return organized
+        self.properties = [x[0] for x in list(self.data_dict.keys())]
 
     def __len__(self):
         return len(self.data_dict) // 6 # CHECK 
@@ -438,7 +425,6 @@ def load_data(image_data, vision=None):
     np.save(DATA_DIR + f'train_data_properties{minim_amount_classes}.npy', train_data_properties)
     np.save(DATA_DIR + f'val_data_properties{minim_amount_classes}.npy', val_data_properties)
     np.save(DATA_DIR + f'test_data_properties{minim_amount_classes}.npy', test_data_properties)
-
 
     return train_data, val_data, test_data
 
