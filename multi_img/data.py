@@ -172,6 +172,8 @@ def join_multi(labels_data):
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
+    print('The image data: ', df_img.shape)
+    print('The image data: ', df_img.head(30))
 
     # Create a dictionary
     dict_img = df_img.T.to_dict()
@@ -180,6 +182,7 @@ def join_multi(labels_data):
     
 # ---------------------------------------- PREPROCESSING ---------------------------------------- #
 
+# correct
 def split(labels, val_size=0.1, test_size=0.15, seed=42):
     '''
     Split tabular data and labels into train, val, and test sets.
@@ -409,11 +412,11 @@ def prepare_data():
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
     print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
 
-
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
     image_data_train = join_multi(lab_train) 
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
+    print(f'Loaded image data:\nTrain: {len(image_data_train)}\nValidation: {len(image_data_val)}\nTest: {len(image_data_test)}')
         
     return image_data
 
