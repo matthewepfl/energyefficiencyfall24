@@ -301,12 +301,12 @@ class MultimodalDataset(Dataset):
         property, cluster = property_cluster_pair
 
         # Get the paths for the PA and Lateral images
-        path_0 = self.data_dict[(property, 0)]
-        path_1 = self.data_dict[(property, 1)]
-        path_2 = self.data_dict[(property, 2)]
-        path_3 = self.data_dict[(property, 3)]
-        path_4 = self.data_dict[(property, 4)]
-        path_5 = self.data_dict[(property, 5)]
+        path_0 = self.data_dict[(property, 0)]['pathname']
+        path_1 = self.data_dict[(property, 1)]['pathname']
+        path_2 = self.data_dict[(property, 2)]['pathname']
+        path_3 = self.data_dict[(property, 3)]['pathname']
+        path_4 = self.data_dict[(property, 4)]['pathname']
+        path_5 = self.data_dict[(property, 5)]['pathname']
 
         # Get the labels
         labels = self.data_dict[(property, cluster)]['PropertyFE']
