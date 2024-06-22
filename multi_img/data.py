@@ -424,13 +424,6 @@ def load_data(image_data, vision=None):
         vision (str): Type of vision encoder 'resnet50', 'densenet121' or 'vit' (Default: None --> No images)
     '''
     print(f'LOADING DATA (vision: {vision})')
-    print('the input looks like this:')
-    count = 0   
-    for key, value in image_data['train'].items():
-        print(key, value)
-        count += 1
-        if count == 15:
-            break
 
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
@@ -454,7 +447,11 @@ if __name__ == '__main__':
     image_data = prepare_data()
     # up until here it's correct
     train_data, val_data, test_data = load_data(image_data, vision='vit')
-    print(train_data)
+    for i in range(5):
+        print(train_data[i])
+        print(val_data[i])
+        print(test_data[i])
+        print('\n')
 
 
 
