@@ -169,12 +169,18 @@ def join_multi(labels_data):
 
     # Image data
     image_labels_mapping = create_image_labels_mapping(labels_data) # 5 classes too
+    for i in range(25):
+        print('The image labels mapping: ', list(image_labels_mapping.values())[i])
+        print('The image labels mapping: ', list(image_labels_mapping.keys())[i])
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
 
     # Create a dictionary
     dict_img = df_img.T.to_dict()
+    for i in range(25):
+        print('The image labels mapping: ', list(dict_img.values())[i])
+        print('The image labels mapping: ', list(dict_img.keys())[i])
 
     return dict_img
     
@@ -435,7 +441,6 @@ def load_data(image_data, vision=None):
         count += 1
         if count == 25:
             break
-
 
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
