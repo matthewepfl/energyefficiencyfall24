@@ -189,7 +189,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if all([os.path.exists(path) for path in paths]):
+    if False:#all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
         labels_train = np.load(LABELS_TRAIN_PATH)
         labels_val = np.load(LABELS_VAL_PATH)
@@ -215,6 +215,11 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
         labels_train = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_train)]
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
+
+        print('Splitting:\tSaving train, val, and test sets.')
+        np.save(LABELS_TRAIN_PATH, labels_train)
+        np.save(LABELS_VAL_PATH, labels_val)
+        np.save(LABELS_TEST_PATH, labels_test)
 
         # Check proportions of total, train, val, and test sets
         total_len = len(labels_train) + len(labels_val) + len(labels_test)
@@ -409,16 +414,6 @@ def load_data(image_data, vision=None):
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
     print(f'Created datasets:\tTrain: {len(train_data)}\tValidation: {len(val_data)}\tTest: {len(test_data)} samples.')
-
-    train_data_properties = np.array(train_data.properties)
-    val_data_properties =  np.array(val_data.properties)
-    test_data_properties = np.array(test_data.properties)
-
-    # save the properties as nmpy
-    np.save(DATA_DIR + f'/train_data_properties{minim_amount_classes}.npy', train_data_properties)
-    np.save(DATA_DIR + f'/val_data_properties{minim_amount_classes}.npy', val_data_properties)
-    np.save(DATA_DIR + f'/test_data_properties{minim_amount_classes}.npy', test_data_properties)
-    print('Properties saved\n')
 
     return train_data, val_data, test_data
 
