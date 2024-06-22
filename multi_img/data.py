@@ -279,6 +279,8 @@ class MultimodalDataset(Dataset):
         # self.organized_paths = self._organize_paths()
         # self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
         #                         and v['3'] is not None and v['4'] is not None and v['5'] is not None}
+        
+        self.properties = list(self.organized_paths.keys())
 
     def _organize_paths(self):
         organized = {}
