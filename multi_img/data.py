@@ -61,9 +61,9 @@ IMAGES_DF_PATH = os.path.join(DATA_DIR, 'images_df.csv')
 LISTINGS_PATH = os.path.join(DATA_DIR, 'Listings_FE.pkl')
 INQUIRIES_PATH = os.path.join(DATA_DIR, 'inquiries_full.pkl')
 ENERGY_PATH = os.path.join(DATA_DIR, 'Listings_FE.csv')
-LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'train_data_properties.npy')
-LABELS_VAL_PATH = os.path.join(DATA_DIR, 'val_data_properties.npy')
-LABELS_TEST_PATH = os.path.join(DATA_DIR, 'test_data_properties.npy')
+LABELS_TRAIN_PATH = os.path.join(DATA_DIR, f'train_data_properties{minim_amount_classes}.npy')
+LABELS_VAL_PATH = os.path.join(DATA_DIR, f'val_data_properties{minim_amount_classes}.npy')
+LABELS_TEST_PATH = os.path.join(DATA_DIR, f'test_data_properties{minim_amount_classes}.npy')
 CLUSTERED_PATH = os.path.join(DATA_DIR, f'Clusters_images/clean_clustered_images_greater{minim_amount_classes}.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
@@ -189,7 +189,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if False:#all([os.path.exists(path) for path in paths]):
+    if all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
         labels_train = np.load(LABELS_TRAIN_PATH)
         labels_val = np.load(LABELS_VAL_PATH)
@@ -419,7 +419,7 @@ def load_data(image_data, vision=None):
     np.save(DATA_DIR + f'/val_data_properties{minim_amount_classes}.npy', val_data_properties)
     np.save(DATA_DIR + f'/test_data_properties{minim_amount_classes}.npy', test_data_properties)
     print('Properties saved\n')
-    
+
     return train_data, val_data, test_data
 
 if __name__ == '__main__': 
