@@ -276,18 +276,9 @@ class MultimodalDataset(Dataset):
         if vision is not None: 
             self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
         
-        self.organized_paths = self._organize_paths()
-        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
-                                and v['3'] is not None and v['4'] is not None and v['5'] is not None}
-        
-        print(f'Loaded {len(self.organized_paths)} samples.')
-        c = 0
-        for key, value in self.organized_paths.items():
-            print(key, value)
-            c += 1
-            if c == 10:
-                break
-        self.properties = list(self.organized_paths.keys())
+        # self.organized_paths = self._organize_paths()
+        # self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
+        #                         and v['3'] is not None and v['4'] is not None and v['5'] is not None}
 
     def _organize_paths(self):
         organized = {}
@@ -301,7 +292,7 @@ class MultimodalDataset(Dataset):
         return organized
 
     def __len__(self):
-        return len(self.organized_paths)
+        return len(self.data_dict) // 6 # CHECK 
 
     def _load_and_process_image(self, path):
         if path:
@@ -313,27 +304,22 @@ class MultimodalDataset(Dataset):
 
     def __getitem__(self, idx):
 
-        if idx >= len(self.organized_paths):
-            raise IndexError(f"Index {idx} out of range. Dataset has {len(self.organized_paths)} samples.")
+        if idx >= len(self.data_dict):
+            raise IndexError(f"Index {idx} out of range. Dataset has {len(self.data_dict)} samples.")
         
         # Get the subject_id and study_id for this index
-        property_cluster_pair = list(self.organized_paths.keys())[idx]
+        property_cluster_pair = list(self.data_dict.keys())[idx]
+        property, cluster = property_cluster_pair
 
         # Get the paths for the PA and Lateral images
-        path_0 = self.organized_paths[property_cluster_pair]['0']
-        path_1 = self.organized_paths[property_cluster_pair]['1']
-        path_2 = self.organized_paths[property_cluster_pair]['2']
-        path_3 = self.organized_paths[property_cluster_pair]['3']
-        path_4 = self.organized_paths[property_cluster_pair]['4']
-        path_5 = self.organized_paths[property_cluster_pair]['5']
+        path_0 = self.data_dict[(property, 0)]
+        path_1 = self.data_dict[(property, 1)]
+        path_2 = self.data_dict[(property, 2)]
+        path_3 = self.data_dict[(property, 3)]
+        path_4 = self.data_dict[(property, 4)]
+        path_5 = self.data_dict[(property, 5)]
 
-        # Get labels from the image data
-        labels_path = path_0 if path_0 else path_1 if path_1 else path_2 if path_2 else path_3 if path_3 else path_4 if path_4 else path_5
-        print("the labels path is: ", labels_path)
-        
-        if not labels_path:
-            raise ValueError(f'No labels path found for {property_cluster_pair}.')
-        property, cluster = property_cluster_pair[0], property_cluster_pair[1]
+        # Get the labels
         labels = self.data_dict[(property, cluster)]['PropertyFE']
         label_tensor = torch.tensor(labels, dtype=torch.float32).unsqueeze(0)
         if torch.any(label_tensor < 0):
