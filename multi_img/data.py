@@ -183,17 +183,17 @@ def join_multi(labels_data):
 # ---------------------------------------- PREPROCESSING ---------------------------------------- #
 
 # correct
-def split(labels, val_size=0.1, test_size=0.15, seed=42):
+def split(labels, val_size=0.15, test_size=0.20, seed=42):
     '''
     Split tabular data and labels into train, val, and test sets.
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if False:#all([os.path.exists(path) for path in paths]):
+    if all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
-        labels_train = pd.read_csv(LABELS_TRAIN_PATH)
-        labels_val = pd.read_csv(LABELS_VAL_PATH)
-        labels_test = pd.read_csv(LABELS_TEST_PATH)
+        labels_train = np.load(LABELS_TRAIN_PATH, allow_pickle=True)
+        labels_val = np.load(LABELS_VAL_PATH, allow_pickle=True)
+        labels_test = np.load(LABELS_TEST_PATH, allow_pickle=True)
 
     else:
         print('Splitting:\tTabular data and labels into train, val, and test sets.')
@@ -215,11 +215,6 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         labels_train = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_train)]
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
-
-        # Save the train, val, and test sets
-        labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
-        labels_val.to_csv(LABELS_VAL_PATH, index=False)
-        labels_test.to_csv(LABELS_TEST_PATH, index=False)  
 
         # Check proportions of total, train, val, and test sets
         total_len = len(labels_train) + len(labels_val) + len(labels_test)
@@ -311,8 +306,6 @@ class MultimodalDataset(Dataset):
         # Get the labels
         labels = self.data_dict[(property, cluster)]['PropertyFE']
         label_tensor = torch.tensor(labels, dtype=torch.float32).unsqueeze(0)
-        if torch.any(label_tensor < 0):
-            print(f'Negative label values for {property_cluster_pair}: {label_tensor}')
         
         inputs = {'labels': label_tensor}
         
@@ -431,13 +424,7 @@ def load_data(image_data, vision=None):
 if __name__ == '__main__': 
 
     image_data = prepare_data()
-    # up until here it's correct
     train_data, val_data, test_data = load_data(image_data, vision='vit')
-    for i in range(5):
-        print(train_data[i])
-        print(val_data[i])
-        print(test_data[i])
-        print('\n')
 
 
 
