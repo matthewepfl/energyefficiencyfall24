@@ -14,6 +14,8 @@ from torchvision import transforms
 from transformers import ViTImageProcessor
 import pickle
 from tqdm import tqdm
+from PIL import Image
+from torchvision.transforms import Compose
 
 from torchvision.transforms import (
     CenterCrop,
@@ -43,7 +45,7 @@ dropout_rate = 0.4
 """
 
 workingOn = 'server' # 'server' or 'laptop
-minim_amount_classes = 5
+minim_amount_classes = 3
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
 # Global configurations
@@ -59,17 +61,17 @@ IMAGES_DF_PATH = os.path.join(DATA_DIR, 'images_df.csv')
 LISTINGS_PATH = os.path.join(DATA_DIR, 'Listings_FE.pkl')
 INQUIRIES_PATH = os.path.join(DATA_DIR, 'inquiries_full.pkl')
 ENERGY_PATH = os.path.join(DATA_DIR, 'Listings_FE.csv')
-LABELS_TRAIN_PATH = os.path.join(DATA_DIR, 'train_data_properties.npy')
-LABELS_VAL_PATH = os.path.join(DATA_DIR, 'val_data_properties.npy')
-LABELS_TEST_PATH = os.path.join(DATA_DIR, 'test_data_properties.npy')
+LABELS_TRAIN_PATH = os.path.join(DATA_DIR, f'train_data_properties{minim_amount_classes}.csv')
+LABELS_VAL_PATH = os.path.join(DATA_DIR, f'val_data_properties{minim_amount_classes}.csv')
+LABELS_TEST_PATH = os.path.join(DATA_DIR, f'test_data_properties{minim_amount_classes}.csv')
 CLUSTERED_PATH = os.path.join(DATA_DIR, f'Clusters_images/clean_clustered_images_greater{minim_amount_classes}.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
 
 def Efficiency(efficiency):
 
-    efficiency = efficiency[efficiency["Advertisement Version Id"] == 1]
-    efficiency = efficiency.groupby(["Property Reference Id", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") 
+    efficiency = efficiency[efficiency["Advertisement Version Id"] == 1] # change this I want the latest oneeeeeeeeeee
+    efficiency = efficiency.groupby(["Property Reference Id", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") # change this too # use more
     print('The efficiency: ', efficiency.shape)
 
     return efficiency
@@ -180,13 +182,14 @@ def join_multi(labels_data):
     
 # ---------------------------------------- PREPROCESSING ---------------------------------------- #
 
-def split(labels, val_size=0.1, test_size=0.15, seed=42):
+# correct
+def split(labels, val_size=0.15, test_size=0.20, seed=42):
     '''
     Split tabular data and labels into train, val, and test sets.
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if False:#all([os.path.exists(path) for path in paths]):
+    if all([os.path.exists(path) for path in paths]):
         print('Splitting:\LOADING pre-processed train, val, and test sets.')
         labels_train = pd.read_csv(LABELS_TRAIN_PATH)
         labels_val = pd.read_csv(LABELS_VAL_PATH)
@@ -213,10 +216,10 @@ def split(labels, val_size=0.1, test_size=0.15, seed=42):
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
 
-        # Save the train, val, and test sets
+        print('Splitting:\tSaving train, val, and test sets.')
         labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
         labels_val.to_csv(LABELS_VAL_PATH, index=False)
-        labels_test.to_csv(LABELS_TEST_PATH, index=False)  
+        labels_test.to_csv(LABELS_TEST_PATH, index=False)
 
         # Check proportions of total, train, val, and test sets
         total_len = len(labels_train) + len(labels_val) + len(labels_test)
@@ -275,24 +278,10 @@ class MultimodalDataset(Dataset):
         if vision is not None: 
             self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
         
-        self.organized_paths = self._organize_paths()
-        self.organized_paths = {k: v for k, v in self.organized_paths.items() if v['0'] is not None and v['1'] is not None and v['2'] is not None 
-                                and v['3'] is not None and v['4'] is not None and v['5'] is not None}
-        self.properties = list(self.organized_paths.keys())
-
-    def _organize_paths(self):
-        organized = {}
-        for property_id, cluster in self.data_dict.keys():
-            data = self.data_dict[(property_id, cluster)]
-            path = data['pathname']
-            if property_id not in organized:
-                organized[property_id] = {'0': None, '1': None, '2': None, '3': None, '4': None, '5': None}
-            organized[property_id][cluster] = path
-
-        return organized
+        self.properties = [x[0] for x in list(self.data_dict.keys())]
 
     def __len__(self):
-        return len(self.organized_paths)
+        return len(self.data_dict) // 6 # CHECK 
 
     def _load_and_process_image(self, path):
         if path:
@@ -304,31 +293,24 @@ class MultimodalDataset(Dataset):
 
     def __getitem__(self, idx):
 
-        if idx >= len(self.organized_paths):
-            raise IndexError(f"Index {idx} out of range. Dataset has {len(self.organized_paths)} samples.")
+        if idx >= len(self.data_dict):
+            raise IndexError(f"Index {idx} out of range. Dataset has {len(self.data_dict)} samples.")
         
         # Get the subject_id and study_id for this index
-        property_cluster_pair = list(self.organized_paths.keys())[idx]
+        property_cluster_pair = list(self.data_dict.keys())[idx]
+        property, cluster = property_cluster_pair
 
         # Get the paths for the PA and Lateral images
-        path_0 = self.organized_paths[property_cluster_pair]['0']
-        path_1 = self.organized_paths[property_cluster_pair]['1']
-        path_2 = self.organized_paths[property_cluster_pair]['2']
-        path_3 = self.organized_paths[property_cluster_pair]['3']
-        path_4 = self.organized_paths[property_cluster_pair]['4']
-        path_5 = self.organized_paths[property_cluster_pair]['5']
+        path_0 = self.data_dict[(property, 0)]['pathname']
+        path_1 = self.data_dict[(property, 1)]['pathname']
+        path_2 = self.data_dict[(property, 2)]['pathname']
+        path_3 = self.data_dict[(property, 3)]['pathname']
+        path_4 = self.data_dict[(property, 4)]['pathname']
+        path_5 = self.data_dict[(property, 5)]['pathname']
 
-        # Get labels from the image data
-        labels_path = path_0 if path_0 else path_1 if path_1 else path_2 if path_2 else path_3 if path_3 else path_4 if path_4 else path_5
-        print("the labels path is: ", labels_path)
-        
-        if not labels_path:
-            raise ValueError(f'No labels path found for {property_cluster_pair}.')
-        property, cluster = property_cluster_pair[0], property_cluster_pair[1]
+        # Get the labels
         labels = self.data_dict[(property, cluster)]['PropertyFE']
         label_tensor = torch.tensor(labels, dtype=torch.float32).unsqueeze(0)
-        if torch.any(label_tensor < 0):
-            print(f'Negative label values for {property_cluster_pair}: {label_tensor}')
         
         inputs = {'labels': label_tensor}
         
@@ -409,11 +391,13 @@ def prepare_data():
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
     print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
 
-
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
     image_data_train = join_multi(lab_train) 
+    
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
+    print(f'Loaded image data:\nTrain: {len(image_data_train)}\nValidation: {len(image_data_val)}\nTest: {len(image_data_test)}')
+    # up until here it's correct
         
     return image_data
 
@@ -425,20 +409,11 @@ def load_data(image_data, vision=None):
         vision (str): Type of vision encoder 'resnet50', 'densenet121' or 'vit' (Default: None --> No images)
     '''
     print(f'LOADING DATA (vision: {vision})')
+
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
     print(f'Created datasets:\tTrain: {len(train_data)}\tValidation: {len(val_data)}\tTest: {len(test_data)} samples.')
-
-    train_data_properties = train_data.properties
-    val_data_properties = val_data.properties
-    test_data_properties = test_data.properties
-
-    # save the properties as nmpy
-    np.save(DATA_DIR + f'train_data_properties{minim_amount_classes}.npy', train_data_properties)
-    np.save(DATA_DIR + f'val_data_properties{minim_amount_classes}.npy', val_data_properties)
-    np.save(DATA_DIR + f'test_data_properties{minim_amount_classes}.npy', test_data_properties)
-
 
     return train_data, val_data, test_data
 

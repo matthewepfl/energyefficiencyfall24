@@ -139,9 +139,10 @@ if __name__ == '__main__':
     print("The shape of the features is: ", features_flattened.shape)
 
     # Fit
-    best_number_of_clusters = optimal_K(features_flattened, brute_choice = False, plot = False)
-    print('The number of clusters chosen is: ', best_number_of_clusters)
-    kmeans = KMeans(n_clusters=best_number_of_clusters, random_state=22, n_init='k-means++')
+    # best_number_of_clusters = optimal_K(features_flattened, brute_choice = False, plot = False)
+    # print('The number of clusters chosen is: ', best_number_of_clusters, 'but forced to 6')
+    best_number_of_clusters = 6
+    kmeans = KMeans(n_clusters=best_number_of_clusters, random_state=22, n_init='auto')
 
     prediction_classification_task = kmeans.fit_predict(features_flattened)
     images_df['cluster'] = prediction_classification_task
@@ -151,5 +152,10 @@ if __name__ == '__main__':
         plot_images_from_cluster(i, images_df)
         print(f'Cluster {i} plotted and saved')
 
-    print("The number of images in the dataset is: ", len(images_df), "and the file looks like this: \n", images_df.head())
+    print("The number of images in the dataset is: ", len(images_df), "and the file looks like this: \n", images_df.head(50))
 
+    # Group by images and clusteres and select randomly the first one.
+    images_df = images_df.groupby(['Property Reference Id', 'cluster']).first().reset_index()
+    image_counts = images_df.groupby('Property Reference Id').size()
+
+    print('\n', image_counts.groupby(image_counts).size())
