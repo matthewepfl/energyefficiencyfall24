@@ -139,8 +139,8 @@ if __name__ == '__main__':
     print("The shape of the features is: ", features_flattened.shape)
 
     # Fit
-    best_number_of_clusters = optimal_K(features_flattened, brute_choice = False, plot = False)
-    print('The number of clusters chosen is: ', best_number_of_clusters, 'but forced to 6')
+    # best_number_of_clusters = optimal_K(features_flattened, brute_choice = False, plot = False)
+    # print('The number of clusters chosen is: ', best_number_of_clusters, 'but forced to 6')
     best_number_of_clusters = 6
     kmeans = KMeans(n_clusters=best_number_of_clusters, random_state=22, n_init='auto')
 
