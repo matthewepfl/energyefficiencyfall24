@@ -158,4 +158,4 @@ if __name__ == '__main__':
     images_df = images_df.groupby(['Property Reference Id', 'cluster']).first().reset_index()
     image_counts = images_df.groupby('Property Reference Id').size()
 
-    print(image_counts.groupby(image_counts).size())
+    print('\n', image_counts.groupby(image_counts).size())
