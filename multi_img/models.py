@@ -26,19 +26,23 @@ class RegressionHead(nn.Module):
         num_classes (int): Number of classes
         num_labels (int): Number of labels for each class
     '''
-    def __init__(self, dim_input):
+    def __init__(self, dim_input, hidden_dim=[512, 128], dropout_prob=0.0, batch_norm=False):
         super(RegressionHead, self).__init__()
         self.dim_input = dim_input
-        self.hidden = nn.Linear(self.dim_input, 1024)
-        self.hidden2 = nn.Linear(1024, 512)
-        self.regression = nn.Linear(512, 1)
+        self.hidden = []
+        for dimension in hidden_dim:
+            self.hidden.append(nn.Linear(self.dim_input, dimension))
+            # if batch_norm:
+            #     self.hidden.append(nn.BatchNorm1d(dimension))
+            # self.hidden.append(nn.ReLU())
+            # if dropout_prob > 0:
+            #     self.hidden.append(nn.Dropout(p=dropout_prob))
+            self.dim_input = dimension
+        self.hidden.append(nn.Linear(self.dim_input, 1))
+        self.hidden = nn.Sequential(*self.hidden)
 
     def forward(self, x):
-        x = F.relu(self.hidden(x))
-        x = F.relu(self.hidden2(x))
-        x = self.regression(x)
-
-        return x
+        return self.hidden(x)
     
 class DualVisionEncoder(nn.Module):
     '''
@@ -133,6 +137,9 @@ class JointEncoder(nn.Module):
     '''
     def __init__(self, 
                  vision = None,
+                 hidden_dims=[512, 128],
+                 dropout_prob = 0.0, 
+                 batch_norm = False,
                  ):
         super(JointEncoder, self).__init__()
 
@@ -151,7 +158,7 @@ class JointEncoder(nn.Module):
             self.dim_input += IMAGE_EMBEDDING_DIM * 6
             num_params += sum(p.numel() for p in self.vision_encoder.parameters())
         
-        self.regression = RegressionHead(self.dim_input)
+        self.regression = RegressionHead(self.dim_input, hidden_dim=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
         num_params += sum(p.numel() for p in self.regression.parameters())
         print('Total number of parameters:', num_params)
 

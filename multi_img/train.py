@@ -3,18 +3,16 @@ Grid search for demand calculation using joint image encoders.
 '''
 
 import os
+import wandb
 import argparse
 from transformers import TrainingArguments, Trainer, get_linear_schedule_with_warmup, get_cosine_schedule_with_warmup, TrainerCallback
 from transformers import EarlyStoppingCallback
 from models import *
 from data import *
+import itertools
 
 import logging
 logging.basicConfig(level=logging.ERROR)
-
-import warnings
-warnings.filterwarnings("ignore")
-warnings.filterwarnings("ignore", category=UserWarning)  # Replace UserWarning with the specific category if known
 
 import tensorflow as tf
 tf.get_logger().setLevel('ERROR')
@@ -131,7 +129,7 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
         for param in model.vision_encoder.parameters():
             param.requires_grad = False
 
-def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, vision):
+def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, vision, hidden_dims, dropout_prob, batch_norm):
     print('Training: Starting training')
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
                             epochs=num_epochs, lr=lr, batch_size=8, 
@@ -140,10 +138,10 @@ def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed,
 
     # Save the model
     print("The checkpoint path is: ", CHECKPOINTS_DIR)
-    model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
+    model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}.bin')
     torch.save(model.state_dict(), model_path)
 
-def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision):
+def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision, hidden_dims, dropout_prob, batch_norm):
     if not do_train and checkpoint_path:
         model.load_state_dict(torch.load(checkpoint_path + '/pytorch_model.bin'))
         print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
@@ -167,18 +165,18 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     labels = labels.tolist()
 
     # save predictions
-    predictions_path = os.path.join(checkpoint_path, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
-    labels_path = os.path.join(checkpoint_path, f'labels_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
+    predictions_path = os.path.join(checkpoint_path, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}.npy')
+    labels_path = os.path.join(checkpoint_path, f'labels_{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}.npy')
     np.save(predictions_path, predictions)
     np.save(labels_path, labels)
 
-def training(vision: Optional[str] = 'resnet50',
-            hidden_dims: Optional[List[int]] = None,
-            dropout_prob: float = 0.0,
-            batch_norm: bool = False,
-            lr: float = 0.001, 
-            weight_decay: float = 0.01,
-            num_epochs: int = 10,
+def grid_search(vision: List[str] = ['resnet50'],
+            hidden_dims: List[int] = [256, 512],
+            dropout_prob: List[float] = 0.0,
+            batch_norm: List[bool] = False,
+            lr: List[float] = 0.001,
+            weight_decay: List[float] = 0.0,
+            num_epochs: int = 20,
             seed: int = 0,
             do_train: bool = True,
             do_eval: bool = False, 
@@ -195,20 +193,23 @@ def training(vision: Optional[str] = 'resnet50',
     torch.manual_seed(seed)
     np.random.seed(seed)
 
-    model = JointEncoder(vision=vision)
-    freeze_vision_encoder_layers(model, vision)
+    for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
+        
+        print(f'Vision: {vision}, Hidden dims: {hidden_dims}, Dropout: {dropout_prob}, Batch norm: {batch_norm}, LR: {lr}, Weight decay: {weight_decay}')
+        model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
+        freeze_vision_encoder_layers(model, vision)
 
-    # Load data
-    print('Data:\tLoading data')
-    image_data = prepare_data() # image data don't have all the clusters
-    train_data, val_data, test_data = load_data(image_data, vision=vision)
-    
-    if do_train:
-        train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, vision)
+        # Load data
+        print('Data:\tLoading data')
+        image_data = prepare_data()
+        train_data, val_data, test_data = load_data(image_data, vision=vision)
+        
+        if do_train:
+            train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, vision, hidden_dims, dropout_prob, batch_norm)
 
-    # Evaluate model
-    if eval:
-        evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision)
+        # Evaluate model
+        if do_eval:
+            evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision, hidden_dims, dropout_prob, batch_norm)
 
 
     
@@ -234,6 +235,6 @@ if __name__ == '__main__':
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
-    training(**vars(args))
+    grid_search(**vars(args))
     
     
