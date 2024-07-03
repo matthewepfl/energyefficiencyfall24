@@ -247,15 +247,20 @@ def grid_search(vision: List[str] = ['resnet50'],
                            checkpoint_path, 
                            run_name)
 
+def parse_list_of_floats(string):
+    return [float(item.strip()) for item in string.strip('[]').split(',')]
 
+def parse_nested_list_of_ints(string):
+    sets = string.strip("[]").split(',') # input is like: "512-256-124,512-256"
+    return [[int(num) for num in s.split('-')] for s in sets]
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--vision', type=str, default='resnet50')
-    parser.add_argument('--hidden_dims', default=['512-256'], help='Hidden dimensions for the MLP.')
+    parser.add_argument('--hidden_dims', type=parse_nested_list_of_ints, default=[[512, 256]], help='Hidden dimensions for the MLP.') # input like: '512-256-124,512-256'
     parser.add_argument('--dropout_prob', type=float, default=0.0)
     parser.add_argument('--batch_norm', action='store_true', default=False)
-    parser.add_argument('--lr', default=[0.001])
+    parser.add_argument('--lr', type=lambda x: [float(i) for i in x.strip("[]").split(',')], default=[0.001]) # input like: '[0.0001, 0.00001, 0.001]'
     parser.add_argument('--weight_decay', type=float, default=0.0)
     parser.add_argument('--num_epochs', type=int, default=20)
     parser.add_argument('--seed', type=int, default=0)
