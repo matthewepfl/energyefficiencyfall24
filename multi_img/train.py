@@ -264,7 +264,7 @@ if __name__ == '__main__':
     parser.add_argument('--hidden_dims', type=parse_nested_list_of_ints, default=[[512, 256]], help='Hidden dimensions for the MLP.') # input like: '512-256-124,512-256'
     parser.add_argument('--dropout_prob', type=float, default=0.0)
     parser.add_argument('--batch_norm', action='store_true', default=False)
-    parser.add_argument('--lr', type=lambda x: [float(i) for i in x.strip("[]").split(',')], default=[0.001]) # input like: '[0.0001, 0.00001, 0.001]'
+    parser.add_argument('--lr', type=parse_list_of_floats, default=[1e-3]) 
     parser.add_argument('--weight_decay', type=float, default=0.0)
     parser.add_argument('--num_epochs', type=int, default=20)
     parser.add_argument('--seed', type=int, default=0)
