@@ -253,8 +253,7 @@ def parse_list_of_floats(string):
     return x
 
 def parse_nested_list_of_ints(string):
-    sets = string.strip("[]").split(',') # input is like: "512-256-124,512-256"
-    x = [[int(num) for num in s.split('-')] for s in sets]
+    x = string.strip("[]").split(',') # input is like: "512-256-124,512-256"
     print(x)
     return x
     
