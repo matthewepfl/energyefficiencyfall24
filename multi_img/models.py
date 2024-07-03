@@ -30,6 +30,9 @@ class RegressionHead(nn.Module):
         super(RegressionHead, self).__init__()
         self.dim_input = dim_input
         self.hidden = []
+        # put '512-256' in a list format
+        if isinstance(hidden_dim, str):
+            hidden_dim = [int(x) for x in hidden_dim.split('-')]
         for dimension in hidden_dim:
             self.hidden.append(nn.Linear(self.dim_input, dimension))
             # if batch_norm:
@@ -137,7 +140,7 @@ class JointEncoder(nn.Module):
     '''
     def __init__(self, 
                  vision = None,
-                 hidden_dims=[512, 128],
+                 hidden_dims='512-256',
                  dropout_prob = 0.0, 
                  batch_norm = False,
                  ):
