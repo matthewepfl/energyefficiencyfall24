@@ -205,6 +205,11 @@ def grid_search(vision: List[str] = ['resnet50'],
     lr = [args.lr] if isinstance(args.lr, float) else args.lr
     weight_decay = [args.weight_decay] if isinstance(args.weight_decay, float) else args.weight_decay
 
+    # Load data
+    print('Data:\tLoading data')
+    image_data = prepare_data()
+    train_data, val_data, test_data = load_data(image_data, vision=vision)
+
 
     print('Grid search:\tStarting grid search')
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
@@ -227,11 +232,6 @@ def grid_search(vision: List[str] = ['resnet50'],
 
         model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
         freeze_vision_encoder_layers(model, vision)
-
-        # Load data
-        print('Data:\tLoading data')
-        image_data = prepare_data()
-        train_data, val_data, test_data = load_data(image_data, vision=vision)
         
         if do_train:
             train_model(model, 
