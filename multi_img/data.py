@@ -70,7 +70,7 @@ CLUSTERED_PATH = os.path.join(DATA_DIR, f'Clusters_images/clean_clustered_images
 
 def Efficiency(efficiency):
 
-    efficiency = efficiency[efficiency["Advertisement Version Id"] == 1] # change this I want the latest oneeeeeeeeeee
+    efficiency = efficiency.groupby("Advertisement Id").last().reset_index()
     efficiency = efficiency.groupby(["Property Reference Id", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") # change this too # use more
     print('The efficiency: ', efficiency.shape)
 

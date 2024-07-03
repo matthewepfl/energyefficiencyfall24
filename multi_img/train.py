@@ -3,18 +3,16 @@ Grid search for demand calculation using joint image encoders.
 '''
 
 import os
+import wandb
 import argparse
 from transformers import TrainingArguments, Trainer, get_linear_schedule_with_warmup, get_cosine_schedule_with_warmup, TrainerCallback
 from transformers import EarlyStoppingCallback
 from models import *
 from data import *
+import itertools
 
 import logging
 logging.basicConfig(level=logging.ERROR)
-
-import warnings
-warnings.filterwarnings("ignore")
-warnings.filterwarnings("ignore", category=UserWarning)  # Replace UserWarning with the specific category if known
 
 import tensorflow as tf
 tf.get_logger().setLevel('ERROR')
@@ -54,7 +52,8 @@ class MultimodalTrainer(Trainer):
 def create_trainer(model, 
                    train_data, 
                    val_data, 
-                   output_dir, 
+                   output_dir,
+                   save_path, 
                    epochs=10, 
                    lr=1e-5, 
                    batch_size=16, 
@@ -87,7 +86,7 @@ def create_trainer(model,
 
     optimizer = torch.optim.AdamW(params, lr=lr, weight_decay=weight_decay)
     scheduler = get_cosine_schedule_with_warmup(
-        optimizer, num_warmup_steps=200, num_training_steps=len(train_data)*epochs)
+        optimizer, num_warmup_steps=0.1, num_training_steps=len(train_data)*epochs)
 
     training_args = TrainingArguments(
 
@@ -103,6 +102,8 @@ def create_trainer(model,
         seed=seed,
 
         # Evaluation & checkpointing
+        run_name=save_path,
+        report_to='wandb',
         output_dir=output_dir,
         evaluation_strategy="epoch",
         save_strategy="epoch",
@@ -131,7 +132,7 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
         for param in model.vision_encoder.parameters():
             param.requires_grad = False
 
-def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, vision):
+def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, save_path):
     print('Training: Starting training')
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
                             epochs=num_epochs, lr=lr, batch_size=8, 
@@ -140,10 +141,10 @@ def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed,
 
     # Save the model
     print("The checkpoint path is: ", CHECKPOINTS_DIR)
-    model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{vision}_{lr}_{weight_decay}_{num_epochs}.pt')
+    model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{save_path}.bin')
     torch.save(model.state_dict(), model_path)
 
-def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision):
+def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, save_path):
     if not do_train and checkpoint_path:
         model.load_state_dict(torch.load(checkpoint_path + '/pytorch_model.bin'))
         print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
@@ -155,6 +156,7 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     # Evaluation
     print('Evaluation:\tStarting evaluation')
     eval_results = trainer.evaluate(eval_dataset=test_data)
+    wandb.log(eval_results)
     print('Evaluation:\tResults')
     print(eval_results)
 
@@ -167,18 +169,18 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     labels = labels.tolist()
 
     # save predictions
-    predictions_path = os.path.join(checkpoint_path, f'predictions_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
-    labels_path = os.path.join(checkpoint_path, f'labels_{vision}_{lr}_{weight_decay}_{num_epochs}.npy')
+    predictions_path = os.path.join(checkpoint_path, f'predictions_{save_path}.npy')
+    labels_path = os.path.join(checkpoint_path, f'labels_{save_path}.npy')
     np.save(predictions_path, predictions)
     np.save(labels_path, labels)
 
-def training(vision: Optional[str] = 'resnet50',
-            hidden_dims: Optional[List[int]] = None,
-            dropout_prob: float = 0.0,
-            batch_norm: bool = False,
-            lr: float = 0.001, 
-            weight_decay: float = 0.01,
-            num_epochs: int = 10,
+def grid_search(vision: List[str] = ['resnet50'],
+            hidden_dims: List[int] = [256, 512],
+            dropout_prob: List[float] = 0.0,
+            batch_norm: List[bool] = False,
+            lr: List[float] = 0.001,
+            weight_decay: List[float] = 0.0,
+            num_epochs: int = 20,
             seed: int = 0,
             do_train: bool = True,
             do_eval: bool = False, 
@@ -195,32 +197,66 @@ def training(vision: Optional[str] = 'resnet50',
     torch.manual_seed(seed)
     np.random.seed(seed)
 
-    model = JointEncoder(vision=vision)
-    freeze_vision_encoder_layers(model, vision)
+    for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
+        
+        print(f'Vision: {vision}, Hidden dims: {hidden_dims}, Dropout: {dropout_prob}, Batch norm: {batch_norm}, LR: {lr}, Weight decay: {weight_decay}')
+        save_path = f'{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}'
+        config = {'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed}
 
-    # Load data
-    print('Data:\tLoading data')
-    image_data = prepare_data() # image data don't have all the clusters
-    train_data, val_data, test_data = load_data(image_data, vision=vision)
-    
-    if do_train:
-        train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, vision)
+        wandb.init(project='energyefficiency', entity = 'silvy-romanato', name=save_path, config=config)
+        wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
 
-    # Evaluate model
-    if eval:
-        evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, vision)
+        # wandb.define_metric('mse', summary='mean')
+        # wandb.define_metric('epoch')
+        # wandb.define_metric('train_step')
+        # wandb.define_metric('train_loss', step_metric= 'train_step')
+        # wandb.define_metric('val_loss', step_metric= 'epoch')
+        # wandb.define_metric('val_mse', step_metric= 'epoch')
+        # wandb.define_metric('learning rate', step_metric= 'train_step')
+
+        model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
+        freeze_vision_encoder_layers(model, vision)
+
+        # Load data
+        print('Data:\tLoading data')
+        image_data = prepare_data()
+        train_data, val_data, test_data = load_data(image_data, vision=vision)
+        
+        if do_train:
+            train_model(model, 
+                        train_data, 
+                        val_data, 
+                        lr, 
+                        weight_decay, 
+                        num_epochs, 
+                        seed, 
+                        save_path)
+
+        # Evaluate model
+        if do_eval:
+            evaluate_model(model, 
+                           train_data, 
+                           val_data, 
+                           test_data, 
+                           lr, 
+                           weight_decay, 
+                           num_epochs, 
+                           seed, 
+                           do_train, 
+                           checkpoint_path, 
+                           save_path)
 
 
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--vision', type=str, default='resnet50')
-    parser.add_argument('--hidden_dims', type=str, default=[256, 512])
+    parser.add_argument('--hidden_dims', default=[256, 512], help='Hidden dimensions for the MLP.')
     parser.add_argument('--dropout_prob', type=float, default=0.0)
     parser.add_argument('--batch_norm', action='store_true', default=False)
     parser.add_argument('--lr', type=float, default=0.001)
     parser.add_argument('--weight_decay', type=float, default=0.0)
-    parser.add_argument('--num_epochs', type=int, default=10)
+    parser.add_argument('--num_epochs', type=int, default=20)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--do_eval', action='store_true', help="Enable evaluation mode")
     parser.add_argument('--no_eval', action='store_false', dest='do_eval', help="Disable evaluation mode")
@@ -234,6 +270,6 @@ if __name__ == '__main__':
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
-    training(**vars(args))
+    grid_search(**vars(args))
     
     
