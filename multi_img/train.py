@@ -248,11 +248,15 @@ def grid_search(vision: List[str] = ['resnet50'],
                            run_name)
 
 def parse_list_of_floats(string):
-    return [float(item.strip()) for item in string.strip('[]').split(',')]
+    x = [float(item.strip()) for item in string.strip('[]').split(',')]
+    print(x)
+    return x
 
 def parse_nested_list_of_ints(string):
     sets = string.strip("[]").split(',') # input is like: "512-256-124,512-256"
-    return [[int(num) for num in s.split('-')] for s in sets]
+    x = [[int(num) for num in s.split('-')] for s in sets]
+    print(x)
+    return x
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
