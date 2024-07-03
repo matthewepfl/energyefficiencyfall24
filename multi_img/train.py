@@ -53,7 +53,7 @@ def create_trainer(model,
                    train_data, 
                    val_data, 
                    output_dir,
-                   save_path, 
+                   run_name, 
                    epochs=10, 
                    lr=1e-5, 
                    batch_size=16, 
@@ -102,7 +102,7 @@ def create_trainer(model,
         seed=seed,
 
         # Evaluation & checkpointing
-        run_name=save_path,
+        run_name=run_name,
         report_to='wandb',
         output_dir=output_dir,
         evaluation_strategy="epoch",
@@ -132,7 +132,7 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
         for param in model.vision_encoder.parameters():
             param.requires_grad = False
 
-def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, save_path):
+def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, run_name):
     print('Training: Starting training')
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
                             epochs=num_epochs, lr=lr, batch_size=8, 
@@ -141,10 +141,10 @@ def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed,
 
     # Save the model
     print("The checkpoint path is: ", CHECKPOINTS_DIR)
-    model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{save_path}.bin')
+    model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{run_name}.bin')
     torch.save(model.state_dict(), model_path)
 
-def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, save_path):
+def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num_epochs, seed, do_train, checkpoint_path, run_name):
     if not do_train and checkpoint_path:
         model.load_state_dict(torch.load(checkpoint_path + '/pytorch_model.bin'))
         print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
@@ -169,8 +169,8 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     labels = labels.tolist()
 
     # save predictions
-    predictions_path = os.path.join(checkpoint_path, f'predictions_{save_path}.npy')
-    labels_path = os.path.join(checkpoint_path, f'labels_{save_path}.npy')
+    predictions_path = os.path.join(checkpoint_path, f'predictions_{run_name}.npy')
+    labels_path = os.path.join(checkpoint_path, f'labels_{run_name}.npy')
     np.save(predictions_path, predictions)
     np.save(labels_path, labels)
 
@@ -200,10 +200,11 @@ def grid_search(vision: List[str] = ['resnet50'],
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
         
         print(f'Vision: {vision}, Hidden dims: {hidden_dims}, Dropout: {dropout_prob}, Batch norm: {batch_norm}, LR: {lr}, Weight decay: {weight_decay}')
-        save_path = f'{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}'
+        run_name = f'{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}'
         config = {'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed}
 
-        wandb.init(project='energyefficiency', entity = 'silvy-romanato', name=save_path, config=config)
+        print(f'W&B initialization: run {run_name}')
+        wandb.init(project='energyefficiency', entity = 'silvy-romanato', name=run_name, config=config)
         wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
 
         # wandb.define_metric('mse', summary='mean')
@@ -230,7 +231,7 @@ def grid_search(vision: List[str] = ['resnet50'],
                         weight_decay, 
                         num_epochs, 
                         seed, 
-                        save_path)
+                        run_name)
 
         # Evaluate model
         if do_eval:
@@ -244,7 +245,7 @@ def grid_search(vision: List[str] = ['resnet50'],
                            seed, 
                            do_train, 
                            checkpoint_path, 
-                           save_path)
+                           run_name)
 
 
     
