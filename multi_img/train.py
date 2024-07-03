@@ -134,7 +134,7 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
 
 def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, run_name):
     print('Training: Starting training')
-    trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, 
+    trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
                             epochs=num_epochs, lr=lr, batch_size=8, 
                             weight_decay=weight_decay, seed=seed)
     trainer.train()
@@ -207,7 +207,6 @@ def grid_search(vision: List[str] = ['resnet50'],
 
 
     print('Grid search:\tStarting grid search')
-    print(" the hidden_dims is: ", hidden_dims, 'the learning rate is: ', lr)   
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
         
         print(f'Vision: {vision}, Hidden dims: {hidden_dims}, Dropout: {dropout_prob}, Batch norm: {batch_norm}, LR: {lr}, Weight decay: {weight_decay}')
