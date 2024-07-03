@@ -45,7 +45,7 @@ dropout_rate = 0.4
 """
 
 workingOn = 'server' # 'server' or 'laptop
-minim_amount_classes = 3
+minim_amount_classes = 2
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
 # Global configurations
