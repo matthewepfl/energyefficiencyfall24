@@ -197,6 +197,15 @@ def grid_search(vision: List[str] = ['resnet50'],
     torch.manual_seed(seed)
     np.random.seed(seed)
 
+    # Convert single value parameters to lists if they are not already
+    vision = [args.vision] if isinstance(args.vision, str) else args.vision
+    hidden_dims = args.hidden_dims  # This should be a list of lists if parsed correctly
+    dropout_prob = [args.dropout_prob] if isinstance(args.dropout_prob, float) else args.dropout_prob
+    batch_norm = [args.batch_norm]  # Boolean, should be in a list if there's only one value
+    lr = [args.lr] if isinstance(args.lr, float) else args.lr
+    weight_decay = [args.weight_decay] if isinstance(args.weight_decay, float) else args.weight_decay
+
+
     print('Grid search:\tStarting grid search')
     print(" the hidden_dims is: ", hidden_dims, 'the learning rate is: ', lr)   
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
