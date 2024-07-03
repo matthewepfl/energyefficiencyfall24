@@ -197,6 +197,8 @@ def grid_search(vision: List[str] = ['resnet50'],
     torch.manual_seed(seed)
     np.random.seed(seed)
 
+    print('Grid search:\tStarting grid search')
+    print(" the hidden_dims is: ", hidden_dims, 'the learning rate is: ', lr)   
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
         
         print(f'Vision: {vision}, Hidden dims: {hidden_dims}, Dropout: {dropout_prob}, Batch norm: {batch_norm}, LR: {lr}, Weight decay: {weight_decay}')
@@ -248,14 +250,10 @@ def grid_search(vision: List[str] = ['resnet50'],
                            run_name)
 
 def parse_list_of_floats(string):
-    x = [float(item.strip()) for item in string.strip('[]').split(',')]
-    print(x)
-    return x
+    return [float(item.strip()) for item in string.strip('[]').split(',')]
 
 def parse_nested_list_of_ints(string):
-    x = string.strip("[]").split(',') # input is like: "512-256-124,512-256"
-    print(x)
-    return x
+    return string.strip("[]").split(',') # input is like: "512-256-124,512-256"
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -274,8 +272,8 @@ if __name__ == '__main__':
     parser.add_argument('--checkpoint_path', type=str, default=None)
     args = parser.parse_args()
 
-    if args.hidden_dims and type(args.hidden_dims) == str:
-        args.hidden_dims = [int(x) for x in args.hidden_dims.split('-')]
+    # if args.hidden_dims and type(args.hidden_dims) == str:
+    #     args.hidden_dims = [int(x) for x in args.hidden_dims.split('-')]
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
