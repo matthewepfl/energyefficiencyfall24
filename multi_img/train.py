@@ -86,7 +86,7 @@ def create_trainer(model,
 
     optimizer = torch.optim.AdamW(params, lr=lr, weight_decay=weight_decay)
     scheduler = get_cosine_schedule_with_warmup(
-        optimizer, num_warmup_steps=0.1, num_training_steps=len(train_data)*epochs)
+        optimizer, num_warmup_steps=len(train_data)*epochs*0.1, num_training_steps=len(train_data)*epochs)
 
     training_args = TrainingArguments(
 
