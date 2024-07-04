@@ -30,22 +30,36 @@ class RegressionHead(nn.Module):
         super(RegressionHead, self).__init__()
         self.dim_input = dim_input
         self.hidden = []
-        # put '512-256' in a list format
+
         if isinstance(hidden_dim, str):
             hidden_dim = [int(x) for x in hidden_dim.split('-')]
+
         for dimension in hidden_dim:
             self.hidden.append(nn.Linear(self.dim_input, dimension))
-            # if batch_norm:
-            #     self.hidden.append(nn.BatchNorm1d(dimension))
-            # self.hidden.append(nn.ReLU())
-            # if dropout_prob > 0:
-            #     self.hidden.append(nn.Dropout(p=dropout_prob))
+            if batch_norm:
+                self.hidden.append(nn.BatchNorm1d(dimension))
+            self.hidden.append(nn.ReLU())
+            if dropout_prob > 0:
+                self.hidden.append(nn.Dropout(p=dropout_prob))
             self.dim_input = dimension
+
         self.hidden.append(nn.Linear(self.dim_input, 1))
         self.hidden = nn.Sequential(*self.hidden)
+        
+        self._initialize_weights()
 
     def forward(self, x):
         return self.hidden(x)
+    
+    def _initialize_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.xavier_uniform_(m.weight)
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, nn.BatchNorm1d):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
     
 class DualVisionEncoder(nn.Module):
     '''
