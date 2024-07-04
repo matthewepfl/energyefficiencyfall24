@@ -220,14 +220,6 @@ def grid_search(vision: List[str] = ['resnet50'],
         wandb.init(project='energyefficiency', entity = 'silvy-romanato', name=run_name, config=config)
         wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
 
-        # wandb.define_metric('mse', summary='mean')
-        # wandb.define_metric('epoch')
-        # wandb.define_metric('train_step')
-        # wandb.define_metric('train_loss', step_metric= 'train_step')
-        # wandb.define_metric('val_loss', step_metric= 'epoch')
-        # wandb.define_metric('val_mse', step_metric= 'epoch')
-        # wandb.define_metric('learning rate', step_metric= 'train_step')
-
         model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
         freeze_vision_encoder_layers(model, vision)
         
@@ -277,9 +269,6 @@ if __name__ == '__main__':
     parser.add_argument('--no_train', action='store_false', dest='do_train', help="Disable training mode")
     parser.add_argument('--checkpoint_path', type=str, default=None)
     args = parser.parse_args()
-
-    # if args.hidden_dims and type(args.hidden_dims) == str:
-    #     args.hidden_dims = [int(x) for x in args.hidden_dims.split('-')]
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
