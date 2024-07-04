@@ -218,14 +218,14 @@ def grid_search(vision: List[str] = ['resnet50'],
         run_name = f'{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}'
         config = {'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed}
 
-        print(f'W&B initialization:\trun {run_name}')
-        wandb.init(project='energyefficiency', entity = 'silvy-romanato', name=run_name, config=config)
-        wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
-
         model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
         freeze_vision_encoder_layers(model, vision)
         
         if do_train:
+            print(f'W&B initialization:\trun {run_name}')
+            wandb.init(project='energyefficiency', entity = 'silvy-romanato', name=run_name, config=config)
+            wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
+
             train_model(model, 
                         train_data, 
                         val_data, 
@@ -261,7 +261,7 @@ if __name__ == '__main__':
     parser.add_argument('--hidden_dims', type=parse_nested_list_of_ints, default=[[512, 256]], help='Hidden dimensions for the MLP.') # input like: '512-256-124,512-256'
     parser.add_argument('--dropout_prob', type=float, default=0.0)
     parser.add_argument('--batch_norm', action='store_true', default=False)
-    parser.add_argument('--lr', type=parse_list_of_floats, default=[1e-3]) 
+    parser.add_argument('--lr', type=parse_list_of_floats, default=[1e-4]) 
     parser.add_argument('--weight_decay', type=float, default=0.0)
     parser.add_argument('--num_epochs', type=int, default=20)
     parser.add_argument('--seed', type=int, default=0)
