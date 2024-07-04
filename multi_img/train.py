@@ -121,7 +121,7 @@ def create_trainer(model,
         train_dataset=train_data,
         eval_dataset=val_data,
         data_collator=train_data.collate_fn,
-        callbacks = [EarlyStoppingCallback(early_stopping_patience=5)],
+        callbacks = [EarlyStoppingCallback(early_stopping_patience=8)],
         optimizers=(optimizer, scheduler)
     )
 
