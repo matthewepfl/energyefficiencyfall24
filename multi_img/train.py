@@ -6,6 +6,7 @@ import os
 import wandb
 import argparse
 from transformers import TrainingArguments, Trainer, get_linear_schedule_with_warmup, get_cosine_schedule_with_warmup, TrainerCallback
+from transformers import EarlyStoppingCallback
 from models import *
 from data import *
 import itertools
@@ -84,7 +85,7 @@ def create_trainer(model,
         params.append({'params': model.vision_encoder.parameters()}) 
 
     optimizer = torch.optim.AdamW(params, lr=lr, weight_decay=weight_decay)
-    scheduler = get_linear_schedule_with_warmup(
+    scheduler = get_cosine_schedule_with_warmup(
         optimizer, num_warmup_steps=0.1, num_training_steps=len(train_data)*epochs)
 
     training_args = TrainingArguments(
@@ -120,6 +121,7 @@ def create_trainer(model,
         train_dataset=train_data,
         eval_dataset=val_data,
         data_collator=train_data.collate_fn,
+        callbacks = [EarlyStoppingCallback(early_stopping_patience=5)],
         optimizers=(optimizer, scheduler)
     )
 
@@ -220,6 +222,14 @@ def grid_search(vision: List[str] = ['resnet50'],
         wandb.init(project='energyefficiency', entity = 'silvy-romanato', name=run_name, config=config)
         wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
 
+        # wandb.define_metric('mse', summary='mean')
+        # wandb.define_metric('epoch')
+        # wandb.define_metric('train_step')
+        # wandb.define_metric('train_loss', step_metric= 'train_step')
+        # wandb.define_metric('val_loss', step_metric= 'epoch')
+        # wandb.define_metric('val_mse', step_metric= 'epoch')
+        # wandb.define_metric('learning rate', step_metric= 'train_step')
+
         model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
         freeze_vision_encoder_layers(model, vision)
         
@@ -269,6 +279,9 @@ if __name__ == '__main__':
     parser.add_argument('--no_train', action='store_false', dest='do_train', help="Disable training mode")
     parser.add_argument('--checkpoint_path', type=str, default=None)
     args = parser.parse_args()
+
+    # if args.hidden_dims and type(args.hidden_dims) == str:
+    #     args.hidden_dims = [int(x) for x in args.hidden_dims.split('-')]
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
