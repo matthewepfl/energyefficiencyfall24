@@ -6,7 +6,6 @@ import os
 import wandb
 import argparse
 from transformers import TrainingArguments, Trainer, get_linear_schedule_with_warmup, get_cosine_schedule_with_warmup, TrainerCallback
-from transformers import EarlyStoppingCallback
 from models import *
 from data import *
 import itertools
@@ -121,7 +120,6 @@ def create_trainer(model,
         train_dataset=train_data,
         eval_dataset=val_data,
         data_collator=train_data.collate_fn,
-        callbacks = [EarlyStoppingCallback(early_stopping_patience=5)],
         optimizers=(optimizer, scheduler)
     )
 
@@ -149,7 +147,7 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
         model.load_state_dict(torch.load(checkpoint_path + '/pytorch_model.bin'))
         print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
 
-    trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR,
+    trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
                              epochs=num_epochs, lr=lr, batch_size=8, 
                              weight_decay=weight_decay, seed=seed)
 
@@ -218,7 +216,7 @@ def grid_search(vision: List[str] = ['resnet50'],
         run_name = f'{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}'
         config = {'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed}
 
-        print(f'W&B initialization: run {run_name}')
+        print(f'W&B initialization:\trun {run_name}')
         wandb.init(project='energyefficiency', entity = 'silvy-romanato', name=run_name, config=config)
         wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
 
