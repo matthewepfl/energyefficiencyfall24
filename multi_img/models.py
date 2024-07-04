@@ -46,7 +46,7 @@ class RegressionHead(nn.Module):
         self.hidden.append(nn.Linear(self.dim_input, 1))
         self.hidden = nn.Sequential(*self.hidden)
         
-        self._initialize_weights()
+        #self._initialize_weights()
 
     def forward(self, x):
         return self.hidden(x)
