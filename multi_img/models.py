@@ -14,6 +14,7 @@ from torchvision import models
 from torchvision.models import DenseNet121_Weights, ResNet50_Weights
 from transformers import ViTForImageClassification
 
+
 IMAGE_EMBEDDING_DIM = 512   # Vision encoders produce 512-dimensional embeddings
 
 class RegressionHead(nn.Module):
@@ -35,10 +36,12 @@ class RegressionHead(nn.Module):
             hidden_dim = [int(x) for x in hidden_dim.split('-')]
 
         for dimension in hidden_dim:
+            # add a hidden layer with l2 regularization
             self.hidden.append(nn.Linear(self.dim_input, dimension))
-            if batch_norm:
-                self.hidden.append(nn.BatchNorm1d(dimension))
             self.hidden.append(nn.ReLU())
+            # if batch_norm:
+            #     self.hidden.append(nn.BatchNorm1d(dimension))
+            # self.hidden.append(nn.ReLU())
             if dropout_prob > 0:
                 self.hidden.append(nn.Dropout(p=dropout_prob))
             self.dim_input = dimension
@@ -188,6 +191,7 @@ class JointEncoder(nn.Module):
 
         # Embeddings
         embedding = vision_embedding
+        print("the shape of the embedding is", embedding.shape)
         efficiency = self.regression(embedding)
 
         # Return prediction, logits (and loss if labels are provided)
