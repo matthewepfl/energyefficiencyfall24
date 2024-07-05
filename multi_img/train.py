@@ -79,12 +79,12 @@ def create_trainer(model,
     model.to(device)
 
 
-    params = [{'params': model.regression.parameters(), 
-                'lr': lr, 'weight_decay': weight_decay}]
-    if model.vision:
-        params.append({'params': model.vision_encoder.parameters()}) 
+    # params = [{'params': model.regression.parameters(), 
+    #             'lr': lr, 'weight_decay': weight_decay}]
+    # if model.vision:
+    #     params.append({'params': model.vision_encoder.parameters()}) 
 
-    optimizer = torch.optim.AdamW(params, lr=lr, weight_decay=weight_decay)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
     scheduler = get_linear_schedule_with_warmup(
         optimizer, num_warmup_steps=0, num_training_steps=len(train_data)*epochs) # len(train_data)*epochs*0.05
 
