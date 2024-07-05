@@ -36,7 +36,6 @@ class RegressionHead(nn.Module):
             hidden_dim = [int(x) for x in hidden_dim.split('-')]
 
         for dimension in hidden_dim:
-            # add a hidden layer with l2 regularization
             self.hidden.append(nn.Linear(self.dim_input, dimension))
             self.hidden.append(nn.ReLU())
             # if batch_norm:
