@@ -56,7 +56,7 @@ def create_trainer(model,
                    run_name, 
                    epochs=10, 
                    lr=1e-5, 
-                   batch_size=16, 
+                   batch_size=32, 
                    weight_decay=1e-2, 
                    seed=0):
     '''
@@ -135,7 +135,7 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
 def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, run_name):
     print('Training: Starting training')
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
-                            epochs=num_epochs, lr=lr, batch_size=8, 
+                            epochs=num_epochs, lr=lr, batch_size=16, 
                             weight_decay=weight_decay, seed=seed)
     trainer.train()
 
@@ -151,7 +151,7 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
         print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
 
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
-                             epochs=num_epochs, lr=lr, batch_size=8, 
+                             epochs=num_epochs, lr=lr, batch_size=16, 
                              weight_decay=weight_decay, seed=seed)
 
     # Evaluation
