@@ -80,7 +80,7 @@ def create_trainer(model,
 
 
     params = [{'params': model.regression.parameters(), 
-                'lr': 0.001, 'weight_decay': 0.01}]
+                'lr': lr, 'weight_decay': weight_decay}]
     if model.vision:
         params.append({'params': model.vision_encoder.parameters()}) 
 
@@ -120,7 +120,7 @@ def create_trainer(model,
         args=training_args,
         train_dataset=train_data,
         eval_dataset=val_data,
-        data_collator=train_data.collate_fn,
+        data_collator=val_data.collate_fn,
         callbacks = [EarlyStoppingCallback(early_stopping_patience=8)],
         optimizers=(optimizer, scheduler)
     )
