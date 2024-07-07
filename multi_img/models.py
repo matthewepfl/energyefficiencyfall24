@@ -188,7 +188,7 @@ class JointEncoder(nn.Module):
             self.dim_input += IMAGE_EMBEDDING_DIM * 6
             num_params += sum(p.numel() for p in self.vision_encoder.parameters())
         
-        self.attention = AttentionHead(embed_dim=IMAGE_EMBEDDING_DIM)
+        self.attention = AttentionHead(embed_dim=self.dim_input, hidden_dim=hidden_dims[0])
         self.regression = RegressionHead(self.dim_input, hidden_dim=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
         num_params += sum(p.numel() for p in self.regression.parameters())
 
