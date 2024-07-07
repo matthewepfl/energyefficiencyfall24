@@ -61,7 +61,7 @@ class RegressionHead(nn.Module):
                 nn.init.zeros_(m.bias)
 
 class AttentionHead(nn.Module):
-    def __init__(self, embed_dim, hidden_dim=64):
+    def __init__(self, embed_dim, hidden_dim=[512, 128]):
         super(AttentionHead, self).__init__()
         self.attention_fc = nn.Linear(embed_dim, hidden_dim)
         self.context_vector = nn.Linear(hidden_dim, 1, bias=False)
