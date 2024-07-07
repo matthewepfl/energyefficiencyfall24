@@ -179,7 +179,6 @@ class JointEncoder(nn.Module):
         
         self.regression = RegressionHead(self.dim_input, hidden_dim=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
         num_params += sum(p.numel() for p in self.regression.parameters())
-        print('Total number of parameters:', num_params)
 
     def forward(self, x_0=None, x_1=None, x_2=None, x_3=None, x_4=None, x_5=None, labels=None):
         # Generate embeddings (image and/or tabular)
@@ -190,7 +189,6 @@ class JointEncoder(nn.Module):
 
         # Embeddings
         embedding = vision_embedding
-        print("the shape of the embedding is", embedding.shape)
         efficiency = self.regression(embedding)
 
         # Return prediction, logits (and loss if labels are provided)
