@@ -38,9 +38,6 @@ class RegressionHead(nn.Module):
         for dimension in hidden_dim:
             self.hidden.append(nn.Linear(self.dim_input, dimension))
             self.hidden.append(nn.ReLU())
-            # if batch_norm:
-            #     self.hidden.append(nn.BatchNorm1d(dimension))
-            # self.hidden.append(nn.ReLU())
             if dropout_prob > 0:
                 self.hidden.append(nn.Dropout(p=dropout_prob))
             self.dim_input = dimension
@@ -62,6 +59,20 @@ class RegressionHead(nn.Module):
             elif isinstance(m, nn.BatchNorm1d):
                 nn.init.ones_(m.weight)
                 nn.init.zeros_(m.bias)
+
+class AttentionHead(nn.Module):
+    def __init__(self, embed_dim, hidden_dim=64):
+        super(AttentionHead, self).__init__()
+        self.attention_fc = nn.Linear(embed_dim, hidden_dim)
+        self.context_vector = nn.Linear(hidden_dim, 1, bias=False)
+    
+    def forward(self, embeddings):
+        attention_scores = torch.tanh(self.attention_fc(embeddings))  # [batch_size, num_embeddings, hidden_dim]
+        attention_weights = F.softmax(self.context_vector(attention_scores), dim=1)  # [batch_size, num_embeddings, 1]
+        weighted_embeddings = embeddings * attention_weights  # [batch_size, num_embeddings, embedding_dim]
+        return weighted_embeddings.sum(dim=1)  # [batch_size, embedding_dim]
+
+
     
 class DualVisionEncoder(nn.Module):
     '''
@@ -177,6 +188,7 @@ class JointEncoder(nn.Module):
             self.dim_input += IMAGE_EMBEDDING_DIM * 6
             num_params += sum(p.numel() for p in self.vision_encoder.parameters())
         
+        self.attention = AttentionHead(embed_dim=IMAGE_EMBEDDING_DIM)
         self.regression = RegressionHead(self.dim_input, hidden_dim=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
         num_params += sum(p.numel() for p in self.regression.parameters())
 
@@ -188,8 +200,8 @@ class JointEncoder(nn.Module):
             vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_4, x_5)
 
         # Embeddings
-        embedding = vision_embedding
-        efficiency = self.regression(embedding)
+        attended_embedding = self.attention(vision_embedding)
+        efficiency = self.regression(attended_embedding)
 
         # Return prediction, logits (and loss if labels are provided)
         outputs = {'prediction': efficiency}
