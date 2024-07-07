@@ -83,7 +83,6 @@ def create_trainer(model,
     #             'lr': lr, 'weight_decay': weight_decay}]
     # if model.vision:
     #     params.append({'params': model.vision_encoder.parameters()}) 
-
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
     scheduler = get_linear_schedule_with_warmup(
         optimizer, num_warmup_steps=0, num_training_steps=len(train_data)*epochs) # len(train_data)*epochs*0.05
@@ -106,7 +105,8 @@ def create_trainer(model,
         report_to='wandb',
         output_dir=output_dir,
         evaluation_strategy="epoch",
-        save_strategy="epoch",
+        save_steps=8000,
+        savesave_total_limit=3,
         logging_dir='./logs',
         logging_first_step=True,
         logging_steps=1,
