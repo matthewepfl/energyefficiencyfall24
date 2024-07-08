@@ -79,7 +79,8 @@ class SixVisionEncoder(nn.Module):
         super().__init__()
 
         self.vision = vision
-        # Load two pre-trained visual encoders
+        self.mask_brach = mask_branch
+
         if vision == 'resnet50':
             self.model_0 = models.resnet50(weights=ResNet50_Weights.DEFAULT)
             self.model_1 = models.resnet50(weights=ResNet50_Weights.DEFAULT)
@@ -148,7 +149,6 @@ class SixVisionEncoder(nn.Module):
             features_5 = self.model_5(x_5).logits
 
         combined_features = torch.cat((features_0, features_1, features_2, features_3, features_4, features_5), dim=1)
-        # if 0 is in the list of mask_brach then we remove the first element of the combined_features
 
         if 0 in self.mask_branch:
             combined_features = torch.cat((features_1, features_2, features_3, features_4, features_5), dim=1)
