@@ -75,7 +75,7 @@ class RegressionHead(nn.Module):
 
     
 class SixVisionEncoder(nn.Module):
-    def __init__(self, vision : str, mask_branch=None):
+    def __init__(self, vision : str, mask_branch=[]):
         super().__init__()
 
         self.vision = vision
@@ -148,17 +148,19 @@ class SixVisionEncoder(nn.Module):
             features_5 = self.model_5(x_5).logits
 
         combined_features = torch.cat((features_0, features_1, features_2, features_3, features_4, features_5), dim=1)
-        if self.mask_branch == 0:
+        # if 0 is in the list of mask_brach then we remove the first element of the combined_features
+
+        if 0 in self.mask_branch:
             combined_features = torch.cat((features_1, features_2, features_3, features_4, features_5), dim=1)
-        elif self.mask_branch == 1:
+        elif 1 in self.mask_branch:
             combined_features = torch.cat((features_0, features_2, features_3, features_4, features_5), dim=1)
-        elif self.mask_branch == 2:
+        elif 2 in self.mask_branch:
             combined_features = torch.cat((features_0, features_1, features_3, features_4, features_5), dim=1)
-        elif self.mask_branch == 3:
+        elif 3 in self.mask_branch:
             combined_features = torch.cat((features_0, features_1, features_2, features_4, features_5), dim=1)
-        elif self.mask_branch == 4:
+        elif 4 in self.mask_branch:
             combined_features = torch.cat((features_0, features_1, features_2, features_3, features_5), dim=1)
-        elif self.mask_branch == 5:
+        elif 5 in self.mask_branch:
             combined_features = torch.cat((features_0, features_1, features_2, features_3, features_4), dim=1)
         return combined_features
 
@@ -175,7 +177,7 @@ class JointEncoder(nn.Module):
                  hidden_dims='512-256',
                  dropout_prob = 0.0, 
                  batch_norm = False,
-                 mask_branch = None,
+                 mask_branch = [],
                  ):
         super(JointEncoder, self).__init__()
 
@@ -191,8 +193,8 @@ class JointEncoder(nn.Module):
         num_params = 0
         if vision:
             print(f'\tVision encoder: {vision}')
-            self.vision_encoder = SixVisionEncoder(vision)
-            self.dim_input += IMAGE_EMBEDDING_DIM * 6
+            self.vision_encoder = SixVisionEncoder(vision, mask_branch)
+            self.dim_input += IMAGE_EMBEDDING_DIM * 6 if len(self.mask_branch) == 0 else IMAGE_EMBEDDING_DIM * 5
             num_params += sum(p.numel() for p in self.vision_encoder.parameters())
         
         # self.attention = AttentionHead(embed_dim=self.dim_input, hidden_dim=hidden_dims[0])
@@ -201,10 +203,20 @@ class JointEncoder(nn.Module):
 
     def forward(self, x_0=None, x_1=None, x_2=None, x_3=None, x_4=None, x_5=None, labels=None):
         # Generate embeddings (image and/or tabular)
-        if self.vision:
-            if x_0 is None or x_1 is None or x_2 is None or x_3 is None or x_4 is None or x_5 is None:
-                raise ValueError('Vision encoder is specified but no images are provided.')
+        if len(self.mask_branch)==0:
             vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_4, x_5)
+        if 0 in self.mask_branch:
+            vision_embedding = self.vision_encoder(x_1, x_2, x_3, x_4, x_5)
+        if 1 in self.mask_branch:
+            vision_embedding = self.vision_encoder(x_0, x_2, x_3, x_4, x_5)
+        if 2 in self.mask_branch:
+            vision_embedding = self.vision_encoder(x_0, x_1, x_3, x_4, x_5)
+        if 3 in self.mask_branch:
+            vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_4, x_5)
+        if 4 in self.mask_branch:
+            vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_5)
+        if 5 in self.mask_branch:
+            vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_4)
 
         # Embeddings
         # attended_embedding = self.attention(vision_embedding)
