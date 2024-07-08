@@ -60,29 +60,22 @@ class RegressionHead(nn.Module):
                 nn.init.ones_(m.weight)
                 nn.init.zeros_(m.bias)
 
-class AttentionHead(nn.Module):
-    def __init__(self, embed_dim, hidden_dim=[512, 128]):
-        super(AttentionHead, self).__init__()
-        self.attention_fc = nn.Linear(embed_dim, hidden_dim)
-        self.context_vector = nn.Linear(hidden_dim, 1, bias=False)
+# class AttentionHead(nn.Module):
+#     def __init__(self, embed_dim, hidden_dim=[512, 128]):
+#         super(AttentionHead, self).__init__()
+#         self.attention_fc = nn.Linear(embed_dim, hidden_dim)
+#         self.context_vector = nn.Linear(hidden_dim, 1, bias=False)
     
-    def forward(self, embeddings):
-        attention_scores = torch.tanh(self.attention_fc(embeddings))  # [batch_size, num_embeddings, hidden_dim]
-        attention_weights = F.softmax(self.context_vector(attention_scores), dim=1)  # [batch_size, num_embeddings, 1]
-        weighted_embeddings = embeddings * attention_weights  # [batch_size, num_embeddings, embedding_dim]
-        return weighted_embeddings.sum(dim=1)  # [batch_size, embedding_dim]
+#     def forward(self, embeddings):
+#         attention_scores = torch.tanh(self.attention_fc(embeddings))  # [batch_size, num_embeddings, hidden_dim]
+#         attention_weights = F.softmax(self.context_vector(attention_scores), dim=1)  # [batch_size, num_embeddings, 1]
+#         weighted_embeddings = embeddings * attention_weights  # [batch_size, num_embeddings, embedding_dim]
+#         return weighted_embeddings.sum(dim=1)  # [batch_size, embedding_dim]
 
 
     
-class DualVisionEncoder(nn.Module):
-    '''
-    Dual vision encoders with dual input (PA and lateral images).
-    Uses one vision encoder for each image, then concatenates the features.
-
-    Args:
-        vision (str): Type of vision encoder (resnet50, densenet121 or vit)
-    '''
-    def __init__(self, vision : str):
+class SixVisionEncoder(nn.Module):
+    def __init__(self, vision : str, mask_branch=None):
         super().__init__()
 
         self.vision = vision
@@ -155,6 +148,18 @@ class DualVisionEncoder(nn.Module):
             features_5 = self.model_5(x_5).logits
 
         combined_features = torch.cat((features_0, features_1, features_2, features_3, features_4, features_5), dim=1)
+        if self.mask_branch == 0:
+            combined_features = torch.cat((features_1, features_2, features_3, features_4, features_5), dim=1)
+        elif self.mask_branch == 1:
+            combined_features = torch.cat((features_0, features_2, features_3, features_4, features_5), dim=1)
+        elif self.mask_branch == 2:
+            combined_features = torch.cat((features_0, features_1, features_3, features_4, features_5), dim=1)
+        elif self.mask_branch == 3:
+            combined_features = torch.cat((features_0, features_1, features_2, features_4, features_5), dim=1)
+        elif self.mask_branch == 4:
+            combined_features = torch.cat((features_0, features_1, features_2, features_3, features_5), dim=1)
+        elif self.mask_branch == 5:
+            combined_features = torch.cat((features_0, features_1, features_2, features_3, features_4), dim=1)
         return combined_features
 
 class JointEncoder(nn.Module):
@@ -170,11 +175,13 @@ class JointEncoder(nn.Module):
                  hidden_dims='512-256',
                  dropout_prob = 0.0, 
                  batch_norm = False,
+                 mask_branch = None,
                  ):
         super(JointEncoder, self).__init__()
 
         self.vision = vision
         self.dim_input = 0
+        self.mask_branch = mask_branch
         if not vision: 
             raise ValueError('Must specify the vision encoder.')
         
@@ -184,11 +191,11 @@ class JointEncoder(nn.Module):
         num_params = 0
         if vision:
             print(f'\tVision encoder: {vision}')
-            self.vision_encoder = DualVisionEncoder(vision)
+            self.vision_encoder = SixVisionEncoder(vision)
             self.dim_input += IMAGE_EMBEDDING_DIM * 6
             num_params += sum(p.numel() for p in self.vision_encoder.parameters())
         
-        self.attention = AttentionHead(embed_dim=self.dim_input, hidden_dim=hidden_dims[0])
+        # self.attention = AttentionHead(embed_dim=self.dim_input, hidden_dim=hidden_dims[0])
         self.regression = RegressionHead(self.dim_input, hidden_dim=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
         num_params += sum(p.numel() for p in self.regression.parameters())
 
@@ -200,8 +207,8 @@ class JointEncoder(nn.Module):
             vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_4, x_5)
 
         # Embeddings
-        attended_embedding = self.attention(vision_embedding)
-        efficiency = self.regression(attended_embedding)
+        # attended_embedding = self.attention(vision_embedding)
+        efficiency = self.regression(vision_embedding)
 
         # Return prediction, logits (and loss if labels are provided)
         outputs = {'prediction': efficiency}
