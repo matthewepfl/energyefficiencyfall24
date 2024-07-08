@@ -79,7 +79,7 @@ class SixVisionEncoder(nn.Module):
         super().__init__()
 
         self.vision = vision
-        self.mask_brach = mask_branch
+        self.mask_branch = mask_branch
 
         if vision == 'resnet50':
             self.model_0 = models.resnet50(weights=ResNet50_Weights.DEFAULT)
