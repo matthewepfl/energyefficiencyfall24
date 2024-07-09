@@ -169,10 +169,8 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     labels = labels.tolist()
 
     # save predictions
-    predictions_path = os.path.join(checkpoint_path, f'predictions_{run_name}.npy')
-    labels_path = os.path.join(checkpoint_path, f'labels_{run_name}.npy')
-    np.save(predictions_path, predictions)
-    np.save(labels_path, labels)
+    np.save(os.path.join(CHECKPOINTS_DIR, f'predictions_{run_name}.npy'), predictions)
+    np.save(os.path.join(CHECKPOINTS_DIR, f'labels_{run_name}.npy'), labels)
 
 def grid_search(vision: List[str] = ['resnet50'],
             hidden_dims: List[int] = ['512-256'],
