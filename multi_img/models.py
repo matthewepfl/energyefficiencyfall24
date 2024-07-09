@@ -148,20 +148,21 @@ class SixVisionEncoder(nn.Module):
             features_4 = self.model_4(x_4).logits
             features_5 = self.model_5(x_5).logits
 
-        combined_features = torch.cat((features_0, features_1, features_2, features_3, features_4, features_5), dim=1)
-
+        LIST_FEATURES = [features_0, features_1, features_2, features_3, features_4, features_5]
         if 0 in self.mask_branch:
-            combined_features = torch.cat((features_1, features_2, features_3, features_4, features_5), dim=1)
+            LIST_FEATURES = LIST_FEATURES[1:]
         elif 1 in self.mask_branch:
-            combined_features = torch.cat((features_0, features_2, features_3, features_4, features_5), dim=1)
+            LIST_FEATURES.remove(features_1)
         elif 2 in self.mask_branch:
-            combined_features = torch.cat((features_0, features_1, features_3, features_4, features_5), dim=1)
+            LIST_FEATURES.remove(features_2)
         elif 3 in self.mask_branch:
-            combined_features = torch.cat((features_0, features_1, features_2, features_4, features_5), dim=1)
+            LIST_FEATURES.remove(features_3)
         elif 4 in self.mask_branch:
-            combined_features = torch.cat((features_0, features_1, features_2, features_3, features_5), dim=1)
+            LIST_FEATURES.remove(features_4)
         elif 5 in self.mask_branch:
-            combined_features = torch.cat((features_0, features_1, features_2, features_3, features_4), dim=1)
+            LIST_FEATURES.remove(features_5)
+
+        combined_features = torch.cat(LIST_FEATURES, dim=1)
         return combined_features
 
 class JointEncoder(nn.Module):
@@ -203,20 +204,24 @@ class JointEncoder(nn.Module):
 
     def forward(self, x_0=None, x_1=None, x_2=None, x_3=None, x_4=None, x_5=None, labels=None):
         # Generate embeddings (image and/or tabular)
+
+        images = [x_0, x_1, x_2, x_3, x_4, x_5]
         if len(self.mask_branch)==0:
             vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_4, x_5)
         if 0 in self.mask_branch:
-            vision_embedding = self.vision_encoder(x_1, x_2, x_3, x_4, x_5)
+            images = images[1:]
         if 1 in self.mask_branch:
-            vision_embedding = self.vision_encoder(x_0, x_2, x_3, x_4, x_5)
+            images.remove(x_1)
         if 2 in self.mask_branch:
-            vision_embedding = self.vision_encoder(x_0, x_1, x_3, x_4, x_5)
+            images.remove(x_2)
         if 3 in self.mask_branch:
-            vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_4, x_5)
+            images.remove(x_3)
         if 4 in self.mask_branch:
-            vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_5)
+            images.remove(x_4)
         if 5 in self.mask_branch:
-            vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_4)
+            images.remove(x_5)
+
+        vision_embedding = self.vision_encoder(*images)
 
         # Embeddings
         # attended_embedding = self.attention(vision_embedding)
