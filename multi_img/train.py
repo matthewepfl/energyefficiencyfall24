@@ -156,17 +156,27 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     wandb.log(eval_results)
     print('Evaluation:\tResults\n', eval_results)
 
-    # Predictions
-    predictions = trainer.predict(test_data)
-    labels = test_data.get_labels()
+    # Predictions: Test
+    test_predictions = trainer.predict(test_data)
+    test_labels = test_data.get_labels()
+
+    # Train
+    train_predictions = trainer.predict(train_data)
+    train_labels = train_data.get_labels()
+
+    # Validation
+    eval_predictions = trainer.predict(val_data)
+    eval_labels = val_data.get_labels()
 
     # convert to list 
-    predictions = predictions.predictions.tolist()
-    labels = labels.tolist()
+    test_predictions, test_labels = test_predictions.predictions.tolist(), test_labels.tolist()
+    train_predictions, train_labels = train_predictions.predictions.tolist(), train_labels.tolist()
+    eval_predictions, eval_labels = eval_predictions.predictions.tolist(), eval_labels.tolist()
 
     # save predictions
-    np.save(os.path.join(CHECKPOINTS_DIR, f'predictions_{run_name}.npy'), predictions)
-    np.save(os.path.join(CHECKPOINTS_DIR, f'labels_{run_name}.npy'), labels)
+    predictions_path = os.path.join(CHECKPOINTS_DIR, f'predictions_{run_name}.pkl')
+    with open(predictions_path, 'wb') as f:
+        pickle.dump({'train': (train_predictions, train_labels), 'val': (eval_predictions, eval_labels), 'test': (test_predictions, test_labels)}, f)
 
 def grid_search(vision: List[str] = ['resnet50'],
             hidden_dims: List[int] = ['512-256'],
