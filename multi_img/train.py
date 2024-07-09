@@ -74,12 +74,7 @@ def create_trainer(model,
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
-
-
-    # params = [{'params': model.regression.parameters(), 
-    #             'lr': lr, 'weight_decay': weight_decay}]
-    # if model.vision:
-    #     params.append({'params': model.vision_encoder.parameters()}) 
+ 
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
     scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.95)
 
@@ -246,6 +241,8 @@ def grid_search(vision: List[str] = ['resnet50'],
                         num_epochs, 
                         seed, 
                         run_name)
+            
+            wandb.finish()
 
         # Evaluate model
         if do_eval:
@@ -260,6 +257,7 @@ def grid_search(vision: List[str] = ['resnet50'],
                            do_train, 
                            checkpoint_path, 
                            run_name)
+    
 
 def parse_list_of_floats(string):
     return [float(item.strip()) for item in string.strip('[]').split(',')]
