@@ -10,14 +10,11 @@ from transformers import EarlyStoppingCallback
 from models import *
 from data import *
 import itertools
-
 import logging
 logging.basicConfig(level=logging.ERROR)
-
 import tensorflow as tf
 tf.get_logger().setLevel('ERROR')
 from typing import Optional, List, Tuple
-
 
 workingOn = 'server'
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
@@ -84,8 +81,7 @@ def create_trainer(model,
     # if model.vision:
     #     params.append({'params': model.vision_encoder.parameters()}) 
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
-    scheduler = get_cosine_schedule_with_warmup(
-        optimizer, num_warmup_steps=len(train_data)*epochs*0.005, num_training_steps=len(train_data)*epochs) # len(train_data)*epochs*0.05
+    scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.95)
 
     training_args = TrainingArguments(
 
@@ -182,7 +178,8 @@ def grid_search(vision: List[str] = ['resnet50'],
             seed: int = 0,
             do_train: bool = True,
             do_eval: bool = False, 
-            checkpoint_path: Optional[str] = None
+            checkpoint_path: Optional[str] = None,
+            mask_branch: List[int] = []
             ):
     '''
     Grid search for radiology diagnosis using joint image encoders. 
@@ -216,7 +213,7 @@ def grid_search(vision: List[str] = ['resnet50'],
         run_name = f'{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}'
         config = {'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed}
 
-        model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm)
+        model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm, mask_branch=mask_branch)
         freeze_vision_encoder_layers(model, vision)
         
         if do_train:
@@ -268,6 +265,7 @@ if __name__ == '__main__':
     parser.add_argument('--do_train', action='store_true', help="Enable training mode")
     parser.add_argument('--no_train', action='store_false', dest='do_train', help="Disable training mode")
     parser.add_argument('--checkpoint_path', type=str, default=None)
+    parser.add_argument('--mask_branch', type=parse_nested_list_of_ints, default=[], help='Which layers to turn off in the vision encoder.')
     args = parser.parse_args()
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
