@@ -385,8 +385,8 @@ def prepare_data(reduce_dataset):
     if reduce_dataset:
         print('*' * 20, 'Reducing dataset size', '*' * 20)
         print("the length of the cluster_data is: ", len(cluster_data))
-        properties = cluster_data.groupby('Property Reference Id')
-        properties = properties.head(int(len(properties)*0.1))
+        properties = cluster_data.groupby('Property Reference Id').reset_index()['Property Reference Id']
+        properties = properties.sample(frac=0.1, random_state=42)
         cluster_data = cluster_data[cluster_data['Property Reference Id'].isin(properties['Property Reference Id'])]
         print("the length of the cluster_data is: ", len(cluster_data))
         print('Reduced dataset size')
