@@ -16,14 +16,12 @@ import pickle
 from tqdm import tqdm
 from PIL import Image
 from torchvision.transforms import Compose
+import albumentations as A
 
 from torchvision.transforms import (
     CenterCrop,
     Compose,
     Normalize,
-    RandomHorizontalFlip,
-    RandomRotation,
-    RandomVerticalFlip,
     Resize,
     ToTensor,
 )
@@ -246,12 +244,12 @@ def transform_image(image_size, vision=None, augment=True):
 
     # Augmentation (flips, rotations)
     if augment:
-        transforms.append(RandomRotation(10))
-        transforms.append(RandomVerticalFlip())
-        transforms.append(RandomHorizontalFlip())
+        transforms.append(A.HorizontalFlip(p=0.5))
+        transforms.append(A.VerticalFlip(p=0.5))
+        transforms.append(A.Rotate(limit=20, p=0.5))
+        transforms.append(A.RandomBrightnessContrast(p=0.5))
 
     transforms.append(CenterCrop((size, size)))
-    # Resize to IMAGE_SIZE x IMAGE_SIZE
     transforms.append(Resize((IMAGE_SIZE, IMAGE_SIZE)))
 
     if vision == 'vit':
