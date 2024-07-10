@@ -16,7 +16,6 @@ import pickle
 from tqdm import tqdm
 from PIL import Image
 from torchvision.transforms import Compose
-import albumentations as A
 
 from torchvision.transforms import (
     CenterCrop,
@@ -373,7 +372,7 @@ class MultimodalDataset(Dataset):
 
 # ---------------------------------------- MAIN FUNCTIONS ---------------------------------------- #
     
-def prepare_data(): 
+def prepare_data(reduce_dataset): 
     '''
     Load and pre-process tabular data and labels.
     Split into train/val/test sets.
@@ -383,6 +382,12 @@ def prepare_data():
     
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
+    if reduce_dataset:
+        # group cluster data by property reference id and select 10%
+        properties = cluster_data.groupby('Property Reference Id')
+        properties = properties.head(int(len(properties)*0.1))
+        cluster_data = cluster_data[cluster_data['Property Reference Id'].isin(properties['Property Reference Id'])]
+
     data = load_images_data(cluster_data)
 
     # Split labels into train/val/test sets
