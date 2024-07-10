@@ -19,6 +19,9 @@ from torchvision.transforms import Compose
 import albumentations as A
 
 from torchvision.transforms import (
+    RandomHorizontalFlip,
+    RandomVerticalFlip,
+    RandomRotation,
     CenterCrop,
     Compose,
     Normalize,
@@ -244,10 +247,10 @@ def transform_image(image_size, vision=None, augment=True):
 
     # Augmentation (flips, rotations)
     if augment:
-        transforms.append(A.HorizontalFlip(p=0.5))
-        transforms.append(A.VerticalFlip(p=0.5))
-        transforms.append(A.Rotate(limit=20, p=0.5))
-        transforms.append(A.RandomBrightnessContrast(p=0.5))
+        transforms.appends(RandomHorizontalFlip())
+        transforms.appends(RandomVerticalFlip())
+        transforms.appends(RandomRotation(degrees=10))
+
 
     transforms.append(CenterCrop((size, size)))
     transforms.append(Resize((IMAGE_SIZE, IMAGE_SIZE)))
