@@ -137,24 +137,23 @@ class SixVisionEncoder(nn.Module):
         if 0 in self.mask_branch:
             print("removing features_0")
             LIST_FEATURES.remove(features_0)
-        elif 1 in self.mask_branch:
+        if 1 in self.mask_branch:
             print("removing features_1")
             LIST_FEATURES.remove(features_1)
-        elif 2 in self.mask_branch:
+        if 2 in self.mask_branch:
             print("removing features_2")
             LIST_FEATURES.remove(features_2)
-        elif 3 in self.mask_branch:
+        if 3 in self.mask_branch:
             print("removing features_3")
             LIST_FEATURES.remove(features_3)
-        elif 4 in self.mask_branch:
+        if 4 in self.mask_branch:
             print("removing features_4")
             LIST_FEATURES.remove(features_4)
-        elif 5 in self.mask_branch:
+        if 5 in self.mask_branch:
             print("removing features_5")
             LIST_FEATURES.remove(features_5)
 
         combined_features = torch.cat(LIST_FEATURES, dim=1)
-        print('The combine features out of the visiona encoder are: ', combined_features.shape)
         return combined_features
 
 class JointEncoder(nn.Module):
