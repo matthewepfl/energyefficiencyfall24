@@ -134,22 +134,16 @@ class SixVisionEncoder(nn.Module):
 
         LIST_FEATURES = [features_0, features_1, features_2, features_3, features_4, features_5]
         if 0 in self.mask_branch:
-            print("removing features_0")
             LIST_FEATURES.remove(features_0)
         if 1 in self.mask_branch:
-            print("removing features_1")
             LIST_FEATURES.remove(features_1)
         if 2 in self.mask_branch:
-            print("removing features_2")
             LIST_FEATURES.remove(features_2)
         if 3 in self.mask_branch:
-            print("removing features_3")
             LIST_FEATURES.remove(features_3)
         if 4 in self.mask_branch:
-            print("removing features_4")
             LIST_FEATURES.remove(features_4)
         if 5 in self.mask_branch:
-            print("removing features_5")
             LIST_FEATURES.remove(features_5)
 
         combined_features = torch.cat(LIST_FEATURES, dim=1)
