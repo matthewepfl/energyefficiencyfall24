@@ -16,6 +16,7 @@ import pickle
 from tqdm import tqdm
 from PIL import Image
 from torchvision.transforms import Compose
+import albumentations as A
 
 from torchvision.transforms import (
     CenterCrop,
@@ -386,7 +387,7 @@ def prepare_data(reduce_dataset):
         print('*' * 20, 'Reducing dataset size', '*' * 20)
         print("the length of the cluster_data is: ", len(cluster_data))
         properties = cluster_data.groupby('Property Reference Id').first().reset_index()['Property Reference Id']
-        properties = properties.sample(frac=0.1, random_state=42)
+        properties = properties.sample(frac=0.05, random_state=42)
         cluster_data = cluster_data[cluster_data['Property Reference Id'].isin(properties)]
         print("the length of the cluster_data is: ", len(cluster_data))
         print('Reduced dataset size')
