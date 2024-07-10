@@ -259,6 +259,9 @@ def parse_list_of_floats(string):
 
 def parse_nested_list_of_ints(string):
     return string.strip("[]").split(',') # input is like: "512-256-124,512-256"
+
+def mask_branch_type(string):
+    return [int(item.strip()) for item in string.strip('[]').split(',')]
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -275,7 +278,7 @@ if __name__ == '__main__':
     parser.add_argument('--do_train', action='store_true', help="Enable training mode")
     parser.add_argument('--no_train', action='store_false', dest='do_train', help="Disable training mode")
     parser.add_argument('--checkpoint_path', type=str, default=None)
-    parser.add_argument('--mask_branch', type=parse_nested_list_of_ints, default=[], help='Which layers to turn off in the vision encoder.')
+    parser.add_argument('--mask_branch', type=mask_branch_type, default=[], help='Which layers to turn off in the vision encoder.')
     parser.add_argument('--reduce_dataset', action='store_true', help='Reduce the dataset size for testing purposes.')
 
     args = parser.parse_args()
