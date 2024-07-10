@@ -383,7 +383,7 @@ def prepare_data(reduce_dataset):
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
     if reduce_dataset:
-        # group cluster data by property reference id and select 10%
+        print('*' * 20, 'Reducing dataset size', '*' * 20)
         properties = cluster_data.groupby('Property Reference Id')
         properties = properties.head(int(len(properties)*0.1))
         cluster_data = cluster_data[cluster_data['Property Reference Id'].isin(properties['Property Reference Id'])]
