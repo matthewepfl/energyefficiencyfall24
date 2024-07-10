@@ -247,9 +247,9 @@ def transform_image(image_size, vision=None, augment=True):
 
     # Augmentation (flips, rotations)
     if augment:
-        transforms.appends(RandomHorizontalFlip())
-        transforms.appends(RandomVerticalFlip())
-        transforms.appends(RandomRotation(degrees=10))
+        transforms.append(RandomHorizontalFlip())
+        transforms.append(RandomVerticalFlip())
+        transforms.append(RandomRotation(degrees=10))
 
 
     transforms.append(CenterCrop((size, size)))
@@ -282,7 +282,7 @@ class MultimodalDataset(Dataset):
         self.properties = [x[0] for x in list(self.data_dict.keys())]
 
     def __len__(self):
-        return len(self.data_dict) // 6 # CHECK 
+        return len(self.data_dict) // 6
 
     def _load_and_process_image(self, path):
         if path:
