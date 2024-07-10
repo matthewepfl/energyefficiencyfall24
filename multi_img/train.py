@@ -192,7 +192,8 @@ def grid_search(vision: List[str] = ['resnet50'],
             do_train: bool = True,
             do_eval: bool = False, 
             checkpoint_path: Optional[str] = None,
-            mask_branch: List[int] = []
+            mask_branch: List[int] = [],
+            reduce_dataset = False
             ):
     '''
     Grid search for radiology diagnosis using joint image encoders. 
@@ -215,7 +216,7 @@ def grid_search(vision: List[str] = ['resnet50'],
 
     # Load data
     print('Data:\tLoading data')
-    image_data = prepare_data()
+    image_data = prepare_data(reduce_dataset)
     train_data, val_data, test_data = load_data(image_data, vision=vision)
 
 
@@ -282,6 +283,7 @@ if __name__ == '__main__':
     parser.add_argument('--no_train', action='store_false', dest='do_train', help="Disable training mode")
     parser.add_argument('--checkpoint_path', type=str, default=None)
     parser.add_argument('--mask_branch', type=parse_nested_list_of_ints, default=[], help='Which layers to turn off in the vision encoder.')
+    parser.add_argument('--reduce_dataset', action='store_true', help='Reduce the dataset size for testing purposes.')
     args = parser.parse_args()
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
