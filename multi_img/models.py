@@ -185,7 +185,7 @@ class JointEncoder(nn.Module):
         if vision:
             print(f'\tVision encoder: {vision}')
             self.vision_encoder = SixVisionEncoder(vision, mask_branch)
-            self.dim_input += IMAGE_EMBEDDING_DIM * 6 if len(self.mask_branch) == 0 else IMAGE_EMBEDDING_DIM * 5
+            self.dim_input += IMAGE_EMBEDDING_DIM * (6 - len(self.mask_branch))
             num_params += sum(p.numel() for p in self.vision_encoder.parameters())
         
         # self.attention = AttentionHead(embed_dim=self.dim_input, hidden_dim=hidden_dims[0])
