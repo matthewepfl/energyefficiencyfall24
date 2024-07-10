@@ -123,6 +123,10 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
         for param in model.vision_encoder.parameters():
             param.requires_grad = False
 
+    # make the model.regressor trainable
+    for param in model.regressor.parameters():
+        param.requires_grad = True
+
 def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, run_name):
     print('Training: Starting training')
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
