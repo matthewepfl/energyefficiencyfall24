@@ -395,7 +395,6 @@ def prepare_data():
     
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
     print(f'Loaded image data:\nTrain: {len(image_data_train)}\nValidation: {len(image_data_val)}\nTest: {len(image_data_test)}')
-    # up until here it's correct
         
     return image_data
 
