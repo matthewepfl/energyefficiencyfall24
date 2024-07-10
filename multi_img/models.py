@@ -133,7 +133,6 @@ class SixVisionEncoder(nn.Module):
             features_5 = self.model_5(x_5).logits
 
         LIST_FEATURES = [features_0, features_1, features_2, features_3, features_4, features_5]
-        print(self.mask_branch)
         if 0 in self.mask_branch:
             print("removing features_0")
             LIST_FEATURES.remove(features_0)
