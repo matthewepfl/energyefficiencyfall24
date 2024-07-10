@@ -45,34 +45,18 @@ class RegressionHead(nn.Module):
         self.hidden.append(nn.Linear(self.dim_input, 1))
         self.hidden = nn.Sequential(*self.hidden)
         
-        #self._initialize_weights()
+        self._initialize_weights()
 
     def forward(self, x):
         return self.hidden(x)
     
     def _initialize_weights(self):
+        # using xavier initialization
         for m in self.modules():
             if isinstance(m, nn.Linear):
                 nn.init.xavier_uniform_(m.weight)
                 if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-            elif isinstance(m, nn.BatchNorm1d):
-                nn.init.ones_(m.weight)
-                nn.init.zeros_(m.bias)
-
-# class AttentionHead(nn.Module):
-#     def __init__(self, embed_dim, hidden_dim=[512, 128]):
-#         super(AttentionHead, self).__init__()
-#         self.attention_fc = nn.Linear(embed_dim, hidden_dim)
-#         self.context_vector = nn.Linear(hidden_dim, 1, bias=False)
-    
-#     def forward(self, embeddings):
-#         attention_scores = torch.tanh(self.attention_fc(embeddings))  # [batch_size, num_embeddings, hidden_dim]
-#         attention_weights = F.softmax(self.context_vector(attention_scores), dim=1)  # [batch_size, num_embeddings, 1]
-#         weighted_embeddings = embeddings * attention_weights  # [batch_size, num_embeddings, embedding_dim]
-#         return weighted_embeddings.sum(dim=1)  # [batch_size, embedding_dim]
-
-
+                    nn.init.constant_(m.bias, 0)
     
 class SixVisionEncoder(nn.Module):
     def __init__(self, vision : str, mask_branch=[]):
