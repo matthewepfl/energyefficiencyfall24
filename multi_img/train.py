@@ -123,14 +123,6 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
         for param in model.vision_encoder.parameters():
             param.requires_grad = False
 
-        print('Training:\tFreezing vision encoder layers')
-        # print the model
-        print(model)
-
-        # unfreeze the last layer
-        # for param in model.vision_encoder.fc.parameters():
-            # param.requires_grad = True
-
 def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, run_name):
     print('Training: Starting training')
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
@@ -284,6 +276,7 @@ if __name__ == '__main__':
     parser.add_argument('--checkpoint_path', type=str, default=None)
     parser.add_argument('--mask_branch', type=parse_nested_list_of_ints, default=[], help='Which layers to turn off in the vision encoder.')
     parser.add_argument('--reduce_dataset', action='store_true', help='Reduce the dataset size for testing purposes.')
+
     args = parser.parse_args()
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
