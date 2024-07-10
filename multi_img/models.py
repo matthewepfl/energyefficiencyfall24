@@ -147,6 +147,7 @@ class SixVisionEncoder(nn.Module):
             LIST_FEATURES.remove(features_5)
 
         combined_features = torch.cat(LIST_FEATURES, dim=1)
+        print('The combine features out of the visiona encoder are: ', combined_features.shape)
         return combined_features
 
 class JointEncoder(nn.Module):
@@ -189,23 +190,7 @@ class JointEncoder(nn.Module):
     def forward(self, x_0=None, x_1=None, x_2=None, x_3=None, x_4=None, x_5=None, labels=None):
         # Generate embeddings (image and/or tabular)
 
-        images = [x_0, x_1, x_2, x_3, x_4, x_5]
-        if len(self.mask_branch)==0:
-            vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_4, x_5)
-        if 0 in self.mask_branch:
-            images = images[1:]
-        if 1 in self.mask_branch:
-            images.remove(x_1)
-        if 2 in self.mask_branch:
-            images.remove(x_2)
-        if 3 in self.mask_branch:
-            images.remove(x_3)
-        if 4 in self.mask_branch:
-            images.remove(x_4)
-        if 5 in self.mask_branch:
-            images.remove(x_5)
-
-        vision_embedding = self.vision_encoder(*images)
+        vision_embedding = self.vision_encoder(x_0, x_1, x_2, x_3, x_4, x_5)
 
         # Embeddings
         # attended_embedding = self.attention(vision_embedding)
