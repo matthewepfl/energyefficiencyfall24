@@ -387,6 +387,7 @@ def prepare_data(reduce_dataset):
         properties = cluster_data.groupby('Property Reference Id')
         properties = properties.head(int(len(properties)*0.1))
         cluster_data = cluster_data[cluster_data['Property Reference Id'].isin(properties['Property Reference Id'])]
+        print('Reduced dataset size')
 
     data = load_images_data(cluster_data)
 
