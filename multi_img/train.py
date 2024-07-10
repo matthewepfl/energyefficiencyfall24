@@ -193,6 +193,7 @@ def grid_search(vision: List[str] = ['resnet50'],
     print("Training:\t", do_train)
     print("Evaluation:\t", do_eval)
     print("Checkpoint path:\t", checkpoint_path)
+    print("Mask branch:\t", mask_branch)
     
     # Set seed
     torch.manual_seed(seed)
