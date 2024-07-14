@@ -76,7 +76,7 @@ def create_trainer(model,
     model.to(device)
  
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
-    scheduler = torch.optim.lr_scheduler.LinearLR(optimizer)
+    scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=epochs*len(train_data))
 
     training_args = TrainingArguments(
 
