@@ -228,6 +228,8 @@ def grid_search(vision: List[str] = ['resnet50'],
         config = {'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed}
 
         model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm, mask_branch=mask_branch)
+        # print the parameters that can be learnt and have require_grad = True
+
         # freeze_vision_encoder_layers(model, vision)
         
         if do_train:
