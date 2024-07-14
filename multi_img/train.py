@@ -149,7 +149,7 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
         print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
 
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
-                             epochs=num_epochs, lr=lr, batch_size=32, 
+                             epochs=num_epochs, lr=lr, batch_size=8, 
                              weight_decay=weight_decay, seed=seed)
 
     # Evaluation
@@ -228,7 +228,6 @@ def grid_search(vision: List[str] = ['resnet50'],
         config = {'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed}
 
         model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm, mask_branch=mask_branch)
-        # print the parameters that can be learnt and have require_grad = True
 
         # freeze_vision_encoder_layers(model, vision)
         
