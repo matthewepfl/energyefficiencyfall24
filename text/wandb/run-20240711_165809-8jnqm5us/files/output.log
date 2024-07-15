@@ -1,0 +1,81 @@
+[32m[I 2024-07-11 16:58:18,851][39m A new study created in memory with name: no-name-bba546ee-5527-4001-ac1d-e6efc925556b
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 7491.11455| val_0_rmse: 53.87804|  0:00:23s
+epoch 1  | loss: 1183.89487| val_0_rmse: 34.86393|  0:00:43s
+epoch 2  | loss: 978.54049| val_0_rmse: 33.78689|  0:01:03s
+epoch 3  | loss: 934.63626| val_0_rmse: 32.50304|  0:01:24s
+epoch 4  | loss: 911.09577| val_0_rmse: 34.08408|  0:01:44s
+epoch 5  | loss: 881.40804| val_0_rmse: 33.08014|  0:02:04s
+epoch 6  | loss: 847.02245| val_0_rmse: 30.34963|  0:02:24s
+epoch 7  | loss: 818.02057| val_0_rmse: 31.66745|  0:02:45s
+epoch 8  | loss: 782.97747| val_0_rmse: 27.8213 |  0:03:05s
+epoch 9  | loss: 683.09985| val_0_rmse: 28.0102 |  0:03:25s
+epoch 10 | loss: 599.62334| val_0_rmse: 33.90468|  0:03:45s
+epoch 11 | loss: 539.92569| val_0_rmse: 27.85793|  0:04:05s
+epoch 12 | loss: 501.57506| val_0_rmse: 27.41883|  0:04:26s
+epoch 13 | loss: 458.39809| val_0_rmse: 23.71204|  0:04:46s
+epoch 14 | loss: 421.80924| val_0_rmse: 21.75218|  0:05:06s
+epoch 15 | loss: 392.68178| val_0_rmse: 20.628  |  0:05:26s
+epoch 16 | loss: 373.26021| val_0_rmse: 20.79395|  0:05:46s
+epoch 17 | loss: 349.46401| val_0_rmse: 20.21537|  0:06:06s
+epoch 18 | loss: 345.2621| val_0_rmse: 19.8232 |  0:06:27s
+epoch 19 | loss: 333.58337| val_0_rmse: 19.5376 |  0:06:47s
+epoch 20 | loss: 316.06935| val_0_rmse: 19.44008|  0:07:07s
+epoch 21 | loss: 304.45363| val_0_rmse: 19.17058|  0:07:28s
+[33m[W 2024-07-11 17:05:58,989][39m Trial 0 failed with parameters: {'lr': 0.00330751635843025, 'n_steps': 8, 'gamma': 1.0825428221184374, 'n_independent': 3, 'n_shared': 3, 'momentum': 0.09800329400244823, 'weight_decay': 1.1559652068569081e-05, 'batch_size': 64, 'virtual_batch_size': 32} because of the following error: KeyboardInterrupt().
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 196, in _run_trial
+    value_or_values = func(trial)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py", line 64, in objective
+    clf.fit(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 258, in fit
+    self._train_epoch(train_dataloader)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 489, in _train_epoch
+    batch_logs = self._train_batch(X, y)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 534, in _train_batch
+    loss.backward()
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+KeyboardInterrupt
+[33m[W 2024-07-11 17:05:59,033][39m Trial 0 failed with value None.
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py", line 89, in <module>
+    study.optimize(objective, n_trials=20)  # Reduced number of trials
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/study.py", line 451, in optimize
+    _optimize(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 62, in _optimize
+    _optimize_sequential(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 159, in _optimize_sequential
+    frozen_trial = _run_trial(study, func, catch)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 247, in _run_trial
+    raise func_err
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 196, in _run_trial
+    value_or_values = func(trial)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py", line 64, in objective
+    clf.fit(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 258, in fit
+    self._train_epoch(train_dataloader)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 489, in _train_epoch
+    batch_logs = self._train_batch(X, y)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 534, in _train_batch
+    loss.backward()
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+KeyboardInterrupt

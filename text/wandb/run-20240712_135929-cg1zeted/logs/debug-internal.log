@@ -1,0 +1,815 @@
+2024-07-12 13:59:36,763 INFO    StreamThr :3719871 [internal.py:wandb_internal():85] W&B internal server running at pid: 3719871, started at: 2024-07-12 13:59:36.761837
+2024-07-12 13:59:36,764 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status
+2024-07-12 13:59:36,766 INFO    WriterThread:3719871 [datastore.py:open_for_write():87] open: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/run-cg1zeted.wandb
+2024-07-12 13:59:36,768 DEBUG   SenderThread:3719871 [sender.py:send():379] send: header
+2024-07-12 13:59:36,768 DEBUG   SenderThread:3719871 [sender.py:send():379] send: run
+2024-07-12 13:59:37,460 INFO    SenderThread:3719871 [dir_watcher.py:__init__():211] watching files in: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files
+2024-07-12 13:59:37,460 INFO    SenderThread:3719871 [sender.py:_start_run_threads():1188] run started: cg1zeted with start time 1720785576.76427
+2024-07-12 13:59:37,464 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: check_version
+2024-07-12 13:59:37,465 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: check_version
+2024-07-12 13:59:37,577 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: run_start
+2024-07-12 13:59:37,594 DEBUG   HandlerThread:3719871 [system_info.py:__init__():26] System info init
+2024-07-12 13:59:37,594 DEBUG   HandlerThread:3719871 [system_info.py:__init__():41] System info init done
+2024-07-12 13:59:37,594 INFO    HandlerThread:3719871 [system_monitor.py:start():194] Starting system monitor
+2024-07-12 13:59:37,594 INFO    SystemMonitor:3719871 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2024-07-12 13:59:37,594 INFO    HandlerThread:3719871 [system_monitor.py:probe():214] Collecting system info
+2024-07-12 13:59:37,595 INFO    SystemMonitor:3719871 [interfaces.py:start():188] Started cpu monitoring
+2024-07-12 13:59:37,595 INFO    SystemMonitor:3719871 [interfaces.py:start():188] Started disk monitoring
+2024-07-12 13:59:37,596 INFO    SystemMonitor:3719871 [interfaces.py:start():188] Started gpu monitoring
+2024-07-12 13:59:37,596 INFO    SystemMonitor:3719871 [interfaces.py:start():188] Started memory monitoring
+2024-07-12 13:59:37,597 INFO    SystemMonitor:3719871 [interfaces.py:start():188] Started network monitoring
+2024-07-12 13:59:37,619 DEBUG   HandlerThread:3719871 [system_info.py:probe():152] Probing system
+2024-07-12 13:59:37,623 DEBUG   HandlerThread:3719871 [gitlib.py:_init_repo():56] git repository is invalid
+2024-07-12 13:59:37,624 DEBUG   HandlerThread:3719871 [system_info.py:probe():200] Probing system done
+2024-07-12 13:59:37,624 DEBUG   HandlerThread:3719871 [system_monitor.py:probe():223] {'os': 'Linux-5.14.0-70.30.1.el9_0.x86_64-x86_64-with-glibc2.34', 'python': '3.9.10', 'heartbeatAt': '2024-07-12T11:59:37.619614', 'startedAt': '2024-07-12T11:59:29.657078', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': '/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py', 'codePathLocal': 'train_tabnet.py', 'codePath': 'train_tabnet.py', 'host': 'i49', 'username': 'mmorvan', 'executable': '/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/bin/python', 'cpu_count': 40, 'cpu_count_logical': 40, 'cpu_freq': {'current': 3888.4191250000003, 'min': 800.0, 'max': 3900.0}, 'cpu_freq_per_core': [{'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3344.006, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}, {'current': 3900.0, 'min': 800.0, 'max': 3900.0}], 'disk': {'/': {'total': 49.9755859375, 'used': 5.507991790771484}}, 'gpu': 'Tesla V100-PCIE-32GB', 'gpu_count': 1, 'gpu_devices': [{'name': 'Tesla V100-PCIE-32GB', 'memory_total': 34359738368}], 'memory': {'total': 377.04341888427734}}
+2024-07-12 13:59:37,625 INFO    HandlerThread:3719871 [system_monitor.py:probe():224] Finished collecting system info
+2024-07-12 13:59:37,625 INFO    HandlerThread:3719871 [system_monitor.py:probe():227] Publishing system info
+2024-07-12 13:59:37,626 INFO    HandlerThread:3719871 [system_monitor.py:probe():229] Finished publishing system info
+2024-07-12 13:59:37,660 DEBUG   SenderThread:3719871 [sender.py:send():379] send: files
+2024-07-12 13:59:37,660 INFO    SenderThread:3719871 [sender.py:_save_file():1454] saving file wandb-metadata.json with policy now
+2024-07-12 13:59:38,263 INFO    wandb-upload_0:3719871 [upload_job.py:push():130] Uploaded file /tmp/tmpor_rqakuwandb/hiw38ns4-wandb-metadata.json
+2024-07-12 13:59:38,305 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: python_packages
+2024-07-12 13:59:38,306 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: python_packages
+2024-07-12 13:59:38,306 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 13:59:38,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:38,307 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 13:59:38,461 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_created():271] file/dir created: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/requirements.txt
+2024-07-12 13:59:38,462 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_created():271] file/dir created: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/wandb-metadata.json
+2024-07-12 13:59:38,544 DEBUG   SenderThread:3719871 [sender.py:send():379] send: telemetry
+2024-07-12 13:59:39,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:40,329 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:40,461 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_created():271] file/dir created: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 13:59:41,644 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:42,462 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 13:59:42,592 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:42,611 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 13:59:43,592 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:44,592 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:45,592 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:46,592 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:47,592 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:48,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 13:59:48,593 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:49,617 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:50,617 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:51,617 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:52,617 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:53,306 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 13:59:53,306 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 13:59:53,559 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 13:59:53,618 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:54,618 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:55,618 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:56,621 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:57,620 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:58,467 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 13:59:58,620 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 13:59:59,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 13:59:59,620 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:00,620 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:01,620 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:02,468 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:02,620 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:03,637 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:04,469 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:04,622 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:05,164 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:05,622 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:06,622 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:07,622 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:08,306 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:00:08,307 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:00:08,470 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:08,622 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:09,622 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:10,547 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:10,623 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:11,471 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/config.yaml
+2024-07-12 14:00:11,650 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:12,471 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:12,636 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:13,635 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:14,635 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:15,636 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:16,325 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:16,473 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:16,636 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:17,636 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:18,667 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:19,650 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:20,650 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:21,474 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:21,650 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:22,004 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:22,691 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:23,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:00:23,307 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:00:23,650 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:24,651 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:25,475 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:25,651 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:26,652 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:27,359 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:27,476 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:27,651 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:28,651 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:29,663 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:30,662 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:31,477 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:31,662 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:32,662 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:33,031 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:33,670 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:34,670 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:35,479 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:35,670 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:36,670 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:37,597 DEBUG   SystemMonitor:3719871 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2024-07-12 14:00:37,598 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:00:37,677 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:38,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:00:38,307 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:00:38,499 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:38,677 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:39,480 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:39,677 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:40,698 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:41,683 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:42,683 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:43,481 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:43,683 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:44,322 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:44,683 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:45,683 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:46,683 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:47,482 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:47,683 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:48,700 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:49,483 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:49,519 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:49,684 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:50,684 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:51,707 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:52,692 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:53,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:00:53,307 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:00:53,484 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:53,691 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:54,692 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:55,469 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:00:55,693 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:56,692 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:57,485 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:00:57,692 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:58,692 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:00:59,722 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:00,637 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:00,706 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:01,487 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:01,706 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:02,706 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:03,707 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:04,707 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:05,488 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:05,706 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:06,373 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:06,732 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:07,599 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:01:07,715 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:08,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:01:08,307 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:01:08,715 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:09,489 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:09,715 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:10,716 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:11,715 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:11,779 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:12,715 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:13,490 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:13,715 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:14,726 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:15,491 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:15,725 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:16,725 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:17,463 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:17,732 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:18,732 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:19,492 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:19,731 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:20,731 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:21,733 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:22,732 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:22,884 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:23,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:01:23,307 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:01:23,493 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:23,732 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:24,732 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:25,754 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:26,738 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:27,495 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:27,737 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:28,331 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:28,737 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:29,738 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:30,737 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:31,496 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:31,738 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:32,743 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:33,331 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:33,742 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:34,742 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:35,497 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:35,742 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:36,796 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:37,498 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:37,600 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:01:37,748 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:38,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:01:38,307 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:01:38,541 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:38,748 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:39,748 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:40,758 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:41,499 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:41,753 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:42,753 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:43,764 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:44,093 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:44,763 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:45,500 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:45,763 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:46,763 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:47,764 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:48,764 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:49,332 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:49,501 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:49,764 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:50,764 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:51,790 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:52,773 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:53,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:01:53,307 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:01:53,502 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:53,773 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:54,474 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:01:54,783 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:55,782 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:56,782 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:57,504 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:57,782 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:58,782 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:59,505 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:01:59,783 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:01:59,939 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:00,782 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:01,782 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:02,813 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:03,506 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:03,795 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:04,795 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:05,333 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:05,812 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:06,798 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:07,507 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:07,601 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:02:07,797 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:08,307 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:02:08,308 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:02:08,797 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:09,798 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:10,798 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:11,024 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:11,508 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:11,798 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:12,798 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:13,812 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:14,812 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:15,509 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:15,812 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:16,694 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:16,812 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:17,812 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:18,812 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:19,511 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:19,812 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:20,814 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:21,814 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:22,073 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:22,814 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:23,308 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:02:23,308 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:02:23,512 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:23,814 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:24,830 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:25,513 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:25,829 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:26,829 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:27,774 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:27,829 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:28,830 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:29,514 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:29,829 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:30,830 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:31,839 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:32,839 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:33,231 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:33,515 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:33,838 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:34,839 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:35,839 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:36,839 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:37,516 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:37,601 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:02:37,839 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:38,308 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:02:38,308 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:02:38,547 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:38,839 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:39,867 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:40,851 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:41,517 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:41,851 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:42,859 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:43,859 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:44,366 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:44,858 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:45,519 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:45,858 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:46,860 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:47,519 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:47,859 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:48,858 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:49,859 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:50,348 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:50,891 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:51,521 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:51,874 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:52,874 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:53,308 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:02:53,308 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:02:53,893 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:54,877 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:55,522 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:55,877 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:56,258 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:02:56,877 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:57,877 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:58,877 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:02:59,523 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:02:59,877 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:00,877 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:01,349 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:01,887 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:02,886 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:03,524 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:03,885 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:04,888 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:05,888 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:06,401 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:06,887 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:07,526 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:07,602 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:03:07,887 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:08,308 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:03:08,308 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:03:08,888 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:09,526 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:09,888 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:10,888 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:11,888 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:12,056 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:12,904 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:13,528 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:13,903 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:14,903 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:15,935 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:16,919 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:17,473 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:17,529 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:17,919 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:18,919 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:19,920 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:20,920 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:21,530 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:21,920 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:22,920 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:23,131 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:23,336 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:03:23,336 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:03:23,947 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:24,930 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:25,532 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:25,930 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:26,930 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:27,931 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:28,351 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:28,930 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:29,533 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:29,930 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:30,940 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:31,534 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:31,940 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:32,940 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:33,351 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:33,940 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:34,966 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:35,535 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:35,941 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:36,940 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:37,603 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:03:37,940 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:38,332 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:03:38,332 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:03:38,490 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:38,942 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:39,536 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:39,941 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:40,941 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:41,960 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:42,944 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:43,538 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:43,944 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:44,365 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:44,944 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:45,945 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:46,945 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:47,944 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:48,540 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:48,944 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:49,653 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:49,947 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:50,946 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:51,946 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:52,541 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:52,971 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:53,332 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:03:53,332 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:03:53,955 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:54,542 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:54,954 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:55,480 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:03:55,954 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:56,955 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:57,956 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:58,543 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:03:58,955 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:03:59,955 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:00,792 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:00,997 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:01,965 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:02,544 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:02,965 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:03,994 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:04,979 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:05,979 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:06,519 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:06,545 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:06,979 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:07,607 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:04:07,979 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:08,345 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:04:08,345 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:04:08,979 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:09,979 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:10,546 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:10,979 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:11,593 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:11,987 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:12,986 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:13,986 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:14,548 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:15,013 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:15,998 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:16,548 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:16,998 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:17,524 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:17,998 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:18,999 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:19,999 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:20,550 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:20,999 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:21,999 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:22,797 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:23,019 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:23,344 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:04:23,344 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:04:24,002 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:24,551 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:25,003 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:26,046 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:27,016 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:28,015 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:28,377 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:28,552 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:29,015 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:30,016 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:31,016 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:32,016 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:32,553 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:33,016 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:33,394 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:34,050 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:35,019 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:36,018 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:36,555 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:37,041 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:37,605 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:04:38,025 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:38,344 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:04:38,344 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:04:38,555 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:38,593 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:39,025 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:40,025 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:41,026 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:42,026 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:42,557 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:43,026 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:44,026 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:44,378 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:45,041 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:46,040 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:46,558 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:47,040 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:48,085 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:49,054 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:49,580 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:50,054 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:50,559 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:51,054 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:52,055 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:53,055 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:53,344 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:04:53,344 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:04:54,055 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:54,560 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:55,055 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:55,574 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:04:56,084 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:57,069 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:58,069 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:04:58,562 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:04:59,106 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:00,075 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:00,562 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:01,075 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:01,570 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:02,075 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:03,075 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:04,076 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:04,564 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:05,075 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:06,075 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:06,998 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:07,107 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:07,605 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:05:08,091 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:08,344 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:05:08,344 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:05:08,565 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:09,090 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:10,091 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:11,091 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:12,091 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:12,566 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:12,709 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:13,091 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:14,109 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:15,093 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:16,093 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:16,567 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:17,093 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:18,015 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:18,109 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:19,094 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:20,094 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:20,569 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:21,094 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:22,094 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:22,569 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:23,094 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:23,344 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:05:23,344 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:05:23,515 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:24,094 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:25,126 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:26,109 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:26,571 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:27,109 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:28,109 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:29,000 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:29,125 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:30,110 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:30,572 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:31,110 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:32,110 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:33,110 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:34,110 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:34,384 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:34,573 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:35,110 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:36,113 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:37,111 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:37,606 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:05:38,111 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:38,344 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:05:38,345 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:05:38,574 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:39,111 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:39,493 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:40,154 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:41,122 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:42,122 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:42,576 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:43,122 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:44,122 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:44,576 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:44,776 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:45,122 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:46,122 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:47,129 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:48,128 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:48,577 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:49,128 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:50,128 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:50,398 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:51,148 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:52,133 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:52,579 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:53,133 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:53,345 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:05:53,345 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:05:54,133 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:55,134 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:55,762 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:05:56,133 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:56,580 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:05:57,133 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:58,146 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:05:59,145 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:00,145 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:00,581 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:06:01,145 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:01,519 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:06:02,148 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:03,146 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:04,146 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:04,582 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:06:05,146 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:06,158 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:06,583 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:06:06,915 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:06:07,157 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:07,607 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:06:08,157 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:08,345 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: stop_status
+2024-07-12 14:06:08,345 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: stop_status
+2024-07-12 14:06:09,194 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:10,163 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:10,584 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:06:11,163 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:12,163 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:12,549 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:06:13,163 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:14,163 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:14,585 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:06:15,163 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:16,164 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:16,928 DEBUG   SenderThread:3719871 [sender.py:send():379] send: exit
+2024-07-12 14:06:16,928 INFO    SenderThread:3719871 [sender.py:send_exit():586] handling exit code: 1
+2024-07-12 14:06:16,929 INFO    SenderThread:3719871 [sender.py:send_exit():588] handling runtime: 399
+2024-07-12 14:06:16,929 INFO    SenderThread:3719871 [sender.py:_save_file():1454] saving file wandb-summary.json with policy end
+2024-07-12 14:06:16,929 INFO    SenderThread:3719871 [sender.py:send_exit():594] send defer
+2024-07-12 14:06:16,930 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:16,930 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 0
+2024-07-12 14:06:16,930 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:16,930 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 0
+2024-07-12 14:06:16,930 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 1
+2024-07-12 14:06:16,930 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:16,930 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 1
+2024-07-12 14:06:16,930 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:16,930 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 1
+2024-07-12 14:06:16,930 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 2
+2024-07-12 14:06:16,930 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:16,931 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 2
+2024-07-12 14:06:16,931 INFO    HandlerThread:3719871 [system_monitor.py:finish():203] Stopping system monitor
+2024-07-12 14:06:16,931 DEBUG   SystemMonitor:3719871 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2024-07-12 14:06:16,931 DEBUG   SystemMonitor:3719871 [system_monitor.py:_start():183] Publishing last batch of metrics
+2024-07-12 14:06:16,931 INFO    HandlerThread:3719871 [interfaces.py:finish():200] Joined cpu monitor
+2024-07-12 14:06:16,932 INFO    HandlerThread:3719871 [interfaces.py:finish():200] Joined disk monitor
+2024-07-12 14:06:16,973 INFO    HandlerThread:3719871 [interfaces.py:finish():200] Joined gpu monitor
+2024-07-12 14:06:16,974 INFO    HandlerThread:3719871 [interfaces.py:finish():200] Joined memory monitor
+2024-07-12 14:06:16,974 INFO    HandlerThread:3719871 [interfaces.py:finish():200] Joined network monitor
+2024-07-12 14:06:16,974 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:16,974 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 2
+2024-07-12 14:06:16,974 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 3
+2024-07-12 14:06:16,974 DEBUG   SenderThread:3719871 [sender.py:send():379] send: stats
+2024-07-12 14:06:16,974 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:16,975 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 3
+2024-07-12 14:06:16,975 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:16,975 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 3
+2024-07-12 14:06:16,975 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 4
+2024-07-12 14:06:16,975 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:16,975 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 4
+2024-07-12 14:06:16,975 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:16,975 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 4
+2024-07-12 14:06:16,975 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 5
+2024-07-12 14:06:16,975 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:16,975 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 5
+2024-07-12 14:06:16,975 DEBUG   SenderThread:3719871 [sender.py:send():379] send: summary
+2024-07-12 14:06:16,976 INFO    SenderThread:3719871 [sender.py:_save_file():1454] saving file wandb-summary.json with policy end
+2024-07-12 14:06:16,976 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:16,976 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 5
+2024-07-12 14:06:16,976 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 6
+2024-07-12 14:06:16,976 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:16,976 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 6
+2024-07-12 14:06:16,976 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:16,976 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 6
+2024-07-12 14:06:16,976 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 7
+2024-07-12 14:06:16,976 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: status_report
+2024-07-12 14:06:16,976 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:16,977 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 7
+2024-07-12 14:06:16,977 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:16,977 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 7
+2024-07-12 14:06:17,587 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_created():271] file/dir created: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/wandb-summary.json
+2024-07-12 14:06:17,929 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: poll_exit
+2024-07-12 14:06:18,587 INFO    Thread-12 :3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:06:20,350 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 8
+2024-07-12 14:06:20,350 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: poll_exit
+2024-07-12 14:06:20,350 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:20,351 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 8
+2024-07-12 14:06:20,351 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:20,351 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 8
+2024-07-12 14:06:20,351 INFO    SenderThread:3719871 [job_builder.py:build():440] Attempting to build job artifact
+2024-07-12 14:06:20,351 INFO    SenderThread:3719871 [job_builder.py:_get_source_type():580] no source found
+2024-07-12 14:06:20,351 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 9
+2024-07-12 14:06:20,351 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:20,351 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 9
+2024-07-12 14:06:20,352 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:20,352 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 9
+2024-07-12 14:06:20,352 INFO    SenderThread:3719871 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-07-12 14:06:20,588 INFO    SenderThread:3719871 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:06:20,588 INFO    SenderThread:3719871 [dir_watcher.py:finish():388] scan: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files
+2024-07-12 14:06:20,588 INFO    SenderThread:3719871 [dir_watcher.py:finish():402] scan save: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/wandb-metadata.json wandb-metadata.json
+2024-07-12 14:06:20,588 INFO    SenderThread:3719871 [dir_watcher.py:finish():402] scan save: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/config.yaml config.yaml
+2024-07-12 14:06:20,588 INFO    SenderThread:3719871 [dir_watcher.py:finish():402] scan save: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/requirements.txt requirements.txt
+2024-07-12 14:06:20,589 INFO    SenderThread:3719871 [dir_watcher.py:finish():402] scan save: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/wandb-summary.json wandb-summary.json
+2024-07-12 14:06:20,589 INFO    SenderThread:3719871 [dir_watcher.py:finish():402] scan save: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log output.log
+2024-07-12 14:06:20,594 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 10
+2024-07-12 14:06:20,596 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:20,597 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 10
+2024-07-12 14:06:20,597 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:20,599 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 10
+2024-07-12 14:06:20,600 INFO    SenderThread:3719871 [file_pusher.py:finish():169] shutting down file pusher
+2024-07-12 14:06:20,930 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: poll_exit
+2024-07-12 14:06:20,931 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: poll_exit
+2024-07-12 14:06:21,064 INFO    wandb-upload_0:3719871 [upload_job.py:push():130] Uploaded file /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/config.yaml
+2024-07-12 14:06:21,065 INFO    wandb-upload_1:3719871 [upload_job.py:push():130] Uploaded file /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/requirements.txt
+2024-07-12 14:06:21,091 INFO    wandb-upload_2:3719871 [upload_job.py:push():130] Uploaded file /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/wandb-summary.json
+2024-07-12 14:06:21,268 INFO    wandb-upload_3:3719871 [upload_job.py:push():130] Uploaded file /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/files/output.log
+2024-07-12 14:06:21,469 INFO    Thread-11 :3719871 [sender.py:transition_state():614] send defer: 11
+2024-07-12 14:06:21,469 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:21,469 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 11
+2024-07-12 14:06:21,469 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:21,469 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 11
+2024-07-12 14:06:21,469 INFO    SenderThread:3719871 [file_pusher.py:join():175] waiting for file pusher
+2024-07-12 14:06:21,469 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 12
+2024-07-12 14:06:21,470 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:21,470 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 12
+2024-07-12 14:06:21,470 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:21,470 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 12
+2024-07-12 14:06:21,470 INFO    SenderThread:3719871 [file_stream.py:finish():601] file stream finish called
+2024-07-12 14:06:21,931 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: poll_exit
+2024-07-12 14:06:22,008 INFO    SenderThread:3719871 [file_stream.py:finish():605] file stream finish is done
+2024-07-12 14:06:22,009 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 13
+2024-07-12 14:06:22,009 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: poll_exit
+2024-07-12 14:06:22,009 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:22,009 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 13
+2024-07-12 14:06:22,009 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:22,009 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 13
+2024-07-12 14:06:22,009 INFO    SenderThread:3719871 [sender.py:transition_state():614] send defer: 14
+2024-07-12 14:06:22,009 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: defer
+2024-07-12 14:06:22,010 DEBUG   SenderThread:3719871 [sender.py:send():379] send: final
+2024-07-12 14:06:22,010 INFO    HandlerThread:3719871 [handler.py:handle_request_defer():184] handle defer: 14
+2024-07-12 14:06:22,010 DEBUG   SenderThread:3719871 [sender.py:send():379] send: footer
+2024-07-12 14:06:22,010 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: defer
+2024-07-12 14:06:22,010 INFO    SenderThread:3719871 [sender.py:send_request_defer():610] handle sender defer: 14
+2024-07-12 14:06:22,010 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: poll_exit
+2024-07-12 14:06:22,010 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: poll_exit
+2024-07-12 14:06:22,011 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: server_info
+2024-07-12 14:06:22,011 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: server_info
+2024-07-12 14:06:22,013 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: poll_exit
+2024-07-12 14:06:22,013 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: get_summary
+2024-07-12 14:06:22,013 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: sampled_history
+2024-07-12 14:06:22,013 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: internal_messages
+2024-07-12 14:06:22,417 DEBUG   SenderThread:3719871 [sender.py:send_request():406] send_request: poll_exit
+2024-07-12 14:06:22,418 INFO    MainThread:3719871 [wandb_run.py:_footer_history_summary_info():3991] rendering history
+2024-07-12 14:06:22,418 INFO    MainThread:3719871 [wandb_run.py:_footer_history_summary_info():4023] rendering summary
+2024-07-12 14:06:22,418 INFO    MainThread:3719871 [wandb_run.py:_footer_sync_info():3950] logging synced files
+2024-07-12 14:06:22,418 DEBUG   HandlerThread:3719871 [handler.py:handle_request():158] handle_request: shutdown
+2024-07-12 14:06:22,418 INFO    HandlerThread:3719871 [handler.py:finish():882] shutting down handler
+2024-07-12 14:06:23,013 INFO    WriterThread:3719871 [datastore.py:close():296] close: /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/wandb/run-20240712_135929-cg1zeted/run-cg1zeted.wandb
+2024-07-12 14:06:23,418 INFO    SenderThread:3719871 [sender.py:finish():1608] shutting down sender
+2024-07-12 14:06:23,418 INFO    SenderThread:3719871 [file_pusher.py:finish():169] shutting down file pusher
+2024-07-12 14:06:23,418 INFO    SenderThread:3719871 [file_pusher.py:join():175] waiting for file pusher

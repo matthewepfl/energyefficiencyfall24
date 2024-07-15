@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/combined_model.py", line 107, in <module>
+    optimizer = AdamW(model.parameters(), lr=1e-5, weight_decay=1e-3)  # Reduce learning rate and weight decay
+NameError: name 'AdamW' is not defined

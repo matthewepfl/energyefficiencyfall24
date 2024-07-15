@@ -1,0 +1,1 @@
+{"validation_rmse": 12.67031096270709, "trial_number": 39, "_timestamp": 1720742501.9136438, "_runtime": 32013.60626888275, "_step": 41, "train_mse": 68.21038670899836, "valid_mse": 130.48489611884048, "test_mse": 904.4071677694869, "_wandb": {"runtime": 32007}}

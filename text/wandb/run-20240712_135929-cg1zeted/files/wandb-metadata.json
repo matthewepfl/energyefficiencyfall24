@@ -1,0 +1,242 @@
+{
+    "os": "Linux-5.14.0-70.30.1.el9_0.x86_64-x86_64-with-glibc2.34",
+    "python": "3.9.10",
+    "heartbeatAt": "2024-07-12T11:59:37.619614",
+    "startedAt": "2024-07-12T11:59:29.657078",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py",
+    "codePathLocal": "train_tabnet.py",
+    "codePath": "train_tabnet.py",
+    "host": "i49",
+    "username": "mmorvan",
+    "executable": "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/bin/python",
+    "cpu_count": 40,
+    "cpu_count_logical": 40,
+    "cpu_freq": {
+        "current": 3888.4191250000003,
+        "min": 800.0,
+        "max": 3900.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3344.006,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3900.0,
+            "min": 800.0,
+            "max": 3900.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 49.9755859375,
+            "used": 5.507991790771484
+        }
+    },
+    "gpu": "Tesla V100-PCIE-32GB",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "Tesla V100-PCIE-32GB",
+            "memory_total": 34359738368
+        }
+    ],
+    "memory": {
+        "total": 377.04341888427734
+    }
+}

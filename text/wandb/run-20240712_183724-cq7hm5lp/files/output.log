@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/bert_embeddings.py", line 125, in <module>
+    train_embeddings, train_keyword_counts = extract_embeddings(model, train_loader, device)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/bert_embeddings.py", line 115, in extract_embeddings
+    embeddings.append(output.cpu().numpy())
+KeyboardInterrupt

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_expanded_text.py", line 28, in <module>
+    with open('/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/data/expanded_keywords.txt', 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/data/expanded_keywords.txt'

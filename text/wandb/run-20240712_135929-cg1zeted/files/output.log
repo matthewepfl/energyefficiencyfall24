@@ -1,0 +1,178 @@
+[I 2024-07-12 13:59:40,406] A new study created in memory with name: no-name-b6a229e3-883a-4fc3-b818-c633507b743e
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8639.02027| val_0_rmse: 108.30691|  0:00:07s
+epoch 1  | loss: 8633.78798| val_0_rmse: 106.78794|  0:00:11s
+epoch 2  | loss: 8626.62422| val_0_rmse: 105.16623|  0:00:15s
+epoch 3  | loss: 8616.00914| val_0_rmse: 105.04189|  0:00:18s
+epoch 4  | loss: 8600.14819| val_0_rmse: 105.18548|  0:00:22s
+epoch 5  | loss: 8585.50746| val_0_rmse: 105.24094|  0:00:26s
+epoch 6  | loss: 8572.49883| val_0_rmse: 105.22254|  0:00:30s
+epoch 7  | loss: 8558.29488| val_0_rmse: 105.18075|  0:00:33s
+epoch 8  | loss: 8545.84807| val_0_rmse: 105.19739|  0:00:37s
+epoch 9  | loss: 8527.85247| val_0_rmse: 105.11173|  0:00:41s
+epoch 10 | loss: 8497.31912| val_0_rmse: 105.0056|  0:00:44s
+epoch 11 | loss: 8480.7165| val_0_rmse: 104.92966|  0:00:48s
+epoch 12 | loss: 8441.27074| val_0_rmse: 104.82893|  0:00:52s
+epoch 13 | loss: 8429.40069| val_0_rmse: 104.81723|  0:00:55s
+epoch 14 | loss: 8427.08794| val_0_rmse: 104.7745|  0:00:59s
+epoch 15 | loss: 8377.69546| val_0_rmse: 104.46056|  0:01:03s
+epoch 16 | loss: 8331.29431| val_0_rmse: 104.43684|  0:01:06s
+epoch 17 | loss: 8268.47712| val_0_rmse: 103.51016|  0:01:10s
+epoch 18 | loss: 8013.75721| val_0_rmse: 102.01761|  0:01:14s
+epoch 19 | loss: 7630.90832| val_0_rmse: 98.68121|  0:01:18s
+epoch 20 | loss: 6919.39127| val_0_rmse: 93.83063|  0:01:21s
+epoch 21 | loss: 6228.29419| val_0_rmse: 89.49081|  0:01:25s
+epoch 22 | loss: 5487.49924| val_0_rmse: 83.1371 |  0:01:29s
+epoch 23 | loss: 4660.85607| val_0_rmse: 78.19519|  0:01:32s
+epoch 24 | loss: 3846.60969| val_0_rmse: 68.67528|  0:01:36s
+epoch 25 | loss: 2700.39393| val_0_rmse: 57.35383|  0:01:40s
+epoch 26 | loss: 1887.66119| val_0_rmse: 49.78389|  0:01:44s
+epoch 27 | loss: 1473.81039| val_0_rmse: 45.10592|  0:01:47s
+epoch 28 | loss: 1266.40651| val_0_rmse: 42.45933|  0:01:51s
+epoch 29 | loss: 1190.42171| val_0_rmse: 41.36047|  0:01:55s
+epoch 30 | loss: 1154.6403| val_0_rmse: 39.31062|  0:01:58s
+epoch 31 | loss: 1116.76172| val_0_rmse: 38.19261|  0:02:02s
+epoch 32 | loss: 1096.14934| val_0_rmse: 38.47621|  0:02:06s
+epoch 33 | loss: 1078.49332| val_0_rmse: 37.49572|  0:02:09s
+epoch 34 | loss: 1060.48937| val_0_rmse: 36.34641|  0:02:13s
+epoch 35 | loss: 1052.0368| val_0_rmse: 36.40868|  0:02:17s
+epoch 36 | loss: 1034.81576| val_0_rmse: 37.01072|  0:02:21s
+epoch 37 | loss: 1034.66878| val_0_rmse: 36.28359|  0:02:24s
+epoch 38 | loss: 1030.69171| val_0_rmse: 35.90695|  0:02:28s
+epoch 39 | loss: 1023.10283| val_0_rmse: 35.34757|  0:02:32s
+epoch 40 | loss: 1020.2513| val_0_rmse: 35.09464|  0:02:35s
+epoch 41 | loss: 1012.76965| val_0_rmse: 35.78643|  0:02:39s
+epoch 42 | loss: 1011.42058| val_0_rmse: 36.95814|  0:02:43s
+epoch 43 | loss: 1009.73339| val_0_rmse: 36.08379|  0:02:46s
+epoch 44 | loss: 998.91417| val_0_rmse: 35.6924 |  0:02:50s
+epoch 45 | loss: 998.35742| val_0_rmse: 35.01162|  0:02:54s
+epoch 46 | loss: 990.89043| val_0_rmse: 34.73669|  0:02:57s
+epoch 47 | loss: 983.05166| val_0_rmse: 34.92847|  0:03:01s
+epoch 48 | loss: 980.87929| val_0_rmse: 34.07903|  0:03:05s
+epoch 49 | loss: 974.03966| val_0_rmse: 34.6727 |  0:03:09s
+epoch 50 | loss: 967.95036| val_0_rmse: 33.92364|  0:03:12s
+epoch 51 | loss: 969.58041| val_0_rmse: 34.10816|  0:03:16s
+epoch 52 | loss: 965.61779| val_0_rmse: 34.55291|  0:03:20s
+epoch 53 | loss: 958.67515| val_0_rmse: 33.87984|  0:03:23s
+epoch 54 | loss: 961.78086| val_0_rmse: 34.75637|  0:03:27s
+epoch 55 | loss: 949.01087| val_0_rmse: 35.0586 |  0:03:31s
+epoch 56 | loss: 948.52796| val_0_rmse: 34.535  |  0:03:34s
+epoch 57 | loss: 949.5915| val_0_rmse: 34.55875|  0:03:38s
+epoch 58 | loss: 950.19522| val_0_rmse: 33.77734|  0:03:42s
+epoch 59 | loss: 951.45513| val_0_rmse: 33.55775|  0:03:46s
+epoch 60 | loss: 946.43643| val_0_rmse: 33.86665|  0:03:49s
+epoch 61 | loss: 942.43503| val_0_rmse: 33.36787|  0:03:53s
+epoch 62 | loss: 939.94539| val_0_rmse: 33.71341|  0:03:57s
+epoch 63 | loss: 941.59284| val_0_rmse: 33.25213|  0:04:00s
+epoch 64 | loss: 938.52628| val_0_rmse: 33.0065 |  0:04:04s
+epoch 65 | loss: 933.01673| val_0_rmse: 35.12822|  0:04:08s
+epoch 66 | loss: 936.60197| val_0_rmse: 33.71289|  0:04:11s
+epoch 67 | loss: 929.90208| val_0_rmse: 34.25448|  0:04:15s
+epoch 68 | loss: 930.07744| val_0_rmse: 34.65548|  0:04:19s
+epoch 69 | loss: 926.4957| val_0_rmse: 34.18138|  0:04:22s
+epoch 70 | loss: 915.5439| val_0_rmse: 33.91654|  0:04:26s
+epoch 71 | loss: 918.17101| val_0_rmse: 33.39545|  0:04:30s
+epoch 72 | loss: 917.47385| val_0_rmse: 32.88602|  0:04:33s
+epoch 73 | loss: 914.27457| val_0_rmse: 33.13743|  0:04:37s
+epoch 74 | loss: 908.72627| val_0_rmse: 33.84355|  0:04:41s
+epoch 75 | loss: 892.84003| val_0_rmse: 33.40719|  0:04:44s
+epoch 76 | loss: 901.58221| val_0_rmse: 34.36555|  0:04:48s
+epoch 77 | loss: 900.62737| val_0_rmse: 34.672  |  0:04:52s
+epoch 78 | loss: 892.77907| val_0_rmse: 33.05531|  0:04:55s
+epoch 79 | loss: 896.46233| val_0_rmse: 33.78075|  0:04:59s
+epoch 80 | loss: 895.10583| val_0_rmse: 33.19505|  0:05:03s
+epoch 81 | loss: 888.39665| val_0_rmse: 34.35865|  0:05:06s
+epoch 82 | loss: 889.29612| val_0_rmse: 34.1122 |  0:05:10s
+epoch 83 | loss: 889.01663| val_0_rmse: 32.30682|  0:05:14s
+epoch 84 | loss: 882.13797| val_0_rmse: 33.53072|  0:05:18s
+epoch 85 | loss: 883.10202| val_0_rmse: 33.45711|  0:05:21s
+epoch 86 | loss: 880.59269| val_0_rmse: 32.34597|  0:05:25s
+epoch 87 | loss: 877.89824| val_0_rmse: 34.46401|  0:05:29s
+epoch 88 | loss: 869.49655| val_0_rmse: 33.21986|  0:05:32s
+epoch 89 | loss: 867.19902| val_0_rmse: 33.16456|  0:05:36s
+epoch 90 | loss: 863.46159| val_0_rmse: 32.80908|  0:05:40s
+epoch 91 | loss: 859.53326| val_0_rmse: 32.80375|  0:05:43s
+epoch 92 | loss: 858.61637| val_0_rmse: 33.5283 |  0:05:47s
+epoch 93 | loss: 850.9567| val_0_rmse: 33.87105|  0:05:51s
+epoch 94 | loss: 845.96203| val_0_rmse: 33.62338|  0:05:54s
+epoch 95 | loss: 844.51859| val_0_rmse: 34.0612 |  0:05:58s
+epoch 96 | loss: 846.13207| val_0_rmse: 33.72023|  0:06:02s
+epoch 97 | loss: 840.6725| val_0_rmse: 33.80794|  0:06:05s
+epoch 98 | loss: 834.9395| val_0_rmse: 32.8007 |  0:06:09s
+epoch 99 | loss: 836.94207| val_0_rmse: 32.80855|  0:06:13s
+epoch 100| loss: 837.17998| val_0_rmse: 36.1403 |  0:06:16s
+epoch 101| loss: 835.36123| val_0_rmse: 36.40842|  0:06:20s
+epoch 102| loss: 835.41934| val_0_rmse: 33.69   |  0:06:24s
+epoch 103| loss: 832.58702| val_0_rmse: 34.04044|  0:06:27s
+Early stopping occurred at epoch 103 with best_epoch = 83 and best_val_0_rmse = 32.30682
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+[W 2024-07-12 14:06:16,902] Trial 0 failed with parameters: {'lr': 0.0010166464483204892, 'n_steps': 9, 'gamma': 1.4697095423725897, 'n_independent': 1, 'n_shared': 2, 'momentum': 0.018446067084136264, 'weight_decay': 1.0449970324634528e-05, 'batch_size': 512, 'virtual_batch_size': 64} because of the following error: TypeError('default_collate: batch must contain tensors, numpy arrays, numbers, dicts or lists; found object').
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 196, in _run_trial
+    value_or_values = func(trial)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py", line 64, in objective
+    clf.fit(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 278, in fit
+    self.feature_importances_ = self._compute_feature_importances(X_train)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 759, in _compute_feature_importances
+    M_explain, _ = self.explain(X, normalize=False)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 353, in explain
+    for batch_nb, data in enumerate(dataloader):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/dataloader.py", line 631, in __next__
+    data = self._next_data()
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/dataloader.py", line 675, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/collate.py", line 316, in default_collate
+    return collate(batch, collate_fn_map=default_collate_fn_map)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/collate.py", line 141, in collate
+    return collate_fn_map[elem_type](batch, collate_fn_map=collate_fn_map)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/collate.py", line 220, in collate_numpy_array_fn
+    raise TypeError(default_collate_err_msg_format.format(elem.dtype))
+TypeError: default_collate: batch must contain tensors, numpy arrays, numbers, dicts or lists; found object
+[W 2024-07-12 14:06:16,925] Trial 0 failed with value None.
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py", line 89, in <module>
+    study.optimize(objective, n_trials=20)  # Reduced number of trials
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/study.py", line 451, in optimize
+    _optimize(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 62, in _optimize
+    _optimize_sequential(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 159, in _optimize_sequential
+    frozen_trial = _run_trial(study, func, catch)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 247, in _run_trial
+    raise func_err
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/optuna/study/_optimize.py", line 196, in _run_trial
+    value_or_values = func(trial)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py", line 64, in objective
+    clf.fit(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 278, in fit
+    self.feature_importances_ = self._compute_feature_importances(X_train)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 759, in _compute_feature_importances
+    M_explain, _ = self.explain(X, normalize=False)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 353, in explain
+    for batch_nb, data in enumerate(dataloader):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/dataloader.py", line 631, in __next__
+    data = self._next_data()
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/dataloader.py", line 675, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/collate.py", line 316, in default_collate
+    return collate(batch, collate_fn_map=default_collate_fn_map)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/collate.py", line 141, in collate
+    return collate_fn_map[elem_type](batch, collate_fn_map=collate_fn_map)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/collate.py", line 220, in collate_numpy_array_fn
+    raise TypeError(default_collate_err_msg_format.format(elem.dtype))
+TypeError: default_collate: batch must contain tensors, numpy arrays, numbers, dicts or lists; found object

@@ -1,0 +1,54 @@
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/transformers/optimization.py:591: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+Training Text Model:   0%|                             | 0/2057 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/combined_model.py", line 232, in <module>
+    train_embeddings, test_embeddings = train_text_model(model, train_loader, test_loader, criterion, optimizer, scaler, scheduler, device, EPOCHS, save_path="model/text_model_full.pth")
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/combined_model.py", line 192, in train_text_model
+    train_loss, train_mse, train_embeddings = train_epoch_text(model, train_loader, criterion, optimizer, scaler, device)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/combined_model.py", line 125, in train_epoch_text
+    outputs, embeddings = model(input_ids=input_ids, attention_mask=attention_mask, keyword_count=keyword_count)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/combined_model.py", line 92, in forward
+    outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/transformers/models/bert/modeling_bert.py", line 1141, in forward
+    encoder_outputs = self.encoder(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/transformers/models/bert/modeling_bert.py", line 694, in forward
+    layer_outputs = layer_module(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/transformers/models/bert/modeling_bert.py", line 626, in forward
+    layer_output = apply_chunking_to_forward(
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/transformers/pytorch_utils.py", line 238, in apply_chunking_to_forward
+    return forward_fn(*input_tensors)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/transformers/models/bert/modeling_bert.py", line 638, in feed_forward_chunk
+    intermediate_output = self.intermediate(attention_output)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/transformers/models/bert/modeling_bert.py", line 539, in forward
+    hidden_states = self.intermediate_act_fn(hidden_states)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/transformers/activations.py", line 78, in forward
+    return self.act(input)
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.

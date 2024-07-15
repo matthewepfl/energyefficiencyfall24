@@ -1,0 +1,93 @@
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/transformers/optimization.py:591: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Training:  19%|█████▊                        | 399/2057 [02:35<10:45,  2.57it/s]
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_expanded_text.py", line 215, in <module>
+    train(model, train_loader, test_loader, criterion, optimizer, scaler, scheduler, device, EPOCHS, save_path="model/text_model_full.pth")
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_expanded_text.py", line 180, in train
+    train_loss = train_epoch(model, train_loader, criterion, optimizer, scaler, device)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_expanded_text.py", line 141, in train_epoch
+    scaler.step(optimizer)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/amp/grad_scaler.py", line 453, in step
+    retval = self._maybe_opt_step(optimizer, optimizer_state, *args, **kwargs)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/amp/grad_scaler.py", line 350, in _maybe_opt_step
+    if not sum(v.item() for v in optimizer_state["found_inf_per_device"].values()):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/amp/grad_scaler.py", line 350, in <genexpr>
+    if not sum(v.item() for v in optimizer_state["found_inf_per_device"].values()):
+KeyboardInterrupt

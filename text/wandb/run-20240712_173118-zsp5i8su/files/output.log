@@ -1,0 +1,1199 @@
+[I 2024-07-12 17:31:27,562] A new study created in memory with name: no-name-51414eff-dc0b-4349-84e3-abedb62a33cd
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 2471.4908| val_0_rmse: 42.05769|  0:00:11s
+epoch 1  | loss: 513.70405| val_0_rmse: 35.2691 |  0:00:20s
+epoch 2  | loss: 376.26238| val_0_rmse: 36.06826|  0:00:28s
+epoch 3  | loss: 333.47545| val_0_rmse: 35.71108|  0:00:36s
+epoch 4  | loss: 309.77376| val_0_rmse: 33.57972|  0:00:44s
+epoch 5  | loss: 312.50263| val_0_rmse: 36.13833|  0:00:53s
+epoch 6  | loss: 295.76319| val_0_rmse: 35.40609|  0:01:01s
+epoch 7  | loss: 291.14151| val_0_rmse: 35.53626|  0:01:09s
+epoch 8  | loss: 276.30235| val_0_rmse: 33.06869|  0:01:17s
+epoch 9  | loss: 273.57829| val_0_rmse: 35.52731|  0:01:25s
+epoch 10 | loss: 269.66927| val_0_rmse: 36.16315|  0:01:33s
+epoch 11 | loss: 266.1557| val_0_rmse: 33.84012|  0:01:42s
+epoch 12 | loss: 266.14005| val_0_rmse: 35.78154|  0:01:50s
+epoch 13 | loss: 260.83702| val_0_rmse: 35.75979|  0:01:58s
+epoch 14 | loss: 263.0253| val_0_rmse: 35.15012|  0:02:06s
+epoch 15 | loss: 261.96482| val_0_rmse: 37.52795|  0:02:15s
+epoch 16 | loss: 259.43301| val_0_rmse: 37.1448 |  0:02:23s
+epoch 17 | loss: 261.113 | val_0_rmse: 34.98837|  0:02:31s
+epoch 18 | loss: 246.87756| val_0_rmse: 32.71277|  0:02:39s
+epoch 19 | loss: 255.25796| val_0_rmse: 33.18362|  0:02:47s
+epoch 20 | loss: 253.68917| val_0_rmse: 34.46248|  0:02:55s
+epoch 21 | loss: 257.72315| val_0_rmse: 36.35512|  0:03:03s
+epoch 22 | loss: 250.52044| val_0_rmse: 33.21937|  0:03:11s
+epoch 23 | loss: 254.66067| val_0_rmse: 35.4336 |  0:03:20s
+epoch 24 | loss: 247.13548| val_0_rmse: 46.88258|  0:03:28s
+epoch 25 | loss: 254.09094| val_0_rmse: 37.95129|  0:03:36s
+epoch 26 | loss: 248.88255| val_0_rmse: 34.75513|  0:03:44s
+epoch 27 | loss: 257.57854| val_0_rmse: 35.85356|  0:03:52s
+epoch 28 | loss: 253.00583| val_0_rmse: 34.4742 |  0:04:00s
+epoch 29 | loss: 247.35262| val_0_rmse: 35.53421|  0:04:09s
+epoch 30 | loss: 251.24479| val_0_rmse: 35.42091|  0:04:17s
+epoch 31 | loss: 246.67216| val_0_rmse: 36.35199|  0:04:25s
+epoch 32 | loss: 250.90565| val_0_rmse: 33.15251|  0:04:33s
+epoch 33 | loss: 250.32641| val_0_rmse: 35.00004|  0:04:42s
+epoch 34 | loss: 246.78746| val_0_rmse: 33.81902|  0:04:50s
+epoch 35 | loss: 244.90825| val_0_rmse: 33.95135|  0:04:58s
+epoch 36 | loss: 247.13779| val_0_rmse: 32.90623|  0:05:06s
+epoch 37 | loss: 245.41443| val_0_rmse: 35.92698|  0:05:14s
+epoch 38 | loss: 240.6341| val_0_rmse: 34.97556|  0:05:23s
+Early stopping occurred at epoch 38 with best_epoch = 18 and best_val_0_rmse = 32.71277
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 17:37:23,520] Trial 0 finished with value: 32.712766767258096 and parameters: {'lr': 0.009518907422541644, 'n_steps': 3, 'gamma': 1.3067801773406882, 'n_independent': 1, 'n_shared': 3, 'momentum': 0.022327052112967552, 'weight_decay': 0.0007160136716166781, 'batch_size': 64, 'virtual_batch_size': 64}. Best is trial 0 with value: 32.712766767258096.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 5187.46284| val_0_rmse: 39.80861|  0:00:08s
+epoch 1  | loss: 931.49032| val_0_rmse: 37.15447|  0:00:16s
+epoch 2  | loss: 762.06542| val_0_rmse: 36.30104|  0:00:25s
+epoch 3  | loss: 540.68408| val_0_rmse: 32.0784 |  0:00:33s
+epoch 4  | loss: 431.1224| val_0_rmse: 33.96375|  0:00:42s
+epoch 5  | loss: 364.83761| val_0_rmse: 33.3135 |  0:00:50s
+epoch 6  | loss: 316.9028| val_0_rmse: 32.75621|  0:00:59s
+epoch 7  | loss: 285.0101| val_0_rmse: 34.36908|  0:01:07s
+epoch 8  | loss: 269.15361| val_0_rmse: 35.00541|  0:01:15s
+epoch 9  | loss: 255.46512| val_0_rmse: 33.91442|  0:01:24s
+epoch 10 | loss: 243.21149| val_0_rmse: 34.96497|  0:01:32s
+epoch 11 | loss: 234.20293| val_0_rmse: 34.80675|  0:01:41s
+epoch 12 | loss: 227.82716| val_0_rmse: 35.99285|  0:01:49s
+epoch 13 | loss: 212.43064| val_0_rmse: 35.45578|  0:01:58s
+epoch 14 | loss: 216.13729| val_0_rmse: 36.13567|  0:02:06s
+epoch 15 | loss: 206.19393| val_0_rmse: 35.20125|  0:02:14s
+epoch 16 | loss: 201.50089| val_0_rmse: 35.05232|  0:02:23s
+epoch 17 | loss: 192.01524| val_0_rmse: 36.16857|  0:02:31s
+epoch 18 | loss: 186.35151| val_0_rmse: 37.07715|  0:02:40s
+epoch 19 | loss: 182.82188| val_0_rmse: 36.0101 |  0:02:48s
+epoch 20 | loss: 180.11229| val_0_rmse: 34.80267|  0:02:57s
+epoch 21 | loss: 175.71242| val_0_rmse: 37.79599|  0:03:05s
+epoch 22 | loss: 174.75394| val_0_rmse: 36.86037|  0:03:13s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 23 | loss: 169.48556| val_0_rmse: 34.45132|  0:03:22s
+Early stopping occurred at epoch 23 with best_epoch = 3 and best_val_0_rmse = 32.0784
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 17:41:26,363] Trial 1 finished with value: 32.07840353042283 and parameters: {'lr': 0.009537561952899665, 'n_steps': 9, 'gamma': 1.3901620716195011, 'n_independent': 2, 'n_shared': 1, 'momentum': 0.07425950488812115, 'weight_decay': 3.69934238063701e-05, 'batch_size': 128, 'virtual_batch_size': 64}. Best is trial 1 with value: 32.07840353042283.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8870.90411| val_0_rmse: 106.30219|  0:00:10s
+epoch 1  | loss: 8380.91515| val_0_rmse: 96.75169|  0:00:21s
+epoch 2  | loss: 2992.70523| val_0_rmse: 40.24074|  0:00:32s
+epoch 3  | loss: 1073.68095| val_0_rmse: 37.68431|  0:00:43s
+epoch 4  | loss: 1011.52356| val_0_rmse: 34.88036|  0:00:54s
+epoch 5  | loss: 964.3836| val_0_rmse: 35.52672|  0:01:05s
+epoch 6  | loss: 946.65348| val_0_rmse: 32.55992|  0:01:16s
+epoch 7  | loss: 928.88455| val_0_rmse: 34.19157|  0:01:27s
+epoch 8  | loss: 911.69219| val_0_rmse: 34.63273|  0:01:37s
+epoch 9  | loss: 892.23261| val_0_rmse: 33.17185|  0:01:48s
+epoch 10 | loss: 874.42525| val_0_rmse: 34.16204|  0:01:59s
+epoch 11 | loss: 861.21773| val_0_rmse: 34.48299|  0:02:10s
+epoch 12 | loss: 841.86054| val_0_rmse: 34.02974|  0:02:21s
+epoch 13 | loss: 785.67155| val_0_rmse: 33.0821 |  0:02:32s
+epoch 14 | loss: 744.92106| val_0_rmse: 33.84712|  0:02:43s
+epoch 15 | loss: 676.29402| val_0_rmse: 33.25369|  0:02:53s
+epoch 16 | loss: 587.54954| val_0_rmse: 33.67237|  0:03:04s
+epoch 17 | loss: 521.48215| val_0_rmse: 33.7925 |  0:03:15s
+epoch 18 | loss: 465.66442| val_0_rmse: 35.63569|  0:03:26s
+epoch 19 | loss: 424.54858| val_0_rmse: 32.8311 |  0:03:37s
+epoch 20 | loss: 388.4681| val_0_rmse: 32.34092|  0:03:48s
+epoch 21 | loss: 363.50621| val_0_rmse: 32.59672|  0:03:59s
+epoch 22 | loss: 341.50207| val_0_rmse: 33.77611|  0:04:09s
+epoch 23 | loss: 314.41701| val_0_rmse: 32.45475|  0:04:20s
+epoch 24 | loss: 295.64956| val_0_rmse: 32.46361|  0:04:31s
+epoch 25 | loss: 282.4533| val_0_rmse: 33.30811|  0:04:42s
+epoch 26 | loss: 267.18375| val_0_rmse: 33.55503|  0:04:53s
+epoch 27 | loss: 258.36171| val_0_rmse: 33.80297|  0:05:04s
+epoch 28 | loss: 255.73936| val_0_rmse: 33.88405|  0:05:15s
+epoch 29 | loss: 238.55677| val_0_rmse: 32.45418|  0:05:25s
+epoch 30 | loss: 233.02866| val_0_rmse: 33.0476 |  0:05:36s
+epoch 31 | loss: 226.39885| val_0_rmse: 34.56292|  0:05:47s
+epoch 32 | loss: 220.95918| val_0_rmse: 34.0095 |  0:05:58s
+epoch 33 | loss: 217.16496| val_0_rmse: 33.47265|  0:06:09s
+epoch 34 | loss: 214.51487| val_0_rmse: 33.00938|  0:06:20s
+epoch 35 | loss: 206.32596| val_0_rmse: 33.20208|  0:06:31s
+epoch 36 | loss: 197.06216| val_0_rmse: 33.32706|  0:06:41s
+epoch 37 | loss: 194.11368| val_0_rmse: 33.28039|  0:06:52s
+epoch 38 | loss: 194.98829| val_0_rmse: 34.12464|  0:07:03s
+epoch 39 | loss: 188.38132| val_0_rmse: 33.93723|  0:07:14s
+epoch 40 | loss: 183.66519| val_0_rmse: 33.86755|  0:07:25s
+Early stopping occurred at epoch 40 with best_epoch = 20 and best_val_0_rmse = 32.34092
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 17:49:34,695] Trial 2 finished with value: 32.3409228439157 and parameters: {'lr': 0.0026416218348486995, 'n_steps': 9, 'gamma': 1.348458534223259, 'n_independent': 2, 'n_shared': 3, 'momentum': 0.056355661245779454, 'weight_decay': 4.880456034803649e-05, 'batch_size': 128, 'virtual_batch_size': 64}. Best is trial 1 with value: 32.07840353042283.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 7970.75545| val_0_rmse: 95.59362|  0:00:04s
+epoch 1  | loss: 4132.38737| val_0_rmse: 51.05338|  0:00:09s
+epoch 2  | loss: 1168.5987| val_0_rmse: 36.66799|  0:00:13s
+epoch 3  | loss: 1036.59272| val_0_rmse: 36.52281|  0:00:18s
+epoch 4  | loss: 976.18207| val_0_rmse: 33.8739 |  0:00:22s
+epoch 5  | loss: 952.92287| val_0_rmse: 32.98036|  0:00:27s
+epoch 6  | loss: 908.88851| val_0_rmse: 32.74456|  0:00:32s
+epoch 7  | loss: 867.91989| val_0_rmse: 32.92384|  0:00:36s
+epoch 8  | loss: 761.36927| val_0_rmse: 33.55917|  0:00:41s
+epoch 9  | loss: 655.62849| val_0_rmse: 33.82791|  0:00:45s
+epoch 10 | loss: 583.87876| val_0_rmse: 33.41873|  0:00:50s
+epoch 11 | loss: 526.22522| val_0_rmse: 33.27947|  0:00:55s
+epoch 12 | loss: 472.99989| val_0_rmse: 31.88479|  0:00:59s
+epoch 13 | loss: 433.97154| val_0_rmse: 30.73207|  0:01:04s
+epoch 14 | loss: 394.02985| val_0_rmse: 32.01728|  0:01:08s
+epoch 15 | loss: 373.25686| val_0_rmse: 31.84193|  0:01:13s
+epoch 16 | loss: 345.56294| val_0_rmse: 31.80911|  0:01:17s
+epoch 17 | loss: 336.79148| val_0_rmse: 31.0723 |  0:01:22s
+epoch 18 | loss: 316.67338| val_0_rmse: 31.09485|  0:01:26s
+epoch 19 | loss: 305.50876| val_0_rmse: 32.04642|  0:01:31s
+epoch 20 | loss: 294.48628| val_0_rmse: 31.8327 |  0:01:35s
+epoch 21 | loss: 287.02225| val_0_rmse: 32.33309|  0:01:40s
+epoch 22 | loss: 275.39937| val_0_rmse: 31.79555|  0:01:45s
+epoch 23 | loss: 263.49519| val_0_rmse: 32.1585 |  0:01:49s
+epoch 24 | loss: 257.06903| val_0_rmse: 32.69731|  0:01:54s
+epoch 25 | loss: 255.44779| val_0_rmse: 32.0112 |  0:01:58s
+epoch 26 | loss: 253.45234| val_0_rmse: 32.55677|  0:02:03s
+epoch 27 | loss: 236.75788| val_0_rmse: 32.85496|  0:02:07s
+epoch 28 | loss: 230.32068| val_0_rmse: 32.80355|  0:02:12s
+epoch 29 | loss: 225.76239| val_0_rmse: 31.97027|  0:02:16s
+epoch 30 | loss: 217.89242| val_0_rmse: 32.74214|  0:02:21s
+epoch 31 | loss: 209.9143| val_0_rmse: 33.45357|  0:02:25s
+epoch 32 | loss: 206.81063| val_0_rmse: 32.39947|  0:02:30s
+epoch 33 | loss: 199.10949| val_0_rmse: 32.70109|  0:02:35s
+Early stopping occurred at epoch 33 with best_epoch = 13 and best_val_0_rmse = 30.73207
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 17:52:20,677] Trial 3 finished with value: 30.732065409764175 and parameters: {'lr': 0.0047867527922501015, 'n_steps': 4, 'gamma': 1.3609577681954081, 'n_independent': 2, 'n_shared': 2, 'momentum': 0.0846844108480163, 'weight_decay': 0.00019139192182332442, 'batch_size': 256, 'virtual_batch_size': 32}. Best is trial 3 with value: 30.732065409764175.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 7314.46711| val_0_rmse: 81.28993|  0:00:08s
+epoch 1  | loss: 2091.30685| val_0_rmse: 37.93717|  0:00:16s
+epoch 2  | loss: 1032.1681| val_0_rmse: 35.72352|  0:00:24s
+epoch 3  | loss: 864.96956| val_0_rmse: 33.2297 |  0:00:33s
+epoch 4  | loss: 699.01569| val_0_rmse: 39.4449 |  0:00:41s
+epoch 5  | loss: 571.05951| val_0_rmse: 45.59571|  0:00:49s
+epoch 6  | loss: 488.51188| val_0_rmse: 42.14517|  0:00:57s
+epoch 7  | loss: 435.14062| val_0_rmse: 35.102  |  0:01:06s
+epoch 8  | loss: 381.57709| val_0_rmse: 34.58929|  0:01:14s
+epoch 9  | loss: 348.04205| val_0_rmse: 35.05085|  0:01:22s
+epoch 10 | loss: 324.49655| val_0_rmse: 34.6117 |  0:01:31s
+epoch 11 | loss: 305.703 | val_0_rmse: 34.71326|  0:01:39s
+epoch 12 | loss: 290.52611| val_0_rmse: 33.49085|  0:01:47s
+epoch 13 | loss: 272.18384| val_0_rmse: 33.91842|  0:01:56s
+epoch 14 | loss: 262.15799| val_0_rmse: 33.75445|  0:02:04s
+epoch 15 | loss: 257.80106| val_0_rmse: 33.68799|  0:02:12s
+epoch 16 | loss: 244.3697| val_0_rmse: 34.41539|  0:02:21s
+epoch 17 | loss: 233.42651| val_0_rmse: 36.07006|  0:02:29s
+epoch 18 | loss: 221.07751| val_0_rmse: 34.7023 |  0:02:37s
+epoch 19 | loss: 221.30266| val_0_rmse: 34.62538|  0:02:46s
+epoch 20 | loss: 213.42901| val_0_rmse: 35.27838|  0:02:54s
+epoch 21 | loss: 212.11968| val_0_rmse: 35.90966|  0:03:02s
+epoch 22 | loss: 202.63145| val_0_rmse: 34.55021|  0:03:10s
+epoch 23 | loss: 196.55174| val_0_rmse: 36.71393|  0:03:19s
+Early stopping occurred at epoch 23 with best_epoch = 3 and best_val_0_rmse = 33.2297
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 17:56:08,931] Trial 4 finished with value: 33.22969867588939 and parameters: {'lr': 0.0021152235745980196, 'n_steps': 3, 'gamma': 1.0346726112104392, 'n_independent': 1, 'n_shared': 3, 'momentum': 0.08449322714121262, 'weight_decay': 5.0930210739737234e-05, 'batch_size': 64, 'virtual_batch_size': 64}. Best is trial 3 with value: 30.732065409764175.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 3540.65825| val_0_rmse: 99.95146|  0:00:16s
+epoch 1  | loss: 997.88846| val_0_rmse: 33.85139|  0:00:33s
+epoch 2  | loss: 801.97421| val_0_rmse: 33.51783|  0:00:49s
+epoch 3  | loss: 569.12738| val_0_rmse: 34.45739|  0:01:06s
+epoch 4  | loss: 468.88483| val_0_rmse: 35.22921|  0:01:23s
+epoch 5  | loss: 410.05285| val_0_rmse: 35.18746|  0:01:40s
+epoch 6  | loss: 370.63582| val_0_rmse: 33.71601|  0:01:56s
+epoch 7  | loss: 343.45934| val_0_rmse: 33.69165|  0:02:13s
+epoch 8  | loss: 319.3917| val_0_rmse: 35.11205|  0:02:30s
+epoch 9  | loss: 301.576 | val_0_rmse: 35.50286|  0:02:46s
+epoch 10 | loss: 275.59924| val_0_rmse: 34.45349|  0:03:03s
+epoch 11 | loss: 268.59684| val_0_rmse: 32.89762|  0:03:20s
+epoch 12 | loss: 251.74103| val_0_rmse: 34.61685|  0:03:37s
+epoch 13 | loss: 240.06097| val_0_rmse: 36.83306|  0:03:53s
+epoch 14 | loss: 231.62843| val_0_rmse: 35.76986|  0:04:10s
+epoch 15 | loss: 219.61097| val_0_rmse: 36.0226 |  0:04:27s
+epoch 16 | loss: 212.97123| val_0_rmse: 34.18841|  0:04:44s
+epoch 17 | loss: 201.8484| val_0_rmse: 35.39937|  0:05:00s
+epoch 18 | loss: 198.92198| val_0_rmse: 34.38327|  0:05:17s
+epoch 19 | loss: 192.08337| val_0_rmse: 34.76969|  0:05:34s
+epoch 20 | loss: 189.26077| val_0_rmse: 34.2564 |  0:05:50s
+epoch 21 | loss: 186.99962| val_0_rmse: 34.57934|  0:06:07s
+epoch 22 | loss: 184.38961| val_0_rmse: 34.95742|  0:06:24s
+epoch 23 | loss: 178.02638| val_0_rmse: 35.02542|  0:06:41s
+epoch 24 | loss: 175.52772| val_0_rmse: 35.06137|  0:06:57s
+epoch 25 | loss: 172.7485| val_0_rmse: 34.87229|  0:07:14s
+epoch 26 | loss: 168.66186| val_0_rmse: 35.91082|  0:07:31s
+epoch 27 | loss: 165.6914| val_0_rmse: 34.88389|  0:07:47s
+epoch 28 | loss: 168.81388| val_0_rmse: 35.14049|  0:08:04s
+epoch 29 | loss: 155.14366| val_0_rmse: 35.49466|  0:08:21s
+epoch 30 | loss: 154.92319| val_0_rmse: 36.02132|  0:08:38s
+epoch 31 | loss: 161.00888| val_0_rmse: 35.58289|  0:08:54s
+Early stopping occurred at epoch 31 with best_epoch = 11 and best_val_0_rmse = 32.89762
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:06:18,567] Trial 5 finished with value: 32.897615425151166 and parameters: {'lr': 0.00841658040654891, 'n_steps': 8, 'gamma': 1.344255943605647, 'n_independent': 2, 'n_shared': 2, 'momentum': 0.02661340905256962, 'weight_decay': 1.096374823035479e-05, 'batch_size': 64, 'virtual_batch_size': 32}. Best is trial 3 with value: 30.732065409764175.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8008.06071| val_0_rmse: 95.76618|  0:00:02s
+epoch 1  | loss: 4837.35368| val_0_rmse: 64.76283|  0:00:05s
+epoch 2  | loss: 1201.61123| val_0_rmse: 36.81519|  0:00:07s
+epoch 3  | loss: 765.00225| val_0_rmse: 39.86891|  0:00:10s
+epoch 4  | loss: 586.22627| val_0_rmse: 54.31594|  0:00:12s
+epoch 5  | loss: 490.57298| val_0_rmse: 33.97285|  0:00:15s
+epoch 6  | loss: 426.97848| val_0_rmse: 46.74238|  0:00:17s
+epoch 7  | loss: 384.37879| val_0_rmse: 45.02768|  0:00:20s
+epoch 8  | loss: 346.60377| val_0_rmse: 41.60581|  0:00:23s
+epoch 9  | loss: 326.68892| val_0_rmse: 35.48124|  0:00:25s
+epoch 10 | loss: 302.87266| val_0_rmse: 33.62177|  0:00:28s
+epoch 11 | loss: 283.13094| val_0_rmse: 31.55852|  0:00:30s
+epoch 12 | loss: 266.25007| val_0_rmse: 31.51246|  0:00:33s
+epoch 13 | loss: 256.03358| val_0_rmse: 31.70656|  0:00:35s
+epoch 14 | loss: 247.40919| val_0_rmse: 31.61065|  0:00:38s
+epoch 15 | loss: 238.89863| val_0_rmse: 31.27053|  0:00:40s
+epoch 16 | loss: 232.60466| val_0_rmse: 32.94618|  0:00:43s
+epoch 17 | loss: 218.88917| val_0_rmse: 31.58648|  0:00:45s
+epoch 18 | loss: 214.05102| val_0_rmse: 32.60882|  0:00:48s
+epoch 19 | loss: 209.06486| val_0_rmse: 32.37441|  0:00:51s
+epoch 20 | loss: 206.25598| val_0_rmse: 32.4058 |  0:00:53s
+epoch 21 | loss: 198.80257| val_0_rmse: 32.95419|  0:00:56s
+epoch 22 | loss: 189.09582| val_0_rmse: 33.217  |  0:00:58s
+epoch 23 | loss: 188.74139| val_0_rmse: 33.24751|  0:01:01s
+epoch 24 | loss: 189.30105| val_0_rmse: 33.43909|  0:01:03s
+epoch 25 | loss: 179.85392| val_0_rmse: 34.21636|  0:01:06s
+epoch 26 | loss: 179.01303| val_0_rmse: 33.3671 |  0:01:08s
+epoch 27 | loss: 176.25799| val_0_rmse: 34.20527|  0:01:11s
+epoch 28 | loss: 173.51856| val_0_rmse: 33.21875|  0:01:13s
+epoch 29 | loss: 167.42583| val_0_rmse: 33.51046|  0:01:16s
+epoch 30 | loss: 170.121 | val_0_rmse: 34.52004|  0:01:19s
+epoch 31 | loss: 163.9612| val_0_rmse: 33.90588|  0:01:21s
+epoch 32 | loss: 161.57003| val_0_rmse: 33.90836|  0:01:24s
+epoch 33 | loss: 161.45201| val_0_rmse: 32.98277|  0:01:26s
+epoch 34 | loss: 157.16284| val_0_rmse: 33.58403|  0:01:29s
+epoch 35 | loss: 150.03444| val_0_rmse: 32.64423|  0:01:31s
+Early stopping occurred at epoch 35 with best_epoch = 15 and best_val_0_rmse = 31.27053
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:07:55,184] Trial 6 finished with value: 31.27052878098023 and parameters: {'lr': 0.008838315329104325, 'n_steps': 3, 'gamma': 1.000223887495208, 'n_independent': 3, 'n_shared': 2, 'momentum': 0.04685467264363614, 'weight_decay': 0.00010725217549835041, 'batch_size': 512, 'virtual_batch_size': 64}. Best is trial 3 with value: 30.732065409764175.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8333.01328| val_0_rmse: 100.93806|  0:00:11s
+epoch 1  | loss: 8418.63462| val_0_rmse: 104.33605|  0:00:23s
+epoch 2  | loss: 8402.5804| val_0_rmse: 104.32798|  0:00:35s
+epoch 3  | loss: 8088.36473| val_0_rmse: 99.48093|  0:00:47s
+epoch 4  | loss: 6078.2681| val_0_rmse: 79.23948|  0:00:59s
+epoch 5  | loss: 2874.61372| val_0_rmse: 54.77998|  0:01:11s
+epoch 6  | loss: 1624.74427| val_0_rmse: 45.47298|  0:01:23s
+epoch 7  | loss: 1240.89042| val_0_rmse: 42.93318|  0:01:35s
+epoch 8  | loss: 1131.93317| val_0_rmse: 40.72096|  0:01:47s
+epoch 9  | loss: 1076.34839| val_0_rmse: 40.58264|  0:01:59s
+epoch 10 | loss: 1032.22068| val_0_rmse: 40.46463|  0:02:11s
+epoch 11 | loss: 1002.19665| val_0_rmse: 39.86809|  0:02:23s
+epoch 12 | loss: 941.18959| val_0_rmse: 37.64966|  0:02:35s
+epoch 13 | loss: 911.41656| val_0_rmse: 34.87456|  0:02:47s
+epoch 14 | loss: 881.6416| val_0_rmse: 34.47039|  0:02:59s
+epoch 15 | loss: 869.2274| val_0_rmse: 34.51848|  0:03:10s
+epoch 16 | loss: 843.12218| val_0_rmse: 34.69758|  0:03:22s
+epoch 17 | loss: 832.75256| val_0_rmse: 34.47374|  0:03:34s
+epoch 18 | loss: 825.20258| val_0_rmse: 32.83873|  0:03:46s
+epoch 19 | loss: 815.84131| val_0_rmse: 34.64984|  0:03:58s
+epoch 20 | loss: 802.68179| val_0_rmse: 32.69766|  0:04:10s
+epoch 21 | loss: 796.22741| val_0_rmse: 33.03705|  0:04:22s
+epoch 22 | loss: 792.21481| val_0_rmse: 32.01428|  0:04:34s
+epoch 23 | loss: 784.78595| val_0_rmse: 32.66939|  0:04:46s
+epoch 24 | loss: 788.76112| val_0_rmse: 32.7141 |  0:04:58s
+epoch 25 | loss: 779.41926| val_0_rmse: 33.17589|  0:05:10s
+epoch 26 | loss: 770.69304| val_0_rmse: 32.25761|  0:05:22s
+epoch 27 | loss: 768.48691| val_0_rmse: 33.12532|  0:05:34s
+epoch 28 | loss: 765.96825| val_0_rmse: 34.10644|  0:05:45s
+epoch 29 | loss: 768.05707| val_0_rmse: 32.84311|  0:05:57s
+epoch 30 | loss: 757.87768| val_0_rmse: 33.82076|  0:06:09s
+epoch 31 | loss: 756.29069| val_0_rmse: 32.77294|  0:06:21s
+epoch 32 | loss: 758.86206| val_0_rmse: 33.52742|  0:06:33s
+epoch 33 | loss: 762.03745| val_0_rmse: 31.65142|  0:06:45s
+epoch 34 | loss: 753.80752| val_0_rmse: 32.61776|  0:06:57s
+epoch 35 | loss: 746.31938| val_0_rmse: 33.36835|  0:07:09s
+epoch 36 | loss: 748.13024| val_0_rmse: 33.44819|  0:07:21s
+epoch 37 | loss: 745.31016| val_0_rmse: 34.18729|  0:07:32s
+epoch 38 | loss: 736.06184| val_0_rmse: 33.04117|  0:07:44s
+epoch 39 | loss: 735.69358| val_0_rmse: 32.96466|  0:07:56s
+epoch 40 | loss: 731.64751| val_0_rmse: 33.15306|  0:08:08s
+epoch 41 | loss: 726.59266| val_0_rmse: 32.17315|  0:08:20s
+epoch 42 | loss: 726.43889| val_0_rmse: 35.04189|  0:08:32s
+epoch 43 | loss: 718.59084| val_0_rmse: 33.14527|  0:08:44s
+epoch 44 | loss: 719.28405| val_0_rmse: 33.27487|  0:08:55s
+epoch 45 | loss: 711.69791| val_0_rmse: 32.91683|  0:09:07s
+epoch 46 | loss: 706.78567| val_0_rmse: 33.67102|  0:09:19s
+epoch 47 | loss: 701.45381| val_0_rmse: 33.09619|  0:09:31s
+epoch 48 | loss: 691.54566| val_0_rmse: 32.72695|  0:09:43s
+epoch 49 | loss: 681.98198| val_0_rmse: 34.79585|  0:09:55s
+epoch 50 | loss: 682.77221| val_0_rmse: 33.73604|  0:10:07s
+epoch 51 | loss: 678.75694| val_0_rmse: 34.30851|  0:10:19s
+epoch 52 | loss: 675.29504| val_0_rmse: 34.15944|  0:10:30s
+epoch 53 | loss: 667.01127| val_0_rmse: 32.75886|  0:10:42s
+Early stopping occurred at epoch 53 with best_epoch = 33 and best_val_0_rmse = 31.65142
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:19:18,163] Trial 7 finished with value: 31.651424418233002 and parameters: {'lr': 0.0010831374542494717, 'n_steps': 8, 'gamma': 1.2536104049891768, 'n_independent': 3, 'n_shared': 2, 'momentum': 0.09290439736830262, 'weight_decay': 1.1490009189857085e-05, 'batch_size': 128, 'virtual_batch_size': 32}. Best is trial 3 with value: 30.732065409764175.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8345.76233| val_0_rmse: 100.61848|  0:00:03s
+epoch 1  | loss: 5492.34847| val_0_rmse: 60.79123|  0:00:07s
+epoch 2  | loss: 1237.8849| val_0_rmse: 50.66566|  0:00:11s
+epoch 3  | loss: 943.20712| val_0_rmse: 39.85915|  0:00:15s
+epoch 4  | loss: 893.1262| val_0_rmse: 44.73259|  0:00:19s
+epoch 5  | loss: 864.4729| val_0_rmse: 42.56596|  0:00:23s
+epoch 6  | loss: 823.93875| val_0_rmse: 42.96795|  0:00:27s
+epoch 7  | loss: 749.90365| val_0_rmse: 41.44243|  0:00:30s
+epoch 8  | loss: 677.43807| val_0_rmse: 38.7289 |  0:00:34s
+epoch 9  | loss: 604.2298| val_0_rmse: 36.50949|  0:00:38s
+epoch 10 | loss: 547.60343| val_0_rmse: 34.59399|  0:00:42s
+epoch 11 | loss: 499.40935| val_0_rmse: 32.46943|  0:00:46s
+epoch 12 | loss: 488.11961| val_0_rmse: 31.7702 |  0:00:50s
+epoch 13 | loss: 459.46026| val_0_rmse: 31.61703|  0:00:54s
+epoch 14 | loss: 437.86009| val_0_rmse: 30.71886|  0:00:57s
+epoch 15 | loss: 412.99241| val_0_rmse: 32.04545|  0:01:01s
+epoch 16 | loss: 400.09081| val_0_rmse: 31.72169|  0:01:05s
+epoch 17 | loss: 386.48152| val_0_rmse: 31.97252|  0:01:09s
+epoch 18 | loss: 375.44572| val_0_rmse: 31.9943 |  0:01:13s
+epoch 19 | loss: 344.96033| val_0_rmse: 31.42424|  0:01:17s
+epoch 20 | loss: 332.42827| val_0_rmse: 32.44556|  0:01:20s
+epoch 21 | loss: 322.35103| val_0_rmse: 33.20458|  0:01:24s
+epoch 22 | loss: 314.02236| val_0_rmse: 31.14741|  0:01:28s
+epoch 23 | loss: 299.52809| val_0_rmse: 33.62627|  0:01:32s
+epoch 24 | loss: 290.97579| val_0_rmse: 32.7215 |  0:01:36s
+epoch 25 | loss: 279.73699| val_0_rmse: 32.31821|  0:01:40s
+epoch 26 | loss: 271.75479| val_0_rmse: 32.63279|  0:01:43s
+epoch 27 | loss: 273.88983| val_0_rmse: 34.62501|  0:01:47s
+epoch 28 | loss: 260.6737| val_0_rmse: 32.95175|  0:01:51s
+epoch 29 | loss: 261.22948| val_0_rmse: 34.06554|  0:01:55s
+epoch 30 | loss: 253.44236| val_0_rmse: 32.10888|  0:01:59s
+epoch 31 | loss: 242.40428| val_0_rmse: 32.62519|  0:02:03s
+epoch 32 | loss: 237.63793| val_0_rmse: 32.27248|  0:02:07s
+epoch 33 | loss: 227.40549| val_0_rmse: 32.50849|  0:02:10s
+epoch 34 | loss: 223.38951| val_0_rmse: 32.43605|  0:02:14s
+Early stopping occurred at epoch 34 with best_epoch = 14 and best_val_0_rmse = 30.71886
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:21:41,758] Trial 8 finished with value: 30.718857784399564 and parameters: {'lr': 0.009035990874426194, 'n_steps': 6, 'gamma': 1.0754805619554562, 'n_independent': 2, 'n_shared': 1, 'momentum': 0.04921757516680686, 'weight_decay': 8.510644630167243e-05, 'batch_size': 512, 'virtual_batch_size': 32}. Best is trial 8 with value: 30.718857784399564.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8300.80897| val_0_rmse: 149.58073|  0:00:04s
+epoch 1  | loss: 5037.6912| val_0_rmse: 149.54971|  0:00:09s
+epoch 2  | loss: 1383.7449| val_0_rmse: 128.47703|  0:00:14s
+epoch 3  | loss: 1004.65118| val_0_rmse: 66.38334|  0:00:18s
+epoch 4  | loss: 992.5388| val_0_rmse: 34.23397|  0:00:23s
+epoch 5  | loss: 972.22173| val_0_rmse: 37.42321|  0:00:28s
+epoch 6  | loss: 952.06034| val_0_rmse: 35.92116|  0:00:32s
+epoch 7  | loss: 926.55518| val_0_rmse: 34.37342|  0:00:37s
+epoch 8  | loss: 900.22603| val_0_rmse: 36.50208|  0:00:42s
+epoch 9  | loss: 881.10105| val_0_rmse: 34.24056|  0:00:46s
+epoch 10 | loss: 857.15767| val_0_rmse: 33.05325|  0:00:51s
+epoch 11 | loss: 757.226 | val_0_rmse: 31.97129|  0:00:56s
+epoch 12 | loss: 667.2042| val_0_rmse: 32.78839|  0:01:00s
+epoch 13 | loss: 612.50761| val_0_rmse: 33.32885|  0:01:05s
+epoch 14 | loss: 565.81722| val_0_rmse: 32.07589|  0:01:10s
+epoch 15 | loss: 533.44057| val_0_rmse: 33.84708|  0:01:14s
+epoch 16 | loss: 497.16146| val_0_rmse: 33.16921|  0:01:19s
+epoch 17 | loss: 457.82048| val_0_rmse: 32.67802|  0:01:24s
+epoch 18 | loss: 424.46707| val_0_rmse: 31.90319|  0:01:28s
+epoch 19 | loss: 391.42974| val_0_rmse: 30.78751|  0:01:33s
+epoch 20 | loss: 369.92897| val_0_rmse: 31.75015|  0:01:38s
+epoch 21 | loss: 342.64347| val_0_rmse: 30.19752|  0:01:42s
+epoch 22 | loss: 325.84939| val_0_rmse: 37.13488|  0:01:47s
+epoch 23 | loss: 311.25616| val_0_rmse: 33.02817|  0:01:52s
+epoch 24 | loss: 296.63374| val_0_rmse: 32.57111|  0:01:56s
+epoch 25 | loss: 284.55082| val_0_rmse: 31.95981|  0:02:01s
+epoch 26 | loss: 273.78865| val_0_rmse: 32.15801|  0:02:06s
+epoch 27 | loss: 265.53269| val_0_rmse: 32.414  |  0:02:10s
+epoch 28 | loss: 260.18451| val_0_rmse: 31.82666|  0:02:15s
+epoch 29 | loss: 245.9367| val_0_rmse: 31.50735|  0:02:20s
+epoch 30 | loss: 243.48606| val_0_rmse: 31.61184|  0:02:24s
+epoch 31 | loss: 238.54479| val_0_rmse: 31.61019|  0:02:29s
+epoch 32 | loss: 228.85216| val_0_rmse: 32.41606|  0:02:34s
+epoch 33 | loss: 221.8473| val_0_rmse: 33.3347 |  0:02:38s
+epoch 34 | loss: 210.65636| val_0_rmse: 33.32815|  0:02:43s
+epoch 35 | loss: 210.18729| val_0_rmse: 32.86124|  0:02:48s
+epoch 36 | loss: 206.90815| val_0_rmse: 32.61179|  0:02:52s
+epoch 37 | loss: 201.2302| val_0_rmse: 33.80726|  0:02:57s
+epoch 38 | loss: 195.11516| val_0_rmse: 32.61922|  0:03:02s
+epoch 39 | loss: 195.9759| val_0_rmse: 32.51663|  0:03:06s
+epoch 40 | loss: 185.65065| val_0_rmse: 32.79987|  0:03:11s
+epoch 41 | loss: 186.31052| val_0_rmse: 32.157  |  0:03:16s
+Early stopping occurred at epoch 41 with best_epoch = 21 and best_val_0_rmse = 30.19752
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:25:15,375] Trial 9 finished with value: 30.19751574576309 and parameters: {'lr': 0.004467516408737514, 'n_steps': 7, 'gamma': 1.2408021889393939, 'n_independent': 2, 'n_shared': 1, 'momentum': 0.04049121320108443, 'weight_decay': 2.2949073630985583e-05, 'batch_size': 256, 'virtual_batch_size': 64}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8118.08756| val_0_rmse: 86.40847|  0:00:04s
+epoch 1  | loss: 4865.45526| val_0_rmse: 49.84682|  0:00:09s
+epoch 2  | loss: 1364.60876| val_0_rmse: 33.95663|  0:00:14s
+epoch 3  | loss: 991.34776| val_0_rmse: 37.2448 |  0:00:19s
+epoch 4  | loss: 938.89742| val_0_rmse: 34.80272|  0:00:24s
+epoch 5  | loss: 906.30615| val_0_rmse: 36.7173 |  0:00:29s
+epoch 6  | loss: 887.25462| val_0_rmse: 35.25573|  0:00:33s
+epoch 7  | loss: 870.53394| val_0_rmse: 33.34612|  0:00:38s
+epoch 8  | loss: 868.16142| val_0_rmse: 33.32119|  0:00:43s
+epoch 9  | loss: 862.76231| val_0_rmse: 33.42376|  0:00:48s
+epoch 10 | loss: 853.19368| val_0_rmse: 34.50422|  0:00:53s
+epoch 11 | loss: 838.05357| val_0_rmse: 33.97049|  0:00:58s
+epoch 12 | loss: 819.613 | val_0_rmse: 33.89901|  0:01:02s
+epoch 13 | loss: 789.26269| val_0_rmse: 33.42438|  0:01:07s
+epoch 14 | loss: 757.81825| val_0_rmse: 35.34658|  0:01:12s
+epoch 15 | loss: 700.8049| val_0_rmse: 32.96718|  0:01:17s
+epoch 16 | loss: 640.04521| val_0_rmse: 34.31191|  0:01:22s
+epoch 17 | loss: 574.89948| val_0_rmse: 34.00838|  0:01:27s
+epoch 18 | loss: 528.20985| val_0_rmse: 34.09128|  0:01:31s
+epoch 19 | loss: 496.00415| val_0_rmse: 33.91318|  0:01:36s
+epoch 20 | loss: 450.13222| val_0_rmse: 33.54512|  0:01:41s
+epoch 21 | loss: 420.14303| val_0_rmse: 33.04125|  0:01:46s
+epoch 22 | loss: 397.06767| val_0_rmse: 32.6864 |  0:01:51s
+epoch 23 | loss: 374.22175| val_0_rmse: 31.89058|  0:01:55s
+epoch 24 | loss: 351.05339| val_0_rmse: 32.70642|  0:02:00s
+epoch 25 | loss: 344.562 | val_0_rmse: 32.95432|  0:02:05s
+epoch 26 | loss: 321.01456| val_0_rmse: 31.96713|  0:02:10s
+epoch 27 | loss: 301.95047| val_0_rmse: 31.4244 |  0:02:15s
+epoch 28 | loss: 296.08124| val_0_rmse: 34.13263|  0:02:20s
+epoch 29 | loss: 279.28836| val_0_rmse: 32.46606|  0:02:24s
+epoch 30 | loss: 270.93914| val_0_rmse: 32.7476 |  0:02:29s
+epoch 31 | loss: 258.44903| val_0_rmse: 32.84047|  0:02:34s
+epoch 32 | loss: 254.95858| val_0_rmse: 33.91491|  0:02:39s
+epoch 33 | loss: 249.89576| val_0_rmse: 33.82536|  0:02:44s
+epoch 34 | loss: 235.81953| val_0_rmse: 35.45801|  0:02:49s
+epoch 35 | loss: 234.89481| val_0_rmse: 34.35166|  0:02:53s
+epoch 36 | loss: 231.4849| val_0_rmse: 34.9493 |  0:02:58s
+epoch 37 | loss: 220.16796| val_0_rmse: 34.90666|  0:03:03s
+epoch 38 | loss: 216.74365| val_0_rmse: 34.0676 |  0:03:08s
+epoch 39 | loss: 211.7049| val_0_rmse: 33.93824|  0:03:13s
+epoch 40 | loss: 208.46788| val_0_rmse: 33.44167|  0:03:17s
+epoch 41 | loss: 204.63363| val_0_rmse: 33.68974|  0:03:22s
+epoch 42 | loss: 204.66016| val_0_rmse: 33.86777|  0:03:27s
+epoch 43 | loss: 192.34785| val_0_rmse: 34.10888|  0:03:32s
+epoch 44 | loss: 194.0071| val_0_rmse: 34.84802|  0:03:37s
+epoch 45 | loss: 192.96228| val_0_rmse: 35.48712|  0:03:42s
+epoch 46 | loss: 186.17475| val_0_rmse: 38.17325|  0:03:46s
+epoch 47 | loss: 185.40215| val_0_rmse: 35.3566 |  0:03:51s
+Early stopping occurred at epoch 47 with best_epoch = 27 and best_val_0_rmse = 31.4244
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:29:22,565] Trial 10 finished with value: 31.424403368975295 and parameters: {'lr': 0.0044315612423166395, 'n_steps': 6, 'gamma': 1.1531832939063038, 'n_independent': 3, 'n_shared': 1, 'momentum': 0.010759184414258025, 'weight_decay': 2.2278858787818147e-05, 'batch_size': 256, 'virtual_batch_size': 64}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8677.47412| val_0_rmse: 105.02295|  0:00:03s
+epoch 1  | loss: 8293.99695| val_0_rmse: 97.75804|  0:00:06s
+epoch 2  | loss: 7043.88764| val_0_rmse: 88.03325|  0:00:09s
+epoch 3  | loss: 3696.98888| val_0_rmse: 50.79623|  0:00:12s
+epoch 4  | loss: 1350.50109| val_0_rmse: 35.21887|  0:00:16s
+epoch 5  | loss: 1072.32011| val_0_rmse: 37.44349|  0:00:19s
+epoch 6  | loss: 1052.7184| val_0_rmse: 37.53799|  0:00:22s
+epoch 7  | loss: 1031.86668| val_0_rmse: 36.43659|  0:00:25s
+epoch 8  | loss: 1022.94821| val_0_rmse: 36.85578|  0:00:28s
+epoch 9  | loss: 1004.46009| val_0_rmse: 36.33063|  0:00:31s
+epoch 10 | loss: 991.76603| val_0_rmse: 36.00095|  0:00:35s
+epoch 11 | loss: 970.65013| val_0_rmse: 37.22381|  0:00:38s
+epoch 12 | loss: 939.25965| val_0_rmse: 36.29509|  0:00:41s
+epoch 13 | loss: 915.42051| val_0_rmse: 36.35866|  0:00:44s
+epoch 14 | loss: 890.83635| val_0_rmse: 36.88111|  0:00:47s
+epoch 15 | loss: 859.25304| val_0_rmse: 37.12003|  0:00:51s
+epoch 16 | loss: 800.80948| val_0_rmse: 37.70852|  0:00:54s
+epoch 17 | loss: 724.15515| val_0_rmse: 38.24398|  0:00:57s
+epoch 18 | loss: 655.90204| val_0_rmse: 36.2691 |  0:01:00s
+epoch 19 | loss: 581.82927| val_0_rmse: 36.14847|  0:01:03s
+epoch 20 | loss: 526.24797| val_0_rmse: 34.46884|  0:01:06s
+epoch 21 | loss: 489.41985| val_0_rmse: 33.58139|  0:01:10s
+epoch 22 | loss: 455.45139| val_0_rmse: 33.64158|  0:01:13s
+epoch 23 | loss: 429.27335| val_0_rmse: 32.85161|  0:01:16s
+epoch 24 | loss: 407.30154| val_0_rmse: 33.45756|  0:01:19s
+epoch 25 | loss: 381.82098| val_0_rmse: 32.99934|  0:01:22s
+epoch 26 | loss: 374.06921| val_0_rmse: 32.03595|  0:01:26s
+epoch 27 | loss: 359.07947| val_0_rmse: 32.91644|  0:01:29s
+epoch 28 | loss: 346.64035| val_0_rmse: 33.55314|  0:01:32s
+epoch 29 | loss: 326.88057| val_0_rmse: 31.33955|  0:01:35s
+epoch 30 | loss: 323.77765| val_0_rmse: 32.49923|  0:01:38s
+epoch 31 | loss: 307.82372| val_0_rmse: 32.16466|  0:01:42s
+epoch 32 | loss: 306.22927| val_0_rmse: 32.42674|  0:01:45s
+epoch 33 | loss: 296.51945| val_0_rmse: 32.96836|  0:01:48s
+epoch 34 | loss: 286.39185| val_0_rmse: 31.84284|  0:01:51s
+epoch 35 | loss: 275.60787| val_0_rmse: 31.70171|  0:01:54s
+epoch 36 | loss: 275.83205| val_0_rmse: 32.04851|  0:01:58s
+epoch 37 | loss: 264.22423| val_0_rmse: 31.73197|  0:02:01s
+epoch 38 | loss: 261.71626| val_0_rmse: 32.03416|  0:02:04s
+epoch 39 | loss: 254.40841| val_0_rmse: 31.2311 |  0:02:07s
+epoch 40 | loss: 245.82774| val_0_rmse: 32.03478|  0:02:10s
+epoch 41 | loss: 247.94415| val_0_rmse: 31.51818|  0:02:14s
+epoch 42 | loss: 243.16044| val_0_rmse: 32.47478|  0:02:17s
+epoch 43 | loss: 236.47986| val_0_rmse: 32.84681|  0:02:20s
+epoch 44 | loss: 232.48655| val_0_rmse: 32.72695|  0:02:23s
+epoch 45 | loss: 227.54042| val_0_rmse: 31.8452 |  0:02:26s
+epoch 46 | loss: 220.12645| val_0_rmse: 31.91931|  0:02:29s
+epoch 47 | loss: 219.79897| val_0_rmse: 32.46446|  0:02:33s
+epoch 48 | loss: 219.02881| val_0_rmse: 32.22314|  0:02:36s
+epoch 49 | loss: 219.96112| val_0_rmse: 31.93869|  0:02:39s
+epoch 50 | loss: 210.01492| val_0_rmse: 31.99416|  0:02:42s
+epoch 51 | loss: 210.07683| val_0_rmse: 32.33173|  0:02:45s
+epoch 52 | loss: 201.19844| val_0_rmse: 32.56219|  0:02:49s
+epoch 53 | loss: 203.80663| val_0_rmse: 32.95001|  0:02:52s
+epoch 54 | loss: 200.92176| val_0_rmse: 32.02725|  0:02:55s
+epoch 55 | loss: 199.61185| val_0_rmse: 32.59624|  0:02:58s
+epoch 56 | loss: 198.20481| val_0_rmse: 32.22856|  0:03:01s
+epoch 57 | loss: 192.90897| val_0_rmse: 32.45996|  0:03:05s
+epoch 58 | loss: 190.62627| val_0_rmse: 31.69612|  0:03:08s
+epoch 59 | loss: 190.78482| val_0_rmse: 32.77506|  0:03:11s
+Early stopping occurred at epoch 59 with best_epoch = 39 and best_val_0_rmse = 31.2311
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:32:42,904] Trial 11 finished with value: 31.231102545716013 and parameters: {'lr': 0.005037420076567169, 'n_steps': 6, 'gamma': 1.4889438330588942, 'n_independent': 1, 'n_shared': 1, 'momentum': 0.05414908872316497, 'weight_decay': 0.00028095375504438695, 'batch_size': 512, 'virtual_batch_size': 32}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8527.21922| val_0_rmse: 102.64789|  0:00:03s
+epoch 1  | loss: 7364.02412| val_0_rmse: 96.69276|  0:00:07s
+epoch 2  | loss: 4219.27257| val_0_rmse: 58.51935|  0:00:10s
+epoch 3  | loss: 1389.3253| val_0_rmse: 42.52323|  0:00:13s
+epoch 4  | loss: 988.41151| val_0_rmse: 40.70723|  0:00:17s
+epoch 5  | loss: 945.78823| val_0_rmse: 43.36653|  0:00:20s
+epoch 6  | loss: 924.65037| val_0_rmse: 39.02117|  0:00:24s
+epoch 7  | loss: 891.94768| val_0_rmse: 38.00837|  0:00:27s
+epoch 8  | loss: 849.98573| val_0_rmse: 37.28161|  0:00:31s
+epoch 9  | loss: 799.52374| val_0_rmse: 35.36726|  0:00:34s
+epoch 10 | loss: 768.70494| val_0_rmse: 33.7598 |  0:00:38s
+epoch 11 | loss: 716.26975| val_0_rmse: 32.92887|  0:00:41s
+epoch 12 | loss: 671.70956| val_0_rmse: 33.43381|  0:00:45s
+epoch 13 | loss: 617.57678| val_0_rmse: 33.51062|  0:00:48s
+epoch 14 | loss: 599.91291| val_0_rmse: 34.22274|  0:00:51s
+epoch 15 | loss: 569.51059| val_0_rmse: 32.32978|  0:00:55s
+epoch 16 | loss: 531.77772| val_0_rmse: 31.5444 |  0:00:58s
+epoch 17 | loss: 499.28439| val_0_rmse: 33.92533|  0:01:02s
+epoch 18 | loss: 471.46776| val_0_rmse: 32.80483|  0:01:05s
+epoch 19 | loss: 445.81644| val_0_rmse: 33.05395|  0:01:09s
+epoch 20 | loss: 423.66129| val_0_rmse: 33.27794|  0:01:12s
+epoch 21 | loss: 403.10125| val_0_rmse: 32.60825|  0:01:16s
+epoch 22 | loss: 379.79745| val_0_rmse: 32.83099|  0:01:19s
+epoch 23 | loss: 359.55895| val_0_rmse: 31.44109|  0:01:23s
+epoch 24 | loss: 348.66344| val_0_rmse: 32.43626|  0:01:26s
+epoch 25 | loss: 330.05104| val_0_rmse: 32.6882 |  0:01:29s
+epoch 26 | loss: 316.86226| val_0_rmse: 32.06082|  0:01:33s
+epoch 27 | loss: 308.20823| val_0_rmse: 32.70867|  0:01:36s
+epoch 28 | loss: 301.80725| val_0_rmse: 31.27792|  0:01:40s
+epoch 29 | loss: 290.14521| val_0_rmse: 32.56685|  0:01:43s
+epoch 30 | loss: 283.8827| val_0_rmse: 32.30668|  0:01:47s
+epoch 31 | loss: 275.44306| val_0_rmse: 32.36905|  0:01:50s
+epoch 32 | loss: 272.86328| val_0_rmse: 32.29005|  0:01:54s
+epoch 33 | loss: 261.20309| val_0_rmse: 33.85647|  0:01:57s
+epoch 34 | loss: 257.21283| val_0_rmse: 33.58189|  0:02:00s
+epoch 35 | loss: 252.20624| val_0_rmse: 32.82783|  0:02:04s
+epoch 36 | loss: 242.5   | val_0_rmse: 33.72359|  0:02:07s
+epoch 37 | loss: 240.81389| val_0_rmse: 33.10906|  0:02:11s
+epoch 38 | loss: 240.48918| val_0_rmse: 33.60215|  0:02:14s
+epoch 39 | loss: 233.34876| val_0_rmse: 32.98174|  0:02:18s
+epoch 40 | loss: 227.86944| val_0_rmse: 32.60811|  0:02:21s
+epoch 41 | loss: 231.20073| val_0_rmse: 31.94517|  0:02:25s
+epoch 42 | loss: 215.60638| val_0_rmse: 33.23192|  0:02:28s
+epoch 43 | loss: 213.83552| val_0_rmse: 32.88694|  0:02:31s
+epoch 44 | loss: 210.54632| val_0_rmse: 33.53819|  0:02:35s
+epoch 45 | loss: 207.64695| val_0_rmse: 32.23022|  0:02:38s
+epoch 46 | loss: 205.8039| val_0_rmse: 32.43791|  0:02:42s
+epoch 47 | loss: 200.70017| val_0_rmse: 33.07334|  0:02:45s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 48 | loss: 200.39609| val_0_rmse: 32.71391|  0:02:49s
+Early stopping occurred at epoch 48 with best_epoch = 28 and best_val_0_rmse = 31.27792
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:35:39,838] Trial 12 finished with value: 31.277919861733604 and parameters: {'lr': 0.0060503901689283905, 'n_steps': 5, 'gamma': 1.1224975425115822, 'n_independent': 2, 'n_shared': 1, 'momentum': 0.037922047244732346, 'weight_decay': 0.0001135436332397082, 'batch_size': 512, 'virtual_batch_size': 32}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8549.4109| val_0_rmse: 106.07497|  0:00:05s
+epoch 1  | loss: 7481.87565| val_0_rmse: 87.5109 |  0:00:11s
+epoch 2  | loss: 4105.3358| val_0_rmse: 60.71595|  0:00:17s
+epoch 3  | loss: 1449.43912| val_0_rmse: 40.07079|  0:00:22s
+epoch 4  | loss: 1081.72945| val_0_rmse: 37.09704|  0:00:28s
+epoch 5  | loss: 999.94799| val_0_rmse: 34.59656|  0:00:34s
+epoch 6  | loss: 970.75393| val_0_rmse: 34.56137|  0:00:40s
+epoch 7  | loss: 953.07384| val_0_rmse: 35.28063|  0:00:45s
+epoch 8  | loss: 931.52522| val_0_rmse: 34.77795|  0:00:51s
+epoch 9  | loss: 911.4476| val_0_rmse: 35.301  |  0:00:57s
+epoch 10 | loss: 886.01601| val_0_rmse: 34.99756|  0:01:02s
+epoch 11 | loss: 876.38143| val_0_rmse: 35.57326|  0:01:08s
+epoch 12 | loss: 865.05693| val_0_rmse: 33.74065|  0:01:14s
+epoch 13 | loss: 843.96406| val_0_rmse: 34.70401|  0:01:19s
+epoch 14 | loss: 831.07418| val_0_rmse: 34.71875|  0:01:25s
+epoch 15 | loss: 814.31558| val_0_rmse: 32.3284 |  0:01:31s
+epoch 16 | loss: 817.08703| val_0_rmse: 33.10016|  0:01:36s
+epoch 17 | loss: 800.44086| val_0_rmse: 34.47659|  0:01:42s
+epoch 18 | loss: 796.43164| val_0_rmse: 35.28843|  0:01:48s
+epoch 19 | loss: 790.82071| val_0_rmse: 34.05859|  0:01:54s
+epoch 20 | loss: 772.84764| val_0_rmse: 33.09774|  0:01:59s
+epoch 21 | loss: 763.44139| val_0_rmse: 33.58097|  0:02:05s
+epoch 22 | loss: 746.02239| val_0_rmse: 32.42366|  0:02:11s
+epoch 23 | loss: 739.73005| val_0_rmse: 31.63521|  0:02:16s
+epoch 24 | loss: 724.55649| val_0_rmse: 32.04321|  0:02:22s
+epoch 25 | loss: 704.59299| val_0_rmse: 32.32168|  0:02:28s
+epoch 26 | loss: 675.48847| val_0_rmse: 33.28469|  0:02:33s
+epoch 27 | loss: 645.56513| val_0_rmse: 32.77741|  0:02:39s
+epoch 28 | loss: 608.51092| val_0_rmse: 31.57964|  0:02:45s
+epoch 29 | loss: 570.27177| val_0_rmse: 35.33008|  0:02:50s
+epoch 30 | loss: 540.52716| val_0_rmse: 33.80673|  0:02:56s
+epoch 31 | loss: 515.61363| val_0_rmse: 33.66646|  0:03:02s
+epoch 32 | loss: 495.856 | val_0_rmse: 32.73033|  0:03:07s
+epoch 33 | loss: 476.54414| val_0_rmse: 34.38873|  0:03:13s
+epoch 34 | loss: 457.73989| val_0_rmse: 33.15249|  0:03:19s
+epoch 35 | loss: 444.75616| val_0_rmse: 33.53225|  0:03:25s
+epoch 36 | loss: 441.38613| val_0_rmse: 33.62046|  0:03:30s
+epoch 37 | loss: 423.92208| val_0_rmse: 34.25584|  0:03:36s
+epoch 38 | loss: 411.26184| val_0_rmse: 33.58236|  0:03:42s
+epoch 39 | loss: 405.86365| val_0_rmse: 33.37226|  0:03:47s
+epoch 40 | loss: 389.43441| val_0_rmse: 31.79782|  0:03:53s
+epoch 41 | loss: 384.98518| val_0_rmse: 32.96665|  0:03:59s
+epoch 42 | loss: 372.84909| val_0_rmse: 34.07811|  0:04:04s
+epoch 43 | loss: 360.03016| val_0_rmse: 32.54823|  0:04:10s
+epoch 44 | loss: 353.60008| val_0_rmse: 33.49877|  0:04:16s
+epoch 45 | loss: 342.45453| val_0_rmse: 32.49623|  0:04:21s
+epoch 46 | loss: 330.80513| val_0_rmse: 33.30345|  0:04:27s
+epoch 47 | loss: 325.48268| val_0_rmse: 32.47608|  0:04:33s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 48 | loss: 318.89474| val_0_rmse: 32.88575|  0:04:39s
+Early stopping occurred at epoch 48 with best_epoch = 28 and best_val_0_rmse = 31.57964
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:40:37,434] Trial 13 finished with value: 31.579636099444983 and parameters: {'lr': 0.0032560542312106222, 'n_steps': 7, 'gamma': 1.1514999492260158, 'n_independent': 2, 'n_shared': 1, 'momentum': 0.06439196094633745, 'weight_decay': 2.608256486391629e-05, 'batch_size': 256, 'virtual_batch_size': 32}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8530.72474| val_0_rmse: 104.87534|  0:00:02s
+epoch 1  | loss: 8538.47124| val_0_rmse: 110.83803|  0:00:05s
+epoch 2  | loss: 8508.30895| val_0_rmse: 105.10055|  0:00:08s
+epoch 3  | loss: 8450.19993| val_0_rmse: 103.80152|  0:00:11s
+epoch 4  | loss: 8342.2792| val_0_rmse: 102.81313|  0:00:14s
+epoch 5  | loss: 8051.02762| val_0_rmse: 98.7876 |  0:00:16s
+epoch 6  | loss: 7529.34445| val_0_rmse: 96.88881|  0:00:19s
+epoch 7  | loss: 6783.88949| val_0_rmse: 89.2602 |  0:00:22s
+epoch 8  | loss: 5755.13882| val_0_rmse: 81.61281|  0:00:25s
+epoch 9  | loss: 4263.96842| val_0_rmse: 69.9808 |  0:00:28s
+epoch 10 | loss: 2925.13343| val_0_rmse: 60.02756|  0:00:30s
+epoch 11 | loss: 1929.89241| val_0_rmse: 49.11129|  0:00:33s
+epoch 12 | loss: 1352.46102| val_0_rmse: 41.75623|  0:00:36s
+epoch 13 | loss: 1085.14219| val_0_rmse: 37.75178|  0:00:39s
+epoch 14 | loss: 1005.35877| val_0_rmse: 36.67621|  0:00:42s
+epoch 15 | loss: 981.95343| val_0_rmse: 36.38352|  0:00:44s
+epoch 16 | loss: 953.65387| val_0_rmse: 36.60487|  0:00:47s
+epoch 17 | loss: 930.34237| val_0_rmse: 36.11128|  0:00:50s
+epoch 18 | loss: 908.68635| val_0_rmse: 36.08042|  0:00:53s
+epoch 19 | loss: 879.82405| val_0_rmse: 36.46543|  0:00:56s
+epoch 20 | loss: 863.69409| val_0_rmse: 35.66573|  0:00:58s
+epoch 21 | loss: 844.62391| val_0_rmse: 35.39447|  0:01:01s
+epoch 22 | loss: 832.7285| val_0_rmse: 35.12368|  0:01:04s
+epoch 23 | loss: 824.5243| val_0_rmse: 35.22339|  0:01:07s
+epoch 24 | loss: 814.01589| val_0_rmse: 34.93096|  0:01:10s
+epoch 25 | loss: 796.51755| val_0_rmse: 35.44606|  0:01:12s
+epoch 26 | loss: 788.03966| val_0_rmse: 34.37278|  0:01:15s
+epoch 27 | loss: 771.51943| val_0_rmse: 35.14387|  0:01:18s
+epoch 28 | loss: 759.83791| val_0_rmse: 33.83151|  0:01:21s
+epoch 29 | loss: 759.17904| val_0_rmse: 34.60851|  0:01:24s
+epoch 30 | loss: 746.57693| val_0_rmse: 34.5443 |  0:01:26s
+epoch 31 | loss: 732.23558| val_0_rmse: 33.98215|  0:01:29s
+epoch 32 | loss: 721.75652| val_0_rmse: 32.99959|  0:01:32s
+epoch 33 | loss: 709.33603| val_0_rmse: 34.05794|  0:01:35s
+epoch 34 | loss: 703.73782| val_0_rmse: 34.8372 |  0:01:38s
+epoch 35 | loss: 696.24159| val_0_rmse: 34.36079|  0:01:40s
+epoch 36 | loss: 686.70345| val_0_rmse: 35.17947|  0:01:43s
+epoch 37 | loss: 678.65955| val_0_rmse: 34.29956|  0:01:46s
+epoch 38 | loss: 669.41012| val_0_rmse: 35.12213|  0:01:49s
+epoch 39 | loss: 665.56369| val_0_rmse: 34.25824|  0:01:51s
+epoch 40 | loss: 656.70705| val_0_rmse: 35.3408 |  0:01:54s
+epoch 41 | loss: 648.36894| val_0_rmse: 36.72017|  0:01:57s
+epoch 42 | loss: 635.74524| val_0_rmse: 37.71832|  0:02:00s
+epoch 43 | loss: 629.95433| val_0_rmse: 36.05415|  0:02:03s
+epoch 44 | loss: 616.72231| val_0_rmse: 37.52165|  0:02:05s
+epoch 45 | loss: 611.45932| val_0_rmse: 39.10704|  0:02:08s
+epoch 46 | loss: 603.30594| val_0_rmse: 37.90975|  0:02:11s
+epoch 47 | loss: 584.90792| val_0_rmse: 38.2941 |  0:02:14s
+epoch 48 | loss: 570.08339| val_0_rmse: 38.29258|  0:02:17s
+epoch 49 | loss: 563.09422| val_0_rmse: 36.7862 |  0:02:19s
+epoch 50 | loss: 556.64167| val_0_rmse: 37.1306 |  0:02:22s
+epoch 51 | loss: 537.45387| val_0_rmse: 38.86408|  0:02:25s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 52 | loss: 521.64091| val_0_rmse: 39.79745|  0:02:28s
+Early stopping occurred at epoch 52 with best_epoch = 32 and best_val_0_rmse = 32.99959
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:43:15,059] Trial 14 finished with value: 32.99959474623806 and parameters: {'lr': 0.0016178317858692385, 'n_steps': 7, 'gamma': 1.0912625231439002, 'n_independent': 1, 'n_shared': 1, 'momentum': 0.03754585770978748, 'weight_decay': 0.0002653384391389067, 'batch_size': 512, 'virtual_batch_size': 64}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8133.54489| val_0_rmse: 218.51816|  0:00:05s
+epoch 1  | loss: 3257.90797| val_0_rmse: 39.81418|  0:00:10s
+epoch 2  | loss: 1057.3812| val_0_rmse: 35.58903|  0:00:15s
+epoch 3  | loss: 980.69527| val_0_rmse: 38.88485|  0:00:21s
+epoch 4  | loss: 918.00091| val_0_rmse: 33.93542|  0:00:26s
+epoch 5  | loss: 883.08835| val_0_rmse: 35.08568|  0:00:31s
+epoch 6  | loss: 839.95366| val_0_rmse: 33.70029|  0:00:37s
+epoch 7  | loss: 728.95349| val_0_rmse: 33.38546|  0:00:42s
+epoch 8  | loss: 614.76663| val_0_rmse: 33.07071|  0:00:47s
+epoch 9  | loss: 558.60523| val_0_rmse: 32.74267|  0:00:53s
+epoch 10 | loss: 502.11233| val_0_rmse: 33.35101|  0:00:58s
+epoch 11 | loss: 458.3417| val_0_rmse: 31.97203|  0:01:03s
+epoch 12 | loss: 423.66479| val_0_rmse: 32.11768|  0:01:08s
+epoch 13 | loss: 394.76481| val_0_rmse: 31.56811|  0:01:14s
+epoch 14 | loss: 359.53356| val_0_rmse: 31.18128|  0:01:19s
+epoch 15 | loss: 344.75805| val_0_rmse: 30.58101|  0:01:24s
+epoch 16 | loss: 321.40826| val_0_rmse: 31.84604|  0:01:30s
+epoch 17 | loss: 311.54593| val_0_rmse: 31.64174|  0:01:35s
+epoch 18 | loss: 298.15712| val_0_rmse: 30.98847|  0:01:40s
+epoch 19 | loss: 279.98155| val_0_rmse: 31.70434|  0:01:45s
+epoch 20 | loss: 276.80219| val_0_rmse: 31.36558|  0:01:51s
+epoch 21 | loss: 268.23946| val_0_rmse: 32.14157|  0:01:56s
+epoch 22 | loss: 261.3645| val_0_rmse: 32.81259|  0:02:01s
+epoch 23 | loss: 242.68944| val_0_rmse: 31.52545|  0:02:06s
+epoch 24 | loss: 240.58749| val_0_rmse: 32.00721|  0:02:12s
+epoch 25 | loss: 232.52792| val_0_rmse: 32.5199 |  0:02:17s
+epoch 26 | loss: 224.40283| val_0_rmse: 31.42348|  0:02:22s
+epoch 27 | loss: 209.33681| val_0_rmse: 32.18473|  0:02:28s
+epoch 28 | loss: 207.86615| val_0_rmse: 32.03369|  0:02:33s
+epoch 29 | loss: 205.39025| val_0_rmse: 32.24976|  0:02:38s
+epoch 30 | loss: 201.22155| val_0_rmse: 33.20579|  0:02:43s
+epoch 31 | loss: 199.17725| val_0_rmse: 32.84341|  0:02:49s
+epoch 32 | loss: 193.4565| val_0_rmse: 33.50814|  0:02:54s
+epoch 33 | loss: 188.35597| val_0_rmse: 32.09332|  0:02:59s
+epoch 34 | loss: 183.48928| val_0_rmse: 33.27688|  0:03:05s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 35 | loss: 180.70526| val_0_rmse: 32.36862|  0:03:10s
+Early stopping occurred at epoch 35 with best_epoch = 15 and best_val_0_rmse = 30.58101
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:46:38,817] Trial 15 finished with value: 30.5810062788983 and parameters: {'lr': 0.006417947241156315, 'n_steps': 5, 'gamma': 1.2162477718861058, 'n_independent': 2, 'n_shared': 2, 'momentum': 0.041139904257840886, 'weight_decay': 6.440657042548664e-05, 'batch_size': 256, 'virtual_batch_size': 32}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 7957.6721| val_0_rmse: 533.60301|  0:00:04s
+epoch 1  | loss: 3332.27923| val_0_rmse: 574.7225|  0:00:09s
+epoch 2  | loss: 1066.63841| val_0_rmse: 155.82516|  0:00:14s
+epoch 3  | loss: 1033.027| val_0_rmse: 35.98423|  0:00:19s
+epoch 4  | loss: 1004.99607| val_0_rmse: 34.50975|  0:00:24s
+epoch 5  | loss: 949.02083| val_0_rmse: 33.48507|  0:00:28s
+epoch 6  | loss: 904.58525| val_0_rmse: 33.5424 |  0:00:33s
+epoch 7  | loss: 844.63018| val_0_rmse: 31.88266|  0:00:38s
+epoch 8  | loss: 720.83142| val_0_rmse: 34.14514|  0:00:43s
+epoch 9  | loss: 590.26931| val_0_rmse: 31.76583|  0:00:48s
+epoch 10 | loss: 509.50428| val_0_rmse: 32.03047|  0:00:53s
+epoch 11 | loss: 437.22287| val_0_rmse: 31.92447|  0:00:57s
+epoch 12 | loss: 391.85033| val_0_rmse: 32.07968|  0:01:02s
+epoch 13 | loss: 354.78576| val_0_rmse: 31.09933|  0:01:07s
+epoch 14 | loss: 321.9614| val_0_rmse: 31.32227|  0:01:12s
+epoch 15 | loss: 304.69488| val_0_rmse: 30.71983|  0:01:17s
+epoch 16 | loss: 287.99612| val_0_rmse: 30.67442|  0:01:22s
+epoch 17 | loss: 276.62957| val_0_rmse: 32.25634|  0:01:26s
+epoch 18 | loss: 269.92703| val_0_rmse: 31.64478|  0:01:31s
+epoch 19 | loss: 249.14523| val_0_rmse: 31.99412|  0:01:36s
+epoch 20 | loss: 236.31981| val_0_rmse: 31.74396|  0:01:41s
+epoch 21 | loss: 235.16943| val_0_rmse: 31.50544|  0:01:46s
+epoch 22 | loss: 221.59012| val_0_rmse: 32.48579|  0:01:51s
+epoch 23 | loss: 220.70638| val_0_rmse: 32.57147|  0:01:55s
+epoch 24 | loss: 208.93378| val_0_rmse: 32.07893|  0:02:00s
+epoch 25 | loss: 205.20282| val_0_rmse: 32.04048|  0:02:05s
+epoch 26 | loss: 194.9461| val_0_rmse: 31.3503 |  0:02:10s
+epoch 27 | loss: 195.72365| val_0_rmse: 31.64859|  0:02:15s
+epoch 28 | loss: 190.18658| val_0_rmse: 32.31975|  0:02:19s
+epoch 29 | loss: 182.55637| val_0_rmse: 32.27218|  0:02:24s
+epoch 30 | loss: 180.56804| val_0_rmse: 31.74671|  0:02:29s
+epoch 31 | loss: 175.02833| val_0_rmse: 31.46095|  0:02:34s
+epoch 32 | loss: 174.62502| val_0_rmse: 31.68155|  0:02:39s
+epoch 33 | loss: 169.07794| val_0_rmse: 31.68662|  0:02:44s
+epoch 34 | loss: 168.84306| val_0_rmse: 32.74112|  0:02:48s
+epoch 35 | loss: 162.44896| val_0_rmse: 31.45884|  0:02:53s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 36 | loss: 161.14112| val_0_rmse: 32.41854|  0:02:58s
+Early stopping occurred at epoch 36 with best_epoch = 16 and best_val_0_rmse = 30.67442
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:49:50,937] Trial 16 finished with value: 30.674415529986945 and parameters: {'lr': 0.0063570664906805645, 'n_steps': 5, 'gamma': 1.2152552887228105, 'n_independent': 3, 'n_shared': 2, 'momentum': 0.03565700820770179, 'weight_decay': 1.7137195791756545e-05, 'batch_size': 256, 'virtual_batch_size': 64}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8101.277| val_0_rmse: 99.87048|  0:00:05s
+epoch 1  | loss: 6244.74912| val_0_rmse: 64.93517|  0:00:11s
+epoch 2  | loss: 2267.70334| val_0_rmse: 43.76756|  0:00:17s
+epoch 3  | loss: 1076.20516| val_0_rmse: 37.74749|  0:00:23s
+epoch 4  | loss: 980.23757| val_0_rmse: 36.34495|  0:00:29s
+epoch 5  | loss: 962.96101| val_0_rmse: 35.98826|  0:00:35s
+epoch 6  | loss: 930.39252| val_0_rmse: 35.44871|  0:00:41s
+epoch 7  | loss: 924.77546| val_0_rmse: 34.5845 |  0:00:47s
+epoch 8  | loss: 895.53874| val_0_rmse: 35.12477|  0:00:53s
+epoch 9  | loss: 887.06302| val_0_rmse: 35.38031|  0:00:59s
+epoch 10 | loss: 880.83379| val_0_rmse: 35.04331|  0:01:05s
+epoch 11 | loss: 869.20635| val_0_rmse: 33.96555|  0:01:11s
+epoch 12 | loss: 853.85848| val_0_rmse: 34.0858 |  0:01:17s
+epoch 13 | loss: 831.35937| val_0_rmse: 33.58484|  0:01:23s
+epoch 14 | loss: 815.94996| val_0_rmse: 33.51937|  0:01:29s
+epoch 15 | loss: 800.34364| val_0_rmse: 33.88684|  0:01:35s
+epoch 16 | loss: 778.29472| val_0_rmse: 33.5375 |  0:01:41s
+epoch 17 | loss: 738.82188| val_0_rmse: 33.66038|  0:01:47s
+epoch 18 | loss: 683.73166| val_0_rmse: 32.71644|  0:01:53s
+epoch 19 | loss: 629.44542| val_0_rmse: 31.41671|  0:01:59s
+epoch 20 | loss: 580.12118| val_0_rmse: 30.80134|  0:02:05s
+epoch 21 | loss: 538.99928| val_0_rmse: 31.23506|  0:02:11s
+epoch 22 | loss: 502.9242| val_0_rmse: 32.10732|  0:02:17s
+epoch 23 | loss: 475.29365| val_0_rmse: 30.52947|  0:02:23s
+epoch 24 | loss: 450.74601| val_0_rmse: 31.84396|  0:02:29s
+epoch 25 | loss: 437.73602| val_0_rmse: 31.65695|  0:02:35s
+epoch 26 | loss: 410.68609| val_0_rmse: 32.91975|  0:02:41s
+epoch 27 | loss: 387.4957| val_0_rmse: 31.0375 |  0:02:47s
+epoch 28 | loss: 375.62461| val_0_rmse: 31.97547|  0:02:53s
+epoch 29 | loss: 356.88831| val_0_rmse: 32.27967|  0:02:59s
+epoch 30 | loss: 340.43422| val_0_rmse: 31.57791|  0:03:05s
+epoch 31 | loss: 333.20534| val_0_rmse: 32.27099|  0:03:10s
+epoch 32 | loss: 322.81801| val_0_rmse: 32.07838|  0:03:16s
+epoch 33 | loss: 310.50303| val_0_rmse: 30.86463|  0:03:22s
+epoch 34 | loss: 300.07922| val_0_rmse: 31.35773|  0:03:28s
+epoch 35 | loss: 292.30547| val_0_rmse: 32.27555|  0:03:34s
+epoch 36 | loss: 279.2322| val_0_rmse: 31.23512|  0:03:40s
+epoch 37 | loss: 267.22173| val_0_rmse: 30.83129|  0:03:46s
+epoch 38 | loss: 262.06285| val_0_rmse: 31.65358|  0:03:52s
+epoch 39 | loss: 256.84267| val_0_rmse: 31.60797|  0:03:58s
+epoch 40 | loss: 251.39267| val_0_rmse: 31.35468|  0:04:04s
+epoch 41 | loss: 245.87313| val_0_rmse: 30.9343 |  0:04:10s
+epoch 42 | loss: 239.89563| val_0_rmse: 31.55754|  0:04:16s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 43 | loss: 230.1616| val_0_rmse: 31.31812|  0:04:22s
+Early stopping occurred at epoch 43 with best_epoch = 23 and best_val_0_rmse = 30.52947
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 18:54:27,109] Trial 17 finished with value: 30.529473651735206 and parameters: {'lr': 0.0034761616416164485, 'n_steps': 5, 'gamma': 1.2056269451930497, 'n_independent': 2, 'n_shared': 3, 'momentum': 0.06606837631698241, 'weight_decay': 7.480845337181935e-05, 'batch_size': 256, 'virtual_batch_size': 32}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 9141.04238| val_0_rmse: 107.94896|  0:00:06s
+epoch 1  | loss: 8867.95742| val_0_rmse: 107.06629|  0:00:13s
+epoch 2  | loss: 8625.96046| val_0_rmse: 101.06439|  0:00:20s
+epoch 3  | loss: 5257.76662| val_0_rmse: 44.89698|  0:00:27s
+epoch 4  | loss: 1131.13311| val_0_rmse: 38.88212|  0:00:33s
+epoch 5  | loss: 989.91332| val_0_rmse: 39.18781|  0:00:40s
+epoch 6  | loss: 961.44883| val_0_rmse: 35.5176 |  0:00:47s
+epoch 7  | loss: 936.82673| val_0_rmse: 34.50913|  0:00:54s
+epoch 8  | loss: 929.07304| val_0_rmse: 34.68469|  0:01:00s
+epoch 9  | loss: 926.84334| val_0_rmse: 33.45479|  0:01:07s
+epoch 10 | loss: 911.08954| val_0_rmse: 33.78719|  0:01:14s
+epoch 11 | loss: 892.98075| val_0_rmse: 34.52904|  0:01:21s
+epoch 12 | loss: 871.2158| val_0_rmse: 34.99469|  0:01:27s
+epoch 13 | loss: 863.64622| val_0_rmse: 34.11151|  0:01:34s
+epoch 14 | loss: 830.80713| val_0_rmse: 34.47149|  0:01:41s
+epoch 15 | loss: 777.68356| val_0_rmse: 34.63084|  0:01:48s
+epoch 16 | loss: 714.64871| val_0_rmse: 33.60997|  0:01:54s
+epoch 17 | loss: 650.53986| val_0_rmse: 35.04573|  0:02:01s
+epoch 18 | loss: 592.08886| val_0_rmse: 35.03793|  0:02:08s
+epoch 19 | loss: 545.15468| val_0_rmse: 33.58581|  0:02:15s
+epoch 20 | loss: 509.83174| val_0_rmse: 33.95199|  0:02:22s
+epoch 21 | loss: 480.70529| val_0_rmse: 35.25276|  0:02:28s
+epoch 22 | loss: 447.83175| val_0_rmse: 33.75831|  0:02:35s
+epoch 23 | loss: 428.05928| val_0_rmse: 33.10453|  0:02:42s
+epoch 24 | loss: 410.54431| val_0_rmse: 33.32936|  0:02:49s
+epoch 25 | loss: 396.84763| val_0_rmse: 39.38662|  0:02:55s
+epoch 26 | loss: 374.10247| val_0_rmse: 33.00197|  0:03:02s
+epoch 27 | loss: 360.12024| val_0_rmse: 34.0289 |  0:03:09s
+epoch 28 | loss: 345.36689| val_0_rmse: 34.74968|  0:03:16s
+epoch 29 | loss: 326.3665| val_0_rmse: 46.55439|  0:03:22s
+epoch 30 | loss: 319.42745| val_0_rmse: 53.98333|  0:03:29s
+epoch 31 | loss: 311.29049| val_0_rmse: 52.33845|  0:03:36s
+epoch 32 | loss: 298.4411| val_0_rmse: 56.56894|  0:03:43s
+epoch 33 | loss: 288.00249| val_0_rmse: 48.57703|  0:03:49s
+epoch 34 | loss: 276.89128| val_0_rmse: 55.2981 |  0:03:56s
+epoch 35 | loss: 268.5941| val_0_rmse: 49.83052|  0:04:03s
+epoch 36 | loss: 265.27173| val_0_rmse: 54.51178|  0:04:09s
+epoch 37 | loss: 255.18321| val_0_rmse: 58.24932|  0:04:16s
+epoch 38 | loss: 250.26425| val_0_rmse: 64.1276 |  0:04:23s
+epoch 39 | loss: 238.95219| val_0_rmse: 48.46628|  0:04:30s
+epoch 40 | loss: 236.49176| val_0_rmse: 48.30754|  0:04:36s
+epoch 41 | loss: 229.72287| val_0_rmse: 56.73066|  0:04:43s
+epoch 42 | loss: 229.64978| val_0_rmse: 46.06027|  0:04:50s
+epoch 43 | loss: 218.98417| val_0_rmse: 39.12874|  0:04:57s
+epoch 44 | loss: 216.65682| val_0_rmse: 40.23215|  0:05:04s
+epoch 45 | loss: 208.84336| val_0_rmse: 42.00434|  0:05:10s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 46 | loss: 203.75665| val_0_rmse: 35.395  |  0:05:17s
+Early stopping occurred at epoch 46 with best_epoch = 26 and best_val_0_rmse = 33.00197
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 19:00:09,373] Trial 18 finished with value: 33.00197156075343 and parameters: {'lr': 0.003459300565557424, 'n_steps': 10, 'gamma': 1.279686733389215, 'n_independent': 1, 'n_shared': 3, 'momentum': 0.06721830305299176, 'weight_decay': 3.0362774219710954e-05, 'batch_size': 256, 'virtual_batch_size': 64}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:45: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  lr = trial.suggest_loguniform('lr', 0.001, 0.01)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:47: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  gamma = trial.suggest_uniform('gamma', 1.0, 1.5)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:50: FutureWarning: suggest_uniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float instead.
+  momentum = trial.suggest_uniform('momentum', 0.01, 0.1)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py:51: FutureWarning: suggest_loguniform has been deprecated in v3.0.0. This feature will be removed in v6.0.0. See https://github.com/optuna/optuna/releases/tag/v3.0.0. Use suggest_float(..., log=True) instead.
+  weight_decay = trial.suggest_loguniform('weight_decay', 0.00001, 0.001)  # Reduced range
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+epoch 0  | loss: 8178.96476| val_0_rmse: 99.7831 |  0:00:05s
+epoch 1  | loss: 5445.37979| val_0_rmse: 53.29419|  0:00:11s
+epoch 2  | loss: 1733.85171| val_0_rmse: 40.62487|  0:00:17s
+epoch 3  | loss: 1010.34303| val_0_rmse: 37.96684|  0:00:23s
+epoch 4  | loss: 935.76934| val_0_rmse: 35.83588|  0:00:28s
+epoch 5  | loss: 889.66707| val_0_rmse: 33.13857|  0:00:34s
+epoch 6  | loss: 868.46705| val_0_rmse: 32.04525|  0:00:40s
+epoch 7  | loss: 841.80396| val_0_rmse: 30.96256|  0:00:46s
+epoch 8  | loss: 830.04226| val_0_rmse: 31.27271|  0:00:52s
+epoch 9  | loss: 792.73205| val_0_rmse: 34.77873|  0:00:57s
+epoch 10 | loss: 699.03331| val_0_rmse: 32.12392|  0:01:03s
+epoch 11 | loss: 587.79104| val_0_rmse: 35.22312|  0:01:09s
+epoch 12 | loss: 524.71563| val_0_rmse: 38.03143|  0:01:15s
+epoch 13 | loss: 474.46623| val_0_rmse: 32.17288|  0:01:20s
+epoch 14 | loss: 443.73962| val_0_rmse: 33.29828|  0:01:26s
+epoch 15 | loss: 417.7826| val_0_rmse: 40.37671|  0:01:32s
+epoch 16 | loss: 395.11225| val_0_rmse: 39.97845|  0:01:38s
+epoch 17 | loss: 372.79341| val_0_rmse: 33.03565|  0:01:44s
+epoch 18 | loss: 351.02856| val_0_rmse: 34.45746|  0:01:49s
+epoch 19 | loss: 334.16507| val_0_rmse: 33.60766|  0:01:55s
+epoch 20 | loss: 321.44537| val_0_rmse: 32.80401|  0:02:01s
+epoch 21 | loss: 313.08418| val_0_rmse: 32.41979|  0:02:07s
+epoch 22 | loss: 297.58046| val_0_rmse: 33.06984|  0:02:13s
+epoch 23 | loss: 289.74799| val_0_rmse: 31.33699|  0:02:18s
+epoch 24 | loss: 279.61907| val_0_rmse: 32.18182|  0:02:24s
+epoch 25 | loss: 265.79302| val_0_rmse: 32.78041|  0:02:30s
+epoch 26 | loss: 257.69553| val_0_rmse: 32.44617|  0:02:36s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 27 | loss: 254.00977| val_0_rmse: 32.98319|  0:02:42s
+Early stopping occurred at epoch 27 with best_epoch = 7 and best_val_0_rmse = 30.96256
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/sklearn/metrics/_regression.py:492: FutureWarning: 'squared' is deprecated in version 1.4 and will be removed in 1.6. To calculate the root mean squared error, use the function'root_mean_squared_error'.
+  warnings.warn(
+[I 2024-07-12 19:03:02,941] Trial 19 finished with value: 30.962560094439254 and parameters: {'lr': 0.003781338268799236, 'n_steps': 4, 'gamma': 1.2060498587272057, 'n_independent': 3, 'n_shared': 3, 'momentum': 0.06389199456430017, 'weight_decay': 0.00014331785071496802, 'batch_size': 256, 'virtual_batch_size': 32}. Best is trial 9 with value: 30.19751574576309.
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+Best hyperparameters:  {'lr': 0.004467516408737514, 'n_steps': 7, 'gamma': 1.2408021889393939, 'n_independent': 2, 'n_shared': 1, 'momentum': 0.04049121320108443, 'weight_decay': 2.2949073630985583e-05, 'batch_size': 256, 'virtual_batch_size': 64}
+epoch 0  | loss: 8300.80897| val_0_rmse: 149.58073|  0:00:04s
+epoch 1  | loss: 5037.6912| val_0_rmse: 149.54971|  0:00:09s
+epoch 2  | loss: 1383.7449| val_0_rmse: 128.47703|  0:00:14s
+epoch 3  | loss: 1004.65118| val_0_rmse: 66.38334|  0:00:18s
+epoch 4  | loss: 992.5388| val_0_rmse: 34.23397|  0:00:23s
+epoch 5  | loss: 972.22173| val_0_rmse: 37.42321|  0:00:28s
+epoch 6  | loss: 952.06034| val_0_rmse: 35.92116|  0:00:32s
+epoch 7  | loss: 926.55518| val_0_rmse: 34.37342|  0:00:37s
+epoch 8  | loss: 900.22603| val_0_rmse: 36.50208|  0:00:42s
+epoch 9  | loss: 881.10105| val_0_rmse: 34.24056|  0:00:47s
+epoch 10 | loss: 857.15767| val_0_rmse: 33.05325|  0:00:51s
+epoch 11 | loss: 757.226 | val_0_rmse: 31.97129|  0:00:56s
+epoch 12 | loss: 667.2042| val_0_rmse: 32.78839|  0:01:01s
+epoch 13 | loss: 612.50761| val_0_rmse: 33.32885|  0:01:05s
+epoch 14 | loss: 565.81722| val_0_rmse: 32.07589|  0:01:10s
+epoch 15 | loss: 533.44057| val_0_rmse: 33.84708|  0:01:15s
+epoch 16 | loss: 497.16146| val_0_rmse: 33.16921|  0:01:19s
+epoch 17 | loss: 457.82048| val_0_rmse: 32.67802|  0:01:24s
+epoch 18 | loss: 424.46707| val_0_rmse: 31.90319|  0:01:29s
+epoch 19 | loss: 391.42974| val_0_rmse: 30.78751|  0:01:34s
+epoch 20 | loss: 369.92897| val_0_rmse: 31.75015|  0:01:38s
+epoch 21 | loss: 342.64347| val_0_rmse: 30.19752|  0:01:43s
+epoch 22 | loss: 325.84939| val_0_rmse: 37.13488|  0:01:48s
+epoch 23 | loss: 311.25616| val_0_rmse: 33.02817|  0:01:52s
+epoch 24 | loss: 296.63374| val_0_rmse: 32.57111|  0:01:57s
+epoch 25 | loss: 284.55082| val_0_rmse: 31.95981|  0:02:02s
+epoch 26 | loss: 273.78865| val_0_rmse: 32.15801|  0:02:06s
+epoch 27 | loss: 265.53269| val_0_rmse: 32.414  |  0:02:11s
+epoch 28 | loss: 260.18451| val_0_rmse: 31.82666|  0:02:16s
+epoch 29 | loss: 245.9367| val_0_rmse: 31.50735|  0:02:20s
+epoch 30 | loss: 243.48606| val_0_rmse: 31.61184|  0:02:25s
+epoch 31 | loss: 238.54479| val_0_rmse: 31.61019|  0:02:30s
+epoch 32 | loss: 228.85216| val_0_rmse: 32.41606|  0:02:35s
+epoch 33 | loss: 221.8473| val_0_rmse: 33.3347 |  0:02:39s
+epoch 34 | loss: 210.65636| val_0_rmse: 33.32815|  0:02:44s
+epoch 35 | loss: 210.18729| val_0_rmse: 32.86124|  0:02:49s
+epoch 36 | loss: 206.90815| val_0_rmse: 32.61179|  0:02:53s
+epoch 37 | loss: 201.2302| val_0_rmse: 33.80726|  0:02:58s
+epoch 38 | loss: 195.11516| val_0_rmse: 32.61922|  0:03:03s
+epoch 39 | loss: 195.9759| val_0_rmse: 32.51663|  0:03:07s
+epoch 40 | loss: 185.65065| val_0_rmse: 32.79987|  0:03:12s
+/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/callbacks.py:172: UserWarning: Best weights from best epoch are automatically used!
+  warnings.warn(wrn_msg)
+epoch 41 | loss: 186.31052| val_0_rmse: 32.157  |  0:03:17s
+Early stopping occurred at epoch 41 with best_epoch = 21 and best_val_0_rmse = 30.19752
+Traceback (most recent call last):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/train_tabnet.py", line 122, in <module>
+    test_pred = clf.predict(X_test_np)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py", line 310, in predict
+    for batch_nb, data in enumerate(dataloader):
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/dataloader.py", line 631, in __next__
+    data = self._next_data()
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/dataloader.py", line 675, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/collate.py", line 316, in default_collate
+    return collate(batch, collate_fn_map=default_collate_fn_map)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/collate.py", line 141, in collate
+    return collate_fn_map[elem_type](batch, collate_fn_map=collate_fn_map)
+  File "/scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/lib64/python3.9/site-packages/torch/utils/data/_utils/collate.py", line 220, in collate_numpy_array_fn
+    raise TypeError(default_collate_err_msg_format.format(elem.dtype))
+TypeError: default_collate: batch must contain tensors, numpy arrays, numbers, dicts or lists; found object
