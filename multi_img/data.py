@@ -171,7 +171,7 @@ def join_multi(labels_data):
     print('Join multi input data')
 
     # Image data
-    image_labels_mapping = create_image_labels_mapping(labels_data) # 5 classes too
+    image_labels_mapping = create_image_labels_mapping(labels_data) 
     df_img = pd.DataFrame.from_dict(image_labels_mapping, orient='index')
     df_img['Property Reference Id'] = df_img['Property Reference Id'].astype(str)
     df_img['cluster'] = df_img['cluster'].astype(str)
@@ -204,7 +204,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
         property_id = [int(i.split('.')[0]) for i in property__ref_id]
         property_id = list(set(property_id))
         np.random.seed(seed)
-        np.random.shuffle(property_id)
+        property_id = np.random.permutation(property_id)
         num_property_ids = len(property_id)
         num_val = int(num_property_ids * val_size)
         num_test = int(num_property_ids * test_size)
@@ -250,7 +250,6 @@ def transform_image(image_size, vision=None, augment=True):
         transforms.append(RandomHorizontalFlip())
         transforms.append(RandomVerticalFlip())
         transforms.append(RandomRotation(degrees=10))
-
 
     transforms.append(CenterCrop((size, size)))
     transforms.append(Resize((IMAGE_SIZE, IMAGE_SIZE)))
@@ -345,6 +344,28 @@ class MultimodalDataset(Dataset):
         for idx in range(len(self)):
             labels.append(self.__getitem__(idx)['labels'])
         return torch.stack(labels)
+    
+    def count_black_images(self):
+        mean = 0
+        for idx in range(len(self)):
+            count = 0
+            inputs = self.__getitem__(idx)
+            if inputs['x_0'].sum() == 0:
+                count += 1
+            if inputs['x_1'].sum() == 0:
+                count += 1
+            if inputs['x_2'].sum() == 0:
+                count += 1
+            if inputs['x_3'].sum() == 0:
+                count += 1
+            if inputs['x_4'].sum() == 0:
+                count += 1
+            if inputs['x_5'].sum() == 0:
+                count += 1
+            
+            mean += count
+
+        return mean / len(self)
 
     def collate_fn(self, batch):
         inputs = {}
