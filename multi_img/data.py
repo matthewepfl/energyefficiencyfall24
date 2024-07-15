@@ -45,7 +45,7 @@ selected_model = 'resnet'
 dropout_rate = 0.4
 """
 
-workingOn = 'erver' # 'server' or 'laptop
+workingOn = 'server' # 'server' or 'laptop
 minim_amount_classes = 2
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
