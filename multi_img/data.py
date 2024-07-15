@@ -45,7 +45,7 @@ selected_model = 'resnet'
 dropout_rate = 0.4
 """
 
-workingOn = 'server' # 'server' or 'laptop
+workingOn = 'erver' # 'server' or 'laptop
 minim_amount_classes = 2
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
@@ -398,7 +398,7 @@ class MultimodalDataset(Dataset):
 
 # ---------------------------------------- MAIN FUNCTIONS ---------------------------------------- #
     
-def prepare_data(reduce_dataset): 
+def prepare_data(reduce): 
     '''
     Load and pre-process tabular data and labels.
     Split into train/val/test sets.
@@ -408,7 +408,7 @@ def prepare_data(reduce_dataset):
     
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
-    cluster_data = reduce_dataset(cluster_data) if reduce_dataset else cluster_data
+    cluster_data = reduce_dataset(cluster_data) if reduce else cluster_data
 
     data = load_images_data(cluster_data)
 
@@ -454,7 +454,7 @@ def load_data(image_data, vision=None):
 
 if __name__ == '__main__': 
 
-    image_data = prepare_data(reduce_dataset)
+    image_data = prepare_data(False)
     train_data, val_data, test_data = load_data(image_data, vision='vit')
 
 
