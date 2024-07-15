@@ -45,7 +45,7 @@ selected_model = 'resnet'
 dropout_rate = 0.4
 """
 
-workingOn = 'server' # 'server' or 'laptop
+workingOn = 'laptop' # 'server' or 'laptop
 minim_amount_classes = 2
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
@@ -53,7 +53,7 @@ minim_amount_classes = 2
 if workingOn == 'server':
     BASE_DIR = '/work/FAC/HEC/DEEP/shoude/ml_green_building/'
 else:
-    BASE_DIR = '/Users/silviaromanato/Desktop/EPFL/MA4/EnergyEfficiencyPrediction/multi_img/'
+    BASE_DIR = '/Users/silviaromanato/Desktop/'
 IMAGES_PATH = os.path.join(BASE_DIR, 'images_full_data/MediaSyncFolder/')
 DATA_DIR = os.path.join(BASE_DIR, 'Data')
 MODEL_SAVE_DIR = os.path.join(BASE_DIR, 'modelS/images_models')
@@ -108,6 +108,7 @@ def load_images_data(cluster_data):
     '''
     Load image data: labels, image files, image metadata
     '''
+    print(IMAGES_PATH)
     if not os.path.exists(IMAGES_PATH):
         raise ValueError(f'Images folder not found in {IMAGES_PATH}.')
     
@@ -150,7 +151,7 @@ def create_image_labels_mapping(labels_data):
         propertyFE = labels['PropertyFE'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
             if classes not in labels['cluster'].values:
-                path = '/work/FAC/HEC/DEEP/shoude/ml_green_building/images_full_data/black.png'
+                path = BASE_DIR + 'images_full_data/black.png'
                 labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes, 'pathname': path}
                 unique_index = (property , classes)
                 image_labels_mapping[unique_index] = labels_out
@@ -190,7 +191,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if all([os.path.exists(path) for path in paths]):
+    if False:#all([os.path.exists(path) for path in paths]):
         print('Splitting:\tLOADING pre-processed train, val, and test sets.')
         labels_train = pd.read_csv(LABELS_TRAIN_PATH)
         labels_val = pd.read_csv(LABELS_VAL_PATH)
@@ -230,23 +231,6 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
         print('Percent test: ', len(labels_test) / total_len)
 
     return labels_train, labels_val, labels_test
-
-#define the split with leave one out cross validation
-def split_loocv(labels, val_size=0.15, test_size=0.20, seed=42):
-    property__ref_id = labels['Property Reference Id'].unique()
-    property_id = [int(i.split('.')[0]) for i in property__ref_id]
-    property_id = list(set(property_id))
-    np.random.seed(seed)
-    property_id = np.random.permutation(property_id)
-
-    loocv_splits = []
-
-    for i in range(len(property_id)):
-        study_ids_train = property_id[:i] + property_id[i+1:]
-        study_ids_val = property_id[i]
-        loocv_splits.append((study_ids_train, study_ids_val))
-
-    return loocv_splits
 
 # ---------------------------------------- DATA LOADING ---------------------------------------- #
 
@@ -450,25 +434,6 @@ def reduce_dataset(data):
     print("the length of the cluster_data is: ", len(data))
     print('Reduced dataset size')
     return data
-
-def prepare_data_loocv(reduce_dataset): 
-    """
-    Load and pre-process tabular data and labels.
-    Create LOOCV splits.
-    """
-    print(f'\tPREPARING DATA FOR LOOCV\n')
-    
-    # Load image labels, files and metadata
-    cluster_data = pd.read_csv(CLUSTERED_PATH)
-    cluster_data = reduce_dataset(cluster_data) if reduce_dataset else cluster_data
-
-    data = load_images_data(cluster_data)
-
-    # Create LOOCV splits
-    loocv_splits = split_loocv(data)
-    print(f'Created {len(loocv_splits)} LOOCV splits.')
-
-    return loocv_splits
     
 def load_data(image_data, vision=None):
 
@@ -479,47 +444,18 @@ def load_data(image_data, vision=None):
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
     print(f'Created datasets:\tTrain: {len(train_data)}\tValidation: {len(val_data)}\tTest: {len(test_data)} samples.')
 
-    train_black_images = train_data.count_black_images()
-    val_black_images = val_data.count_black_images()
-    test_black_images = test_data.count_black_images()
+    # train_black_images = train_data.count_black_images()
+    # val_black_images = val_data.count_black_images()
+    # test_black_images = test_data.count_black_images()
 
-    print(f'Black images in train: {train_black_images}\nBlack images in val: {val_black_images}\nBlack images in test: {test_black_images}')
+    # print(f'Black images in train: {train_black_images}\nBlack images in val: {val_black_images}\nBlack images in test: {test_black_images}')
 
     return train_data, val_data, test_data
-
-def load_data_loocv(loocv_splits, vision=None):
-    """
-    Load data for LOOCV.
-    Returns a list of DataLoader pairs (train_loader, test_loader).
-    """
-    print(f'LOADING DATA FOR LOOCV (vision: {vision})')
-    loocv_loaders = []
-
-    for train_data, test_data in loocv_splits:
-        image_data_train = join_multi(train_data)
-        image_data_test = join_multi(test_data)
-
-        train_dataset = MultimodalDataset(vision, image_data_train, augment=True)
-        test_dataset = MultimodalDataset(vision, image_data_test, augment=False)
-
-        train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True, collate_fn=train_dataset.collate_fn)
-        test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False, collate_fn=test_dataset.collate_fn)
-
-        loocv_loaders.append((train_loader, test_loader))
-
-    return loocv_loaders
-
 
 if __name__ == '__main__': 
 
     image_data = prepare_data()
     train_data, val_data, test_data = load_data(image_data, vision='vit')
-
-    print('Data loaded successfully.')
-
-    # Cross-validation
-    loocv_splits = prepare_data_loocv()
-    loocv_loaders = load_data_loocv(loocv_splits, vision='vit')
 
 
 
