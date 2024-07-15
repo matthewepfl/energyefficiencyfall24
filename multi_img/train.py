@@ -16,14 +16,14 @@ import tensorflow as tf
 tf.get_logger().setLevel('ERROR')
 from typing import Optional, List, Tuple
 
-workingOn = 'server'
+workingOn = 'laptop'
 # ---------------------------------------- GLOBAL VARIABLES ---------------------------------------- #
 
 # Global configurations
 if workingOn == 'server':
     BASE_DIR = '/work/FAC/HEC/DEEP/shoude/ml_green_building/'
 else:
-    BASE_DIR = '/Users/silviaromanato/Desktop/EPFL/MA4/EnergyEfficiencyPrediction/multi_img/'
+    BASE_DIR = '/Users/silviaromanato/Desktop/'
     
 CHECKPOINTS_DIR = os.path.join(BASE_DIR, 'checkpoints')
 BATCH_SIZE = 8
@@ -227,9 +227,6 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
         for param in model.vision_encoder.parameters():
             param.requires_grad = False
 
-    print('Vision encoder layers frozen.')
-    print(model)
-
     # unfreeze model.vision_encoder.model_1.fc
     for name, param in model.named_parameters():
         for i in range(6):
@@ -323,10 +320,6 @@ def grid_search(vision: List[str] = ['resnet50'],
     image_data = prepare_data(reduce_dataset)
     train_data, val_data, test_data = load_data(image_data, vision=vision)
 
-    if cross_val:
-        print('Data:\tLoading data for cross validation')
-        loocv_splits = prepare_data_loocv()
-
     print('Grid search:\tStarting grid search')
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
         
@@ -334,30 +327,25 @@ def grid_search(vision: List[str] = ['resnet50'],
         run_name = f'{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}'
         config = {'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed}
 
-        for idx, (train_data, test_data) in enumerate(loocv_splits):
-            model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm, mask_branch=mask_branch)
+        model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm, mask_branch=mask_branch)
 
-            freeze_vision_encoder_layers(model, vision)
+        freeze_vision_encoder_layers(model, vision)
+        
+        if do_train:
+            print(f'W&B initialization:\trun {run_name}')
+            wandb.init(project='energyefficiency', entity='silvy-romanato', name=f'{run_name}', config=config)
+            wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
+
+            train_model(model, 
+                        train_data, 
+                        val_data, 
+                        lr, 
+                        weight_decay, 
+                        num_epochs, 
+                        seed, 
+                        run_name)
             
-            if do_train:
-                print(f'W&B initialization:\trun {run_name}_fold{idx+1}')
-                wandb.init(project='energyefficiency', entity='silvy-romanato', name=f'{run_name}_fold{idx+1}', config=config)
-                wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
-
-                train_loader = DataLoader(MultimodalDataset(vision, train_data, augment=True), batch_size=BATCH_SIZE, shuffle=True, collate_fn=MultimodalDataset(vision, train_data).collate_fn)
-                test_loader = DataLoader(MultimodalDataset(vision, test_data, augment=False), batch_size=BATCH_SIZE, shuffle=False, collate_fn=MultimodalDataset(vision, test_data).collate_fn)
-
-                train_model(model, 
-                            train_loader, 
-                            test_loader, 
-                            lr, 
-                            weight_decay, 
-                            num_epochs, 
-                            seed, 
-                            run_name,
-                            checkpoint_dir=CHECKPOINTS_DIR)
-                
-                wandb.finish()
+            wandb.finish()
 
         # Evaluate model
         if do_eval:
