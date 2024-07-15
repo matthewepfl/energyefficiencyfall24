@@ -26,7 +26,9 @@ else:
     BASE_DIR = '/Users/silviaromanato/Desktop/EPFL/MA4/EnergyEfficiencyPrediction/multi_img/'
     
 CHECKPOINTS_DIR = os.path.join(BASE_DIR, 'checkpoints')
-BATCH_SIZE = 16
+BATCH_SIZE = 8
+
+print("the batch size is: ", BATCH_SIZE)
 
 # ---------------------------------------- TRAINING FUNCTIONS ---------------------------------------- #
 
