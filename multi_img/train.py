@@ -26,6 +26,7 @@ else:
     BASE_DIR = '/Users/silviaromanato/Desktop/EPFL/MA4/EnergyEfficiencyPrediction/multi_img/'
     
 CHECKPOINTS_DIR = os.path.join(BASE_DIR, 'checkpoints')
+BATCH_SIZE = 16
 
 # ---------------------------------------- TRAINING FUNCTIONS ---------------------------------------- #
 
@@ -86,8 +87,8 @@ def create_trainer(model,
         weight_decay=weight_decay,
         adam_beta1=0.9,
         adam_beta2=0.999,
-        per_device_train_batch_size=batch_size,
-        per_device_eval_batch_size=batch_size,
+        per_device_train_batch_size=BATCH_SIZE,
+        per_device_eval_batch_size=BATCH_SIZE,
         dataloader_num_workers=0, 
         seed=seed,
 
@@ -118,6 +119,107 @@ def create_trainer(model,
 
     return trainer
 
+def my_train_model(model, train_loader, val_loader, lr, weight_decay, num_epochs, seed, run_name, checkpoint_dir='checkpoints'):
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
+    criterion = torch.nn.MSELoss()
+    
+    best_val_loss = float('inf')
+    os.makedirs(checkpoint_dir, exist_ok=True)
+    checkpoint_path = os.path.join(checkpoint_dir, f'{run_name}_best.pth')
+
+    model.train()
+    for epoch in range(num_epochs):
+        model.train()
+        running_loss = 0.0
+        for batch in train_loader:
+            optimizer.zero_grad()
+            outputs = model(batch)
+            loss = criterion(outputs, batch['labels'])
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item()
+
+            # Log training loss
+            wandb.log({'train_loss': loss.item()})
+
+        avg_train_loss = running_loss / len(train_loader)
+        print(f'Epoch {epoch+1}/{num_epochs}, Train Loss: {avg_train_loss}')
+
+        # Evaluate the model
+        model.eval()
+        val_loss = 0.0
+        with torch.no_grad():
+            for batch in val_loader:
+                outputs = model(batch)
+                loss = criterion(outputs, batch['labels'])
+                val_loss += loss.item()
+
+                # Log validation loss
+                wandb.log({'val_loss': loss.item()})
+
+        avg_val_loss = val_loss / len(val_loader)
+        print(f'Epoch {epoch+1}/{num_epochs}, Validation Loss: {avg_val_loss}')
+
+        # Save the best model checkpoint
+        if avg_val_loss < best_val_loss:
+            best_val_loss = avg_val_loss
+            torch.save(model.state_dict(), checkpoint_path)
+            print(f'Best model saved at epoch {epoch+1} with validation loss {best_val_loss}')
+
+    print(f'Best Validation Loss: {best_val_loss} - Model saved at {checkpoint_path}')
+    return model
+
+def my_evaluate_model(model, train_loader, val_loader, test_loader, do_train, checkpoint_path):
+
+    if not do_train and checkpoint_path:
+        model.load_state_dict(torch.load(checkpoint_path + '/pytorch_model.bin'))
+        print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
+
+    model.eval()
+    predictions = []
+    labels = []
+    with torch.no_grad():
+        for batch in test_loader:
+            outputs = model(batch)
+            predictions.append(outputs)
+            labels.append(batch['labels'])
+            eval_loss = torch.nn.MSELoss()(outputs, batch['labels'])
+            wandb.log({'test_loss': eval_loss.item()})
+
+    # save predictions
+    predictions_path = os.path.join(checkpoint_path, 'predictions.pkl')
+    with open(predictions_path, 'wb') as f:
+        pickle.dump({'predictions': predictions, 'labels': labels}, f)
+        
+    # do the same for train and val
+    predictions = []
+    labels = []
+    with torch.no_grad():
+        for batch in train_loader:
+            outputs = model(batch)
+            predictions.append(outputs)
+            labels.append(batch['labels'])
+            eval_loss = torch.nn.MSELoss()(outputs, batch['labels'])
+            wandb.log({'train_loss': eval_loss.item()})
+    predictions_path = os.path.join(checkpoint_path, 'predictions_train.pkl')
+    with open(predictions_path, 'wb') as f:
+        pickle.dump({'predictions': predictions, 'labels': labels}, f)
+
+    predictions = []
+    labels = []
+    with torch.no_grad():
+        for batch in val_loader:
+            outputs = model(batch)
+            predictions.append(outputs)
+            labels.append(batch['labels'])
+            eval_loss = torch.nn.MSELoss()(outputs, batch['labels'])
+            wandb.log({'val_loss': eval_loss.item()})
+    predictions_path = os.path.join(checkpoint_path, 'predictions_val.pkl')
+    with open(predictions_path, 'wb') as f:
+        pickle.dump({'predictions': predictions, 'labels': labels}, f)
+
+    
+
 def freeze_vision_encoder_layers(model, vision: Optional[str]):
     if vision:
         for param in model.vision_encoder.parameters():
@@ -126,14 +228,17 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
     print('Vision encoder layers frozen.')
     print(model)
 
-    # make the model.regressor trainable
-    # for param in model.regressor.parameters():
-    #     param.requires_grad = True
+    # unfreeze model.vision_encoder.model_1.fc
+    for name, param in model.named_parameters():
+        for i in range(6):
+            if f'vision_encoder.model_{i}.fc' in name:
+                param.requires_grad = True
+                print(f'Vision encoder model_{i}.fc layer unfrozen.')
 
 def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, run_name):
     print('Training: Starting training')
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
-                            epochs=num_epochs, lr=lr, batch_size=32, 
+                            epochs=num_epochs, lr=lr, batch_size=BATCH_SIZE, 
                             weight_decay=weight_decay, seed=seed)
     trainer.train()
 
@@ -149,7 +254,7 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
         print(f'Model loaded from checkpoint {checkpoint_path} for evaluation.')
 
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
-                             epochs=num_epochs, lr=lr, batch_size=8, 
+                             epochs=num_epochs, lr=lr, batch_size=BATCH_SIZE, 
                              weight_decay=weight_decay, seed=seed)
 
     # Evaluation
@@ -192,17 +297,14 @@ def grid_search(vision: List[str] = ['resnet50'],
             do_eval: bool = False, 
             checkpoint_path: Optional[str] = None,
             mask_branch: List[int] = [],
-            reduce_dataset = False
+            reduce_dataset = False,
+            cross_val = False
             ):
     '''
     Grid search for radiology diagnosis using joint image encoders. 
     '''
-    print("Training:\t", do_train)
-    print("Evaluation:\t", do_eval)
-    print("Checkpoint path:\t", checkpoint_path)
-    print("Mask branch:\t", mask_branch)
+    print("Training:\t", do_train, "\nEvaluation:\t", do_eval, "\nCheckpoint path:\t", checkpoint_path, "\nMask branch:\t", mask_branch)
     
-    # Set seed
     torch.manual_seed(seed)
     np.random.seed(seed)
 
@@ -219,6 +321,9 @@ def grid_search(vision: List[str] = ['resnet50'],
     image_data = prepare_data(reduce_dataset)
     train_data, val_data, test_data = load_data(image_data, vision=vision)
 
+    if cross_val:
+        print('Data:\tLoading data for cross validation')
+        loocv_splits = prepare_data_loocv()
 
     print('Grid search:\tStarting grid search')
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
@@ -227,40 +332,45 @@ def grid_search(vision: List[str] = ['resnet50'],
         run_name = f'{vision}_{lr}_{weight_decay}_{num_epochs}_{hidden_dims}_{dropout_prob}_{batch_norm}'
         config = {'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed}
 
-        model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm, mask_branch=mask_branch)
+        for idx, (train_data, test_data) in enumerate(loocv_splits):
+            model = JointEncoder(vision=vision, hidden_dims=hidden_dims, dropout_prob=dropout_prob, batch_norm=batch_norm, mask_branch=mask_branch)
 
-        # freeze_vision_encoder_layers(model, vision)
-        
-        if do_train:
-            print(f'W&B initialization:\trun {run_name}')
-            wandb.init(project='energyefficiency', entity = 'silvy-romanato', name=run_name, config=config)
-            wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
-
-            train_model(model, 
-                        train_data, 
-                        val_data, 
-                        lr, 
-                        weight_decay, 
-                        num_epochs, 
-                        seed, 
-                        run_name)
+            freeze_vision_encoder_layers(model, vision)
             
-            wandb.finish()
+            if do_train:
+                print(f'W&B initialization:\trun {run_name}_fold{idx+1}')
+                wandb.init(project='energyefficiency', entity='silvy-romanato', name=f'{run_name}_fold{idx+1}', config=config)
+                wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
+
+                train_loader = DataLoader(MultimodalDataset(vision, train_data, augment=True), batch_size=BATCH_SIZE, shuffle=True, collate_fn=MultimodalDataset(vision, train_data).collate_fn)
+                test_loader = DataLoader(MultimodalDataset(vision, test_data, augment=False), batch_size=BATCH_SIZE, shuffle=False, collate_fn=MultimodalDataset(vision, test_data).collate_fn)
+
+                train_model(model, 
+                            train_loader, 
+                            test_loader, 
+                            lr, 
+                            weight_decay, 
+                            num_epochs, 
+                            seed, 
+                            run_name,
+                            checkpoint_dir=CHECKPOINTS_DIR)
+                
+                wandb.finish()
 
         # Evaluate model
         if do_eval:
             evaluate_model(model, 
-                           train_data, 
-                           val_data, 
-                           test_data, 
-                           lr, 
-                           weight_decay, 
-                           num_epochs, 
-                           seed, 
-                           do_train, 
-                           checkpoint_path, 
-                           run_name)
-    
+                        train_data, 
+                        val_data, 
+                        test_data, 
+                        lr, 
+                        weight_decay, 
+                        num_epochs, 
+                        seed, 
+                        do_train, 
+                        checkpoint_path, 
+                        run_name)
+        
 
 def parse_list_of_floats(string):
     return [float(item.strip()) for item in string.strip('[]').split(',')]
@@ -274,11 +384,11 @@ def mask_branch_type(string):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--vision', type=str, default='resnet50')
-    parser.add_argument('--hidden_dims', type=parse_nested_list_of_ints, default=[[512, 256]], help='Hidden dimensions for the MLP.') # input like: '512-256-124,512-256'
+    parser.add_argument('--hidden_dims', type=parse_nested_list_of_ints, default=[[512, 256]], help='Hidden dimensions for the MLP.') # input like: '512-256-124,512-256'   # try only one layer
     parser.add_argument('--dropout_prob', type=float, default=0.0)
-    parser.add_argument('--batch_norm', action='store_true', default=False)
-    parser.add_argument('--lr', type=parse_list_of_floats, default=[1e-4]) 
-    parser.add_argument('--weight_decay', type=float, default=0.0)
+    parser.add_argument('--batch_norm', action='store_true', default=False) # 0.3, 0.4 # try 0.2
+    parser.add_argument('--lr', type=parse_list_of_floats, default=[1e-4])  # 1e-3, 1e-4, 1e-5, 1e-6
+    parser.add_argument('--weight_decay', type=float, default=0.0) # 1e-4 # try 1e-2
     parser.add_argument('--num_epochs', type=int, default=20)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--do_eval', action='store_true', help="Enable evaluation mode")

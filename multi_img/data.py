@@ -71,7 +71,7 @@ CLUSTERED_PATH = os.path.join(DATA_DIR, f'Clusters_images/clean_clustered_images
 
 def Efficiency(efficiency):
 
-    efficiency = efficiency.groupby("Advertisement Id").last().reset_index()
+    efficiency = efficiency.groupby(["Advertisement Id"]).last().reset_index()
     efficiency = efficiency.groupby(["Property Reference Id", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") # change this too # use more
     print('The efficiency: ', efficiency.shape)
 
@@ -94,7 +94,7 @@ def load_efficiency():
     images_df = pd.read_csv(IMAGES_DF_PATH)                               # The pathnames and the Property Reference Ids of the images
     efficiency = pd.read_csv(ENERGY_PATH)                                 # The energy data to create the Efficiency
     
-    # Calculate the Demand per listing
+    # Calculate the Efficiency per listing
     efficiency = Efficiency(efficiency)
 
     # Merge Demand in listings and the images_df on the Property Reference Id
@@ -191,7 +191,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
     if all([os.path.exists(path) for path in paths]):
-        print('Splitting:\LOADING pre-processed train, val, and test sets.')
+        print('Splitting:\tLOADING pre-processed train, val, and test sets.')
         labels_train = pd.read_csv(LABELS_TRAIN_PATH)
         labels_val = pd.read_csv(LABELS_VAL_PATH)
         labels_test = pd.read_csv(LABELS_TEST_PATH)
@@ -230,6 +230,23 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
         print('Percent test: ', len(labels_test) / total_len)
 
     return labels_train, labels_val, labels_test
+
+#define the split with leave one out cross validation
+def split_loocv(labels, val_size=0.15, test_size=0.20, seed=42):
+    property__ref_id = labels['Property Reference Id'].unique()
+    property_id = [int(i.split('.')[0]) for i in property__ref_id]
+    property_id = list(set(property_id))
+    np.random.seed(seed)
+    property_id = np.random.permutation(property_id)
+
+    loocv_splits = []
+
+    for i in range(len(property_id)):
+        study_ids_train = property_id[:i] + property_id[i+1:]
+        study_ids_val = property_id[i]
+        loocv_splits.append((study_ids_train, study_ids_val))
+
+    return loocv_splits
 
 # ---------------------------------------- DATA LOADING ---------------------------------------- #
 
@@ -407,14 +424,7 @@ def prepare_data(reduce_dataset):
     
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
-    if reduce_dataset:
-        print('*' * 20, 'Reducing dataset size', '*' * 20)
-        print("the length of the cluster_data is: ", len(cluster_data))
-        properties = cluster_data.groupby('Property Reference Id').first().reset_index()['Property Reference Id']
-        properties = properties.sample(frac=0.01, random_state=42)
-        cluster_data = cluster_data[cluster_data['Property Reference Id'].isin(properties)]
-        print("the length of the cluster_data is: ", len(cluster_data))
-        print('Reduced dataset size')
+    cluster_data = reduce_dataset(cluster_data) if reduce_dataset else cluster_data
 
     data = load_images_data(cluster_data)
 
@@ -431,13 +441,37 @@ def prepare_data(reduce_dataset):
         
     return image_data
 
+def reduce_dataset(data):
+    print('*' * 20, 'Reducing dataset size', '*' * 20)
+    print("the length of the cluster_data is: ", len(data))
+    properties = data.groupby('Property Reference Id').first().reset_index()['Property Reference Id']
+    properties = properties.sample(frac=0.01, random_state=42)
+    data = data[data['Property Reference Id'].isin(properties)]
+    print("the length of the cluster_data is: ", len(data))
+    print('Reduced dataset size')
+    return data
+
+def prepare_data_loocv(reduce_dataset): 
+    """
+    Load and pre-process tabular data and labels.
+    Create LOOCV splits.
+    """
+    print(f'\tPREPARING DATA FOR LOOCV\n')
+    
+    # Load image labels, files and metadata
+    cluster_data = pd.read_csv(CLUSTERED_PATH)
+    cluster_data = reduce_dataset(cluster_data) if reduce_dataset else cluster_data
+
+    data = load_images_data(cluster_data)
+
+    # Create LOOCV splits
+    loocv_splits = split_loocv(data)
+    print(f'Created {len(loocv_splits)} LOOCV splits.')
+
+    return loocv_splits
+    
 def load_data(image_data, vision=None):
-    '''
-    Create datasets for each split.
-    Arguments: 
-        image_data (dict): Dictionary with keys = 'train', 'val', 'test' and values = image data
-        vision (str): Type of vision encoder 'resnet50', 'densenet121' or 'vit' (Default: None --> No images)
-    '''
+
     print(f'LOADING DATA (vision: {vision})')
 
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
@@ -453,10 +487,39 @@ def load_data(image_data, vision=None):
 
     return train_data, val_data, test_data
 
+def load_data_loocv(loocv_splits, vision=None):
+    """
+    Load data for LOOCV.
+    Returns a list of DataLoader pairs (train_loader, test_loader).
+    """
+    print(f'LOADING DATA FOR LOOCV (vision: {vision})')
+    loocv_loaders = []
+
+    for train_data, test_data in loocv_splits:
+        image_data_train = join_multi(train_data)
+        image_data_test = join_multi(test_data)
+
+        train_dataset = MultimodalDataset(vision, image_data_train, augment=True)
+        test_dataset = MultimodalDataset(vision, image_data_test, augment=False)
+
+        train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True, collate_fn=train_dataset.collate_fn)
+        test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False, collate_fn=test_dataset.collate_fn)
+
+        loocv_loaders.append((train_loader, test_loader))
+
+    return loocv_loaders
+
+
 if __name__ == '__main__': 
 
     image_data = prepare_data()
     train_data, val_data, test_data = load_data(image_data, vision='vit')
+
+    print('Data loaded successfully.')
+
+    # Cross-validation
+    loocv_splits = prepare_data_loocv()
+    loocv_loaders = load_data_loocv(loocv_splits, vision='vit')
 
 
 
