@@ -445,6 +445,12 @@ def load_data(image_data, vision=None):
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
     print(f'Created datasets:\tTrain: {len(train_data)}\tValidation: {len(val_data)}\tTest: {len(test_data)} samples.')
 
+    train_black_images = train_data.count_black_images()
+    val_black_images = val_data.count_black_images()
+    test_black_images = test_data.count_black_images()
+
+    print(f'Black images in train: {train_black_images}\nBlack images in val: {val_black_images}\nBlack images in test: {test_black_images}')
+
     return train_data, val_data, test_data
 
 if __name__ == '__main__': 
