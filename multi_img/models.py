@@ -154,8 +154,6 @@ class SixVisionEncoder(nn.Module):
             features = self.dense(features)
             print("The shape of features after dense is: ", features.shape)
             return features
-        
-        print("The shape of x_0 is: ", x_0.shape)
 
         features_0 = process_input(self.model_0, x_0)
         features_1 = process_input(self.model_1, x_1)
