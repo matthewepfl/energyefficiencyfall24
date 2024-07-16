@@ -10,7 +10,7 @@ from transformers import TrainingArguments, Trainer, get_linear_schedule_with_wa
 from transformers import EarlyStoppingCallback
 import itertools
 from typing import Optional, List
-from torch.optim.lr_scheduler import LambdaLR
+from torch.optim import lr_scheduler
 
 from models import *
 from data import *
@@ -64,11 +64,7 @@ def create_trainer(model,
     model.to(device)
  
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
-    # scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=epochs*len(train_data))
-    def linear_lr_lambda(epoch):
-        return lr + (lr * 1e-1 - lr) * (epoch / (epochs - 1))
-
-    scheduler = LambdaLR(optimizer, lr_lambda=linear_lr_lambda)
+    scheduler = lr_scheduler.LinearLR(optimizer, start_factor=lr, end_factor=lr*0.1, total_iters=epochs)
 
     training_args = TrainingArguments(
 
