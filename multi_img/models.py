@@ -130,8 +130,6 @@ class SixVisionEncoder(nn.Module):
         else:
             raise ValueError(f'Vision encoder type {vision} not supported.')
 
-        # Define additional layers
-        self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))
         self.flatten = nn.Flatten()
         self.norm = nn.LayerNorm(IMAGE_EMBEDDING_DIM)
         self.dropout = nn.Dropout(0.5)
@@ -140,13 +138,9 @@ class SixVisionEncoder(nn.Module):
     def forward(self, x_0, x_1, x_2, x_3, x_4, x_5):
         def process_input(model, x):
             features = model(x)
-            print("The shape of features is: ", features.shape)
+            print("The shape of features is: ", features.shape) # (8, 512)
             if self.vision == 'vit':
                 features = features.logits
-            features = self.avg_pool(features)
-            print("The shape of features after avg_pool is: ", features.shape)
-            features = self.flatten(features)
-            print("The shape of features after flatten is: ", features.shape)
             features = self.norm(features)
             print("The shape of features after norm is: ", features.shape)
             features = self.dropout(features)
