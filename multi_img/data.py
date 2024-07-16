@@ -30,8 +30,8 @@ from torchvision.transforms import (
 )
 
 IMAGE_SIZE = 384                        # All images are resized to 384 x 384
-NORM_MEAN = [0.4734, 0.4734, 0.4734]    # MIMIC-CXR mean (based on 2GB of images) # compute it
-NORM_STD = [0.3006, 0.3006, 0.3006]     # MIMIC-CXR std (based on 2GB of images) # compute it
+NORM_MEAN = [0.485, 0.456, 0.406]    # MIMIC-CXR mean (based on 2GB of images) # compute it
+NORM_STD = [0.229, 0.224, 0.225]     # MIMIC-CXR std (based on 2GB of images) # compute it
 
 """
 loss_selected = nn.MSELoss()
@@ -232,7 +232,6 @@ def transform_image(image_size, vision=None, augment=True):
         transforms.append(RandomRotation(degrees=10))
 
     transforms.append(CenterCrop((size, size)))
-    transforms.append(Resize((IMAGE_SIZE, IMAGE_SIZE)))
 
     if vision == 'vit':
         processor = ViTImageProcessor.from_pretrained(
@@ -413,18 +412,44 @@ def load_data(image_data, vision=None):
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
 
-    train_black_images = train_data.count_black_images()
-    val_black_images = val_data.count_black_images()
-    test_black_images = test_data.count_black_images()
+    # train_black_images = train_data.count_black_images()
+    # val_black_images = val_data.count_black_images()
+    # test_black_images = test_data.count_black_images()
 
-    print(f'Black images in train: {train_black_images}\nBlack images in val: {val_black_images}\nBlack images in test: {test_black_images}')
+    # print(f'Black images in train: {train_black_images}\nBlack images in val: {val_black_images}\nBlack images in test: {test_black_images}')
 
     return train_data, val_data, test_data
+
+
+def compute_mean_and_std(dataset, batch_size=16):
+    # DataLoader to load the dataset in batches
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
+
+    mean = 0.
+    std = 0.
+    n_samples = 0.
+
+    for batch in tqdm(dataloader, desc="Computing mean and std"):
+        batch_images = torch.cat([batch['x_0'], batch['x_1'], batch['x_2'], batch['x_3'], batch['x_4'], batch['x_5']], dim=0)
+        batch_images = batch_images.view(batch_images.size(0), batch_images.size(1), -1)  # Flatten the images
+        
+        mean += batch_images.mean(2).sum(0)  # Compute mean per channel
+        std += batch_images.std(2).sum(0)    # Compute std per channel
+        n_samples += batch_images.size(0)
+
+    mean /= n_samples
+    std /= n_samples
+
+    return mean, std
 
 if __name__ == '__main__': 
 
     image_data = prepare_data(False)
     train_data, val_data, test_data = load_data(image_data, vision='vit')
+
+    # Compute mean and std
+    mean, std = compute_mean_and_std(train_data)
+    print(f'Mean: {mean}, Std: {std}')
 
 
 
