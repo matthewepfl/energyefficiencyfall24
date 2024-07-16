@@ -76,7 +76,7 @@ def my_train_model(model, train_data, val_data, lr, weight_decay, num_epochs, se
     print(f'Best Validation Loss: {best_val_loss} - Model saved at {checkpoint_path}')
     return model
 
-def my_evaluate_model(model, train_loader, val_loader, test_loader, do_train, checkpoint_path):
+def my_evaluate_model(model, train_loader, val_loader, test_loader, do_train, checkpoint_path, property_data, cluster_data):
 
     if not do_train and checkpoint_path:
         model.load_state_dict(torch.load(checkpoint_path + '/pytorch_model.bin'))
@@ -96,7 +96,7 @@ def my_evaluate_model(model, train_loader, val_loader, test_loader, do_train, ch
     # save predictions
     predictions_path = os.path.join(checkpoint_path, 'predictions.pkl')
     with open(predictions_path, 'wb') as f:
-        pickle.dump({'predictions': predictions, 'labels': labels}, f)
+        pickle.dump({'predictions': predictions, 'labels': labels, 'property': property_data[2]}, f)
         
     # do the same for train and val
     predictions = []
@@ -110,7 +110,7 @@ def my_evaluate_model(model, train_loader, val_loader, test_loader, do_train, ch
             wandb.log({'train_loss': eval_loss.item()})
     predictions_path = os.path.join(checkpoint_path, 'predictions_train.pkl')
     with open(predictions_path, 'wb') as f:
-        pickle.dump({'predictions': predictions, 'labels': labels}, f)
+        pickle.dump({'predictions': predictions, 'labels': labels, 'property': property_data[0]}, f)
 
     predictions = []
     labels = []
@@ -123,4 +123,4 @@ def my_evaluate_model(model, train_loader, val_loader, test_loader, do_train, ch
             wandb.log({'val_loss': eval_loss.item()})
     predictions_path = os.path.join(checkpoint_path, 'predictions_val.pkl')
     with open(predictions_path, 'wb') as f:
-        pickle.dump({'predictions': predictions, 'labels': labels}, f)
+        pickle.dump({'predictions': predictions, 'labels': labels, 'property': property_data[1]}, f)
