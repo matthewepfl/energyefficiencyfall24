@@ -73,7 +73,6 @@ def Efficiency(efficiency):
 
     efficiency = efficiency.groupby(["Advertisement Id"]).last().reset_index()
     efficiency = efficiency.groupby(["Property Reference Id", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") # change this too # use more
-    print('The efficiency: ', efficiency.shape)
 
     return efficiency
 
@@ -108,7 +107,6 @@ def load_images_data(cluster_data):
     '''
     Load image data: labels, image files, image metadata
     '''
-    print(IMAGES_PATH)
     if not os.path.exists(IMAGES_PATH):
         raise ValueError(f'Images folder not found in {IMAGES_PATH}.')
     
@@ -122,13 +120,6 @@ def load_images_data(cluster_data):
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster', 'pathname']], on = 'Property Reference Id', how = 'inner')
     labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'PropertyFE', 'pathname'])
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
-
-    print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
-
-    # CHECK 
-    images_df = labels_data.groupby(['Property Reference Id', 'cluster']).first().reset_index()
-    image_counts = images_df.groupby('Property Reference Id').size()
-    print("There are clusters for :", image_counts.groupby(image_counts).size())
 
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
@@ -169,7 +160,6 @@ def join_multi(labels_data):
     Returns: 
         dict_img (dict): keys = image file paths and values = dicts with labels and ViewPosition
     '''
-    print('Join multi input data')
 
     # Image data
     image_labels_mapping = create_image_labels_mapping(labels_data) 
@@ -192,14 +182,11 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
     if False:#all([os.path.exists(path) for path in paths]):
-        print('Splitting:\tLOADING pre-processed train, val, and test sets.')
         labels_train = pd.read_csv(LABELS_TRAIN_PATH)
         labels_val = pd.read_csv(LABELS_VAL_PATH)
         labels_test = pd.read_csv(LABELS_TEST_PATH)
 
     else:
-        print('Splitting:\tTabular data and labels into train, val, and test sets.')
-
         # Split the study_ids into train, val, and test sets
         property__ref_id = labels['Property Reference Id'].unique()
         property_id = [int(i.split('.')[0]) for i in property__ref_id]
@@ -218,17 +205,9 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
 
-        print('Splitting:\tSaving train, val, and test sets.')
         labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
         labels_val.to_csv(LABELS_VAL_PATH, index=False)
         labels_test.to_csv(LABELS_TEST_PATH, index=False)
-
-        # Check proportions of total, train, val, and test sets
-        total_len = len(labels_train) + len(labels_val) + len(labels_test)
-        print('Total set: ', total_len)
-        print('Percent train: ', len(labels_train) / total_len)
-        print('Percent val: ', len(labels_val) / total_len)
-        print('Percent test: ', len(labels_test) / total_len)
 
     return labels_train, labels_val, labels_test
 
@@ -404,7 +383,6 @@ def prepare_data(reduce):
     Split into train/val/test sets.
     Filter images based on tabular data.
     '''
-    print(f'\tPREPARING DATA\n')
     
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
@@ -414,35 +392,26 @@ def prepare_data(reduce):
 
     # Split labels into train/val/test sets
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
-    print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
     image_data_train = join_multi(lab_train) 
     
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
-    print(f'Loaded image data:\nTrain: {len(image_data_train)}\nValidation: {len(image_data_val)}\nTest: {len(image_data_test)}')
         
     return image_data
 
 def reduce_dataset(data):
     print('*' * 20, 'Reducing dataset size', '*' * 20)
-    print("the length of the cluster_data is: ", len(data))
     properties = data.groupby('Property Reference Id').first().reset_index()['Property Reference Id']
     properties = properties.sample(frac=0.01, random_state=42)
     data = data[data['Property Reference Id'].isin(properties)]
-    print("the length of the cluster_data is: ", len(data))
-    print('Reduced dataset size')
     return data
     
 def load_data(image_data, vision=None):
-
-    print(f'LOADING DATA (vision: {vision})')
-
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
-    print(f'Created datasets:\tTrain: {len(train_data)}\tValidation: {len(val_data)}\tTest: {len(test_data)} samples.')
 
     train_black_images = train_data.count_black_images()
     val_black_images = val_data.count_black_images()

@@ -123,8 +123,6 @@ def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed,
                             weight_decay=weight_decay, seed=seed)
     trainer.train()
 
-    # Save the model
-    print("The checkpoint path is: ", CHECKPOINTS_DIR)
     model_path = os.path.join(CHECKPOINTS_DIR, f'final_model_{run_name}.bin')
     torch.save(model.state_dict(), model_path)
 
