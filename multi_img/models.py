@@ -208,7 +208,7 @@ class JointEncoder(nn.Module):
         if not vision: 
             raise ValueError('Must specify the vision encoder.')
         
-        if vision and vision not in ['resnet50', 'densenet121', 'vit']:
+        if vision and vision not in ['resnet50', 'densenet121', 'vit', 'efficientnet_b0']:
             raise ValueError(f'Vision encoder type {vision} not supported.')
 
         num_params = 0
