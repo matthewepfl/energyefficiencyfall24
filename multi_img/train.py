@@ -208,7 +208,7 @@ def grid_search(vision: List[str] = ['resnet50'],
     print('Data:\tLoading data')
     image_data = prepare_data(reduce_dataset)
     train_data, val_data, test_data = load_data(image_data, vision=vision)
-    property_data = train_data['property'], val_data['property'], test_data['property']
+    property_data = train_data[:]['property'], val_data[:]['property'], test_data[:]['property']
 
     train_data.pop('property')
     val_data.pop('property')
