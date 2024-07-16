@@ -230,7 +230,7 @@ def grid_search(vision: List[str] = ['resnet50'],
             wandb.init(project='energyefficiency', entity='silvy-romanato', name=f'{run_name}', config=config)
             wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
 
-            my_train_model(model, 
+            train_model(model, 
                         train_data, 
                         val_data, 
                         lr, 
@@ -243,7 +243,7 @@ def grid_search(vision: List[str] = ['resnet50'],
 
         # Evaluate model
         if do_eval:
-            my_evaluate_model(model, 
+            evaluate_model(model, 
                         train_data, 
                         val_data, 
                         test_data, 
