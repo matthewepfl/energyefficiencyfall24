@@ -169,7 +169,6 @@ class SixVisionEncoder(nn.Module):
             LIST_FEATURES.remove(features_5)
 
         combined_features = torch.cat(LIST_FEATURES, dim=1)
-        print("The shape of combined_features is: ", combined_features.shape)
         return combined_features
 
 
