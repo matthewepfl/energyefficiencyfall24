@@ -312,8 +312,6 @@ class MultimodalDataset(Dataset):
             inputs['x_3'] = image_3
             inputs['x_4'] = image_4
             inputs['x_5'] = image_5
-        
-        inputs['property'] = property  
 
         return inputs
     
@@ -369,8 +367,6 @@ class MultimodalDataset(Dataset):
 
             if 'x_5' in batch[0]:
                 inputs['x_5'] = torch.stack([x['x_5'] for x in batch if 'x_5' in x])
-
-        inputs['property'] = [x['property'] for x in batch]
             
         return inputs
 
