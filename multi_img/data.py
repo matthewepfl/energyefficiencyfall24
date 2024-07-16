@@ -315,6 +315,9 @@ class MultimodalDataset(Dataset):
             inputs['x_3'] = image_3
             inputs['x_4'] = image_4
             inputs['x_5'] = image_5
+        
+        inputs['property'] = property  
+        inputs['cluster'] = cluster
 
         return inputs
     
@@ -371,6 +374,8 @@ class MultimodalDataset(Dataset):
             if 'x_5' in batch[0]:
                 inputs['x_5'] = torch.stack([x['x_5'] for x in batch if 'x_5' in x])
 
+        inputs['property'] = [x['property'] for x in batch]
+        inputs['cluster'] = [x['cluster'] for x in batch]
             
         return inputs
 
@@ -412,11 +417,11 @@ def load_data(image_data, vision=None):
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
 
-    # train_black_images = train_data.count_black_images()
-    # val_black_images = val_data.count_black_images()
-    # test_black_images = test_data.count_black_images()
+    train_black_images = train_data.count_black_images()
+    val_black_images = val_data.count_black_images()
+    test_black_images = test_data.count_black_images()
 
-    # print(f'Black images in train: {train_black_images}\nBlack images in val: {val_black_images}\nBlack images in test: {test_black_images}')
+    print(f'Black images in train: {train_black_images}\nBlack images in val: {val_black_images}\nBlack images in test: {test_black_images}')
 
     return train_data, val_data, test_data
 
@@ -446,6 +451,9 @@ if __name__ == '__main__':
 
     image_data = prepare_data(False)
     train_data, val_data, test_data = load_data(image_data, vision='vit')
+
+    for i in range(5):
+        print(train_data.__getitem__(i))
 
     # Compute mean and std
     mean, std = compute_mean_and_std(train_data)

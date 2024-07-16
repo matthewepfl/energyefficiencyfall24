@@ -2,6 +2,7 @@ import torch
 import os
 import wandb
 import pickle
+from torch.optim.lr_scheduler import LambdaLR
 
 
 def parse_list_of_floats(string):
@@ -14,8 +15,16 @@ def mask_branch_type(string):
     return [int(item.strip()) for item in string.strip('[]').split(',')]
 
 
-def my_train_model(model, train_loader, val_loader, lr, weight_decay, num_epochs, seed, run_name, checkpoint_dir='checkpoints'):
+def my_train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, run_name, checkpoint_dir='checkpoints'):
+    train_loader = torch.utils.data.DataLoader(train_data, batch_size=32, shuffle=True)
+    val_loader = torch.utils.data.DataLoader(val_data, batch_size=32, shuffle=False)
+
+    torch.manual_seed(seed)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
+    def linear_lr_lambda(epoch):
+        return lr + (lr * 1e-1 - lr) * (epoch / (num_epochs - 1))
+
+    scheduler = LambdaLR(optimizer, lr_lambda=linear_lr_lambda)
     criterion = torch.nn.MSELoss()
     
     best_val_loss = float('inf')
@@ -36,7 +45,10 @@ def my_train_model(model, train_loader, val_loader, lr, weight_decay, num_epochs
 
             # Log training loss
             wandb.log({'train_loss': loss.item()})
+            wandb.log({'learning_rate': scheduler.get_last_lr()[0]})
 
+            scheduler.step()
+            
         avg_train_loss = running_loss / len(train_loader)
         print(f'Epoch {epoch+1}/{num_epochs}, Train Loss: {avg_train_loss}')
 

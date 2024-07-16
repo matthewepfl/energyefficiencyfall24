@@ -6,9 +6,11 @@ import os
 import wandb
 import argparse
 from transformers import TrainingArguments, Trainer, get_linear_schedule_with_warmup
+
 from transformers import EarlyStoppingCallback
 import itertools
 from typing import Optional, List
+from torch.optim.lr_scheduler import LambdaLR
 
 from models import *
 from data import *
@@ -62,7 +64,11 @@ def create_trainer(model,
     model.to(device)
  
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
-    scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=epochs*len(train_data))
+    # scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=epochs*len(train_data))
+    def linear_lr_lambda(epoch):
+        return lr + (lr * 1e-1 - lr) * (epoch / (epochs - 1))
+
+    scheduler = LambdaLR(optimizer, lr_lambda=linear_lr_lambda)
 
     training_args = TrainingArguments(
 
@@ -202,6 +208,16 @@ def grid_search(vision: List[str] = ['resnet50'],
     print('Data:\tLoading data')
     image_data = prepare_data(reduce_dataset)
     train_data, val_data, test_data = load_data(image_data, vision=vision)
+    train_property_data, train_cluster_data = train_data['property'], train_data['cluster']
+    val_property_data, val_cluster_data = val_data['property'], val_data['cluster']
+    test_property_data, test_cluster_data = test_data['property'], test_data['cluster']
+
+    train_data.pop('property')
+    train_data.pop('cluster')
+    val_data.pop('property')
+    val_data.pop('cluster')
+    test_data.pop('property')
+    test_data.pop('cluster')
 
     print('Grid search:\tStarting grid search')
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
@@ -219,7 +235,7 @@ def grid_search(vision: List[str] = ['resnet50'],
             wandb.init(project='energyefficiency', entity='silvy-romanato', name=f'{run_name}', config=config)
             wandb.config.update({'vision': vision, 'hidden_dims': hidden_dims, 'dropout_prob': dropout_prob, 'batch_norm': batch_norm, 'lr': lr, 'weight_decay': weight_decay, 'num_epochs': num_epochs, 'seed': seed})
 
-            train_model(model, 
+            my_train_model(model, 
                         train_data, 
                         val_data, 
                         lr, 
@@ -232,7 +248,7 @@ def grid_search(vision: List[str] = ['resnet50'],
 
         # Evaluate model
         if do_eval:
-            evaluate_model(model, 
+            my_evaluate_model(model, 
                         train_data, 
                         val_data, 
                         test_data, 
