@@ -64,7 +64,7 @@ def create_trainer(model,
     model.to(device)
  
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
-    scheduler = lr_scheduler.LinearLR(optimizer, start_factor=lr, end_factor=lr*0.1, total_iters=epochs)
+    scheduler = lr_scheduler.LinearLR(optimizer)
 
     training_args = TrainingArguments(
 
