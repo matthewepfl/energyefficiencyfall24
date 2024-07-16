@@ -121,6 +121,8 @@ def freeze_vision_encoder_layers(model, vision: Optional[str]):
         for param in model.vision_encoder.model_5.parameters():
             param.requires_grad = False
 
+    print(model)
+
 def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, run_name):
     print('Training: Starting training')
     trainer = create_trainer(model, train_data, val_data, CHECKPOINTS_DIR, run_name=run_name,
