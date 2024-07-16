@@ -30,8 +30,8 @@ from torchvision.transforms import (
 )
 
 IMAGE_SIZE = 384                        # All images are resized to 384 x 384
-NORM_MEAN = [0.485, 0.456, 0.406]    # MIMIC-CXR mean (based on 2GB of images) # compute it
-NORM_STD = [0.229, 0.224, 0.225]     # MIMIC-CXR std (based on 2GB of images) # compute it
+NORM_MEAN = [0.4320, 0.4200, 0.3982]    # the mean of the images in the training set
+NORM_STD = [0.1224, 0.1281, 0.1437]     # the std of the images in the training set
 
 """
 loss_selected = nn.MSELoss()
@@ -271,9 +271,6 @@ class MultimodalDataset(Dataset):
         return image
 
     def __getitem__(self, idx):
-
-        if idx >= len(self.data_dict):
-            raise IndexError(f"Index {idx} out of range. Dataset has {len(self.data_dict)} samples.")
         
         # Get the subject_id and study_id for this index
         property_cluster_pair = list(self.data_dict.keys())[idx]
@@ -423,7 +420,6 @@ def load_data(image_data, vision=None):
 
     return train_data, val_data, test_data
 
-
 def compute_mean_and_std(dataset, batch_size=16):
     # DataLoader to load the dataset in batches
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
@@ -450,12 +446,8 @@ if __name__ == '__main__':
     image_data = prepare_data(False)
     train_data, val_data, test_data = load_data(image_data, vision='vit')
 
-    for i in range(5):
-        print(train_data.__getitem__(i))
-
-    # Compute mean and std
-    mean, std = compute_mean_and_std(train_data)
-    print(f'Mean: {mean}, Std: {std}')
+    # mean, std = compute_mean_and_std(train_data)
+    # print(f'Mean: {mean}, Std: {std}')
 
 
 
