@@ -138,15 +138,11 @@ class SixVisionEncoder(nn.Module):
     def forward(self, x_0, x_1, x_2, x_3, x_4, x_5):
         def process_input(model, x):
             features = model(x)
-            print("The shape of features is: ", features.shape) # (8, 512)
             if self.vision == 'vit':
                 features = features.logits
             features = self.norm(features)
-            print("The shape of features after norm is: ", features.shape)
             features = self.dropout(features)
-            print("The shape of features after dropout is: ", features.shape)
             features = self.dense(features)
-            print("The shape of features after dense is: ", features.shape)
             return features
 
         features_0 = process_input(self.model_0, x_0)
