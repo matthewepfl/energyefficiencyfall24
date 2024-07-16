@@ -11,10 +11,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import models
-from torchvision.models import DenseNet121_Weights, ResNet50_Weights
 from transformers import ViTForImageClassification
-# efficientnet_pytorch
-from efficientnet_pytorch import EfficientNet
 
 
 IMAGE_EMBEDDING_DIM = 512   # Vision encoders produce 512-dimensional embeddings
@@ -143,14 +140,22 @@ class SixVisionEncoder(nn.Module):
     def forward(self, x_0, x_1, x_2, x_3, x_4, x_5):
         def process_input(model, x):
             features = model(x)
+            print("The shape of features is: ", features.shape)
             if self.vision == 'vit':
                 features = features.logits
             features = self.avg_pool(features)
+            print("The shape of features after avg_pool is: ", features.shape)
             features = self.flatten(features)
+            print("The shape of features after flatten is: ", features.shape)
             features = self.norm(features)
+            print("The shape of features after norm is: ", features.shape)
             features = self.dropout(features)
+            print("The shape of features after dropout is: ", features.shape)
             features = self.dense(features)
+            print("The shape of features after dense is: ", features.shape)
             return features
+        
+        print("The shape of x_0 is: ", x_0.shape)
 
         features_0 = process_input(self.model_0, x_0)
         features_1 = process_input(self.model_1, x_1)
@@ -158,6 +163,8 @@ class SixVisionEncoder(nn.Module):
         features_3 = process_input(self.model_3, x_3)
         features_4 = process_input(self.model_4, x_4)
         features_5 = process_input(self.model_5, x_5)
+
+
 
         LIST_FEATURES = [features_0, features_1, features_2, features_3, features_4, features_5]
         if 0 in self.mask_branch:
@@ -174,6 +181,7 @@ class SixVisionEncoder(nn.Module):
             LIST_FEATURES.remove(features_5)
 
         combined_features = torch.cat(LIST_FEATURES, dim=1)
+        print("The shape of combined_features is: ", combined_features.shape)
         return combined_features
 
 

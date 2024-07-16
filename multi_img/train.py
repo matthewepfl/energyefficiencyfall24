@@ -106,15 +106,18 @@ def create_trainer(model,
 
 def freeze_vision_encoder_layers(model, vision: Optional[str]):
     if vision:
-        for param in model.vision_encoder.parameters():
+        for param in model.vision_encoder.model_0.parameters():
             param.requires_grad = False
-
-    # unfreeze model.vision_encoder.model_1.fc
-    for name, param in model.named_parameters():
-        for i in range(6):
-            if f'vision_encoder.model_{i}.fc' in name:
-                param.requires_grad = True
-                print(f'Vision encoder model_{i}.fc layer unfrozen.')
+        for param in model.vision_encoder.model_1.parameters():
+            param.requires_grad = False
+        for param in model.vision_encoder.model_2.parameters():
+            param.requires_grad = False
+        for param in model.vision_encoder.model_3.parameters():
+            param.requires_grad = False
+        for param in model.vision_encoder.model_4.parameters():
+            param.requires_grad = False
+        for param in model.vision_encoder.model_5.parameters():
+            param.requires_grad = False
 
 def train_model(model, train_data, val_data, lr, weight_decay, num_epochs, seed, run_name):
     print('Training: Starting training')
@@ -244,7 +247,7 @@ def grid_search(vision: List[str] = ['resnet50'],
  
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--vision', type=str, default='resnet50')
+    parser.add_argument('--vision', type=str, default='efficientnet_b0')
     parser.add_argument('--hidden_dims', type=parse_nested_list_of_ints, default=[[256]], help='Hidden dimensions for the MLP.') # input like: '512-256-124,512-256'   # try only one layer
     parser.add_argument('--dropout_prob', type=float, default=0.0)
     parser.add_argument('--batch_norm', action='store_true', default=False) # 0.3, 0.4 # try 0.2
