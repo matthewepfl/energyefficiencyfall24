@@ -124,6 +124,7 @@ def load_images_data(cluster_data):
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster', 'pathname']], on = 'Property Reference Id', how = 'inner')
     labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'PropertyFE', 'pathname'])
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
+    print(labels_data.head())
 
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
