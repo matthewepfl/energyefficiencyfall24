@@ -172,7 +172,8 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     with open(predictions_path, 'wb') as f:
         pickle.dump({'train': (train_predictions, train_labels, train_adv_id), 'val': (eval_predictions, eval_labels, eval_adv_id), 'test': (test_predictions, test_labels, test_adv_id)}, f)
 
-def grid_search(vision: List[str] = ['resnet50'],
+def grid_search(train_data, val_data, test_data,
+            vision: List[str] = ['resnet50'],
             hidden_dims: List[int] = ['512-256'],
             dropout_prob: List[float] = 0.0,
             batch_norm: List[bool] = False,
@@ -184,8 +185,6 @@ def grid_search(vision: List[str] = ['resnet50'],
             do_eval: bool = False, 
             checkpoint_path: Optional[str] = None,
             mask_branch: List[int] = [],
-            reduce_dataset = False,
-            cv = '1'
             ):
     '''
     Grid search for radiology diagnosis using joint image encoders. 
@@ -202,11 +201,6 @@ def grid_search(vision: List[str] = ['resnet50'],
     batch_norm = [args.batch_norm]  # Boolean, should be in a list if there's only one value
     lr = [args.lr] if isinstance(args.lr, float) else args.lr
     weight_decay = [args.weight_decay] if isinstance(args.weight_decay, float) else args.weight_decay
-
-    # Load data
-    print('Data:\tLoading data')
-    image_data = prepare_data(reduce_dataset, cv=cv)
-    train_data, val_data, test_data = load_data(image_data, vision=vision)
 
     print('Grid search:\tStarting grid search')
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
@@ -275,8 +269,11 @@ if __name__ == '__main__':
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
-    image_data = prepare_data(True, cv = '1')
-    train_data, val_data, test_data = load_data(image_data, vision='vit')
-    grid_search(**vars(args))
+    cv = args.cv
+    reduce = args.reduce_dataset
+    image_data = prepare_data(reduce_dataset, cv = cv)
+    vision = args.vision
+    train_data, val_data, test_data = load_data(image_data, vision=vision)
+    grid_search(train_data, val_data, test_data, **vars(args))
     
     
