@@ -282,6 +282,7 @@ class MultimodalDataset(Dataset):
         # Get the subject_id and study_id for this index
         property_cluster_pair = list(self.data_dict.keys())[idx]
         property, cluster = property_cluster_pair
+        adv_id = self.data_dict[property_cluster_pair]['advertisement_id']
 
         # Get the paths for the PA and Lateral images
         path_0 = self.data_dict[(property, 0)]['pathname']
@@ -319,6 +320,8 @@ class MultimodalDataset(Dataset):
             inputs['x_3'] = image_3
             inputs['x_4'] = image_4
             inputs['x_5'] = image_5
+
+        inputs['adv_id'] = adv_id
 
         return inputs
     
@@ -411,6 +414,7 @@ def reduce_dataset(data):
     return data
     
 def load_data(image_data, vision=None):
+    print("image_data['train'] * ", image_data['train'])
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
