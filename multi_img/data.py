@@ -396,6 +396,7 @@ def prepare_data(reduce, cv = '1'):
 
     # Split labels into train/val/test sets
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42, cv = cv)
+    print('lab_train * \n ', lab_train.head())
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
