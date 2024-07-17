@@ -182,7 +182,7 @@ def join_multi(labels_data):
 
 # ---------------------------------------- PREPROCESSING ---------------------------------------- #
 
-def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = 1):
+def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = '1'):
     '''
     Split tabular data and labels into train, val, and test sets.
     '''
@@ -379,7 +379,7 @@ class MultimodalDataset(Dataset):
 
 # ---------------------------------------- MAIN FUNCTIONS ---------------------------------------- #
     
-def prepare_data(reduce, cv = 1): 
+def prepare_data(reduce, cv = '1'): 
     '''
     Load and pre-process tabular data and labels.
     Split into train/val/test sets.
@@ -446,7 +446,7 @@ def compute_mean_and_std(dataset, batch_size=16):
 
 if __name__ == '__main__': 
 
-    image_data = prepare_data(True, cv = 1)
+    image_data = prepare_data(True, cv = '1')
     train_data, val_data, test_data = load_data(image_data, vision='vit')
 
 
