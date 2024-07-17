@@ -331,6 +331,12 @@ class MultimodalDataset(Dataset):
             labels.append(self.__getitem__(idx)['labels'])
         return torch.stack(labels)
     
+    def get_adv_ids(self):
+        adv_ids = []
+        for idx in range(len(self)):
+            adv_ids.append(self.__getitem__(idx)['adv_id'])
+        return adv_ids
+    
     def count_black_images(self):
         mean = 0
         for idx in range(len(self)):
@@ -414,14 +420,12 @@ def reduce_dataset(data):
     return data
     
 def load_data(image_data, vision=None):
-    print("image_data['train'] * ", image_data['train'])
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
 
     # see 10 data in the train set
-    for i in range(10):
-        print(train_data.__getitem__(i))
+    print(train_data.__getitem__(1))
 
     train_black_images = train_data.count_black_images()
     val_black_images = val_data.count_black_images()
