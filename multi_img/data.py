@@ -99,7 +99,7 @@ def load_efficiency():
     efficiency = Efficiency(efficiency)
 
     # Merge Demand in listings and the images_df on the Property Reference Id
-    images_df = images_df[['pathname', 'Property Reference Id']].merge(efficiency[['Property Reference Id', 'PropertyFE']], on = 'Property Reference Id', how = 'inner')
+    images_df = images_df[['pathname', 'Property Reference Id']].merge(efficiency[['Property Reference Id', 'PropertyFE', 'Advertisement Id']], on = 'Property Reference Id', how = 'inner')
     images_df = images_df[images_df['PropertyFE'].notna()]
     images_df.drop(columns = ['pathname'], inplace = True)
 
