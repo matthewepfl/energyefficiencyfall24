@@ -18,6 +18,8 @@ from PIL import Image
 from torchvision.transforms import Compose
 import albumentations as A
 
+from helpers import *
+
 from torchvision.transforms import (
     RandomHorizontalFlip,
     RandomVerticalFlip,
@@ -30,8 +32,8 @@ from torchvision.transforms import (
 )
 
 IMAGE_SIZE = 384                        # All images are resized to 384 x 384
-NORM_MEAN = [0.4734, 0.4734, 0.4734]    # MIMIC-CXR mean (based on 2GB of images) # compute it
-NORM_STD = [0.3006, 0.3006, 0.3006]     # MIMIC-CXR std (based on 2GB of images) # compute it
+NORM_MEAN = [0.4320, 0.4200, 0.3982]    # the mean of the images in the training set
+NORM_STD = [0.1224, 0.1281, 0.1437]     # the std of the images in the training set
 
 """
 loss_selected = nn.MSELoss()
@@ -53,7 +55,7 @@ minim_amount_classes = 2
 if workingOn == 'server':
     BASE_DIR = '/work/FAC/HEC/DEEP/shoude/ml_green_building/'
 else:
-    BASE_DIR = '/Users/silviaromanato/Desktop/EPFL/MA4/EnergyEfficiencyPrediction/multi_img/'
+    BASE_DIR = '/Users/silviaromanato/Desktop/'
 IMAGES_PATH = os.path.join(BASE_DIR, 'images_full_data/MediaSyncFolder/')
 DATA_DIR = os.path.join(BASE_DIR, 'Data')
 MODEL_SAVE_DIR = os.path.join(BASE_DIR, 'modelS/images_models')
@@ -62,19 +64,18 @@ IMAGES_DF_PATH = os.path.join(DATA_DIR, 'images_df.csv')
 LISTINGS_PATH = os.path.join(DATA_DIR, 'Listings_FE.pkl')
 INQUIRIES_PATH = os.path.join(DATA_DIR, 'inquiries_full.pkl')
 ENERGY_PATH = os.path.join(DATA_DIR, 'Listings_FE.csv')
-LABELS_TRAIN_PATH = os.path.join(DATA_DIR, f'train_data_properties{minim_amount_classes}.csv')
-LABELS_VAL_PATH = os.path.join(DATA_DIR, f'val_data_properties{minim_amount_classes}.csv')
-LABELS_TEST_PATH = os.path.join(DATA_DIR, f'test_data_properties{minim_amount_classes}.csv')
+LABELS_TRAIN_PATH = os.path.join(DATA_DIR, f'train_data_properties{minim_amount_classes}')
+LABELS_VAL_PATH = os.path.join(DATA_DIR, f'val_data_properties{minim_amount_classes}')
+LABELS_TEST_PATH = os.path.join(DATA_DIR, f'test_data_properties{minim_amount_classes}')
 CLUSTERED_PATH = os.path.join(DATA_DIR, f'Clusters_images/clean_clustered_images_greater{minim_amount_classes}.csv')
 
-# ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
+# ---------------------------------------- DATA LOADING ---------------------------------------- #
 
 def Efficiency(efficiency):
 
-    efficiency = efficiency.groupby("Advertisement Id").last().reset_index()
-    efficiency = efficiency.groupby(["Property Reference Id", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") # change this too # use more
-    print('The efficiency: ', efficiency.shape)
-
+    efficiency = efficiency.groupby(["Advertisement Id"]).last().reset_index()
+    efficiency = efficiency.groupby(["Property Reference Id", "PropertyFE", 'Advertisement Id']).size().reset_index(name='counts').drop(columns="counts") # change this too # use more
+    
     return efficiency
 
 def list_images(base_path):
@@ -94,11 +95,11 @@ def load_efficiency():
     images_df = pd.read_csv(IMAGES_DF_PATH)                               # The pathnames and the Property Reference Ids of the images
     efficiency = pd.read_csv(ENERGY_PATH)                                 # The energy data to create the Efficiency
     
-    # Calculate the Demand per listing
+    # Calculate the Efficiency per listing
     efficiency = Efficiency(efficiency)
 
     # Merge Demand in listings and the images_df on the Property Reference Id
-    images_df = images_df[['pathname', 'Property Reference Id']].merge(efficiency[['Property Reference Id', 'PropertyFE']], on = 'Property Reference Id', how = 'inner')
+    images_df = images_df[['pathname', 'Property Reference Id']].merge(efficiency[['Property Reference Id', 'PropertyFE', 'Advertisement Id']], on = 'Property Reference Id', how = 'inner')
     images_df = images_df[images_df['PropertyFE'].notna()]
     images_df.drop(columns = ['pathname'], inplace = True)
 
@@ -122,13 +123,6 @@ def load_images_data(cluster_data):
     labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'PropertyFE', 'pathname'])
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
 
-    print(f'Number of samples:\tLabels: {len(labels_data)}\tImage: {len(image_files)}')
-
-    # CHECK 
-    images_df = labels_data.groupby(['Property Reference Id', 'cluster']).first().reset_index()
-    image_counts = images_df.groupby('Property Reference Id').size()
-    print("There are clusters for :", image_counts.groupby(image_counts).size())
-
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
     
@@ -148,15 +142,19 @@ def create_image_labels_mapping(labels_data):
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         propertyFE = labels['PropertyFE'].values[0]
+        advertisement_id = labels['Advertisement Id'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
             if classes not in labels['cluster'].values:
-                path = '/work/FAC/HEC/DEEP/shoude/ml_green_building/images_full_data/black.png'
-                labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes, 'pathname': path}
+                path = BASE_DIR + 'images_full_data/black.png'
+                labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 
+                              'cluster': classes, 'advertisement_id': advertisement_id,
+                              'pathname': path}
                 unique_index = (property , classes)
                 image_labels_mapping[unique_index] = labels_out
             else:
                 labels_row = labels[labels['cluster'] == classes]
                 labels_out = labels_row.iloc[0].to_dict()
+                labels_out['advertisement_id'] = advertisement_id
                 unique_index = (property , classes)
                 image_labels_mapping[unique_index] = labels_out
 
@@ -168,7 +166,6 @@ def join_multi(labels_data):
     Returns: 
         dict_img (dict): keys = image file paths and values = dicts with labels and ViewPosition
     '''
-    print('Join multi input data')
 
     # Image data
     image_labels_mapping = create_image_labels_mapping(labels_data) 
@@ -181,24 +178,22 @@ def join_multi(labels_data):
 
     return dict_img
     
+
+
 # ---------------------------------------- PREPROCESSING ---------------------------------------- #
 
-# correct
-def split(labels, val_size=0.15, test_size=0.20, seed=42):
+def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = '1'):
     '''
     Split tabular data and labels into train, val, and test sets.
     '''
-    paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
+    paths = [LABELS_TRAIN_PATH + cv + '.csv', LABELS_VAL_PATH + cv + '.csv', LABELS_TEST_PATH + cv + '.csv']
     
     if all([os.path.exists(path) for path in paths]):
-        print('Splitting:\LOADING pre-processed train, val, and test sets.')
-        labels_train = pd.read_csv(LABELS_TRAIN_PATH)
-        labels_val = pd.read_csv(LABELS_VAL_PATH)
-        labels_test = pd.read_csv(LABELS_TEST_PATH)
+        labels_train = pd.read_csv(LABELS_TRAIN_PATH + cv + '.csv')
+        labels_val = pd.read_csv(LABELS_VAL_PATH + cv + '.csv')
+        labels_test = pd.read_csv(LABELS_TEST_PATH + cv + '.csv')
 
     else:
-        print('Splitting:\tTabular data and labels into train, val, and test sets.')
-
         # Split the study_ids into train, val, and test sets
         property__ref_id = labels['Property Reference Id'].unique()
         property_id = [int(i.split('.')[0]) for i in property__ref_id]
@@ -217,17 +212,9 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
 
-        print('Splitting:\tSaving train, val, and test sets.')
-        labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
-        labels_val.to_csv(LABELS_VAL_PATH, index=False)
-        labels_test.to_csv(LABELS_TEST_PATH, index=False)
-
-        # Check proportions of total, train, val, and test sets
-        total_len = len(labels_train) + len(labels_val) + len(labels_test)
-        print('Total set: ', total_len)
-        print('Percent train: ', len(labels_train) / total_len)
-        print('Percent val: ', len(labels_val) / total_len)
-        print('Percent test: ', len(labels_test) / total_len)
+        labels_train.to_csv(LABELS_TRAIN_PATH + cv + '.csv', index=False)
+        labels_val.to_csv(LABELS_VAL_PATH + cv + '.csv', index=False)
+        labels_test.to_csv(LABELS_TEST_PATH + cv + '.csv', index=False)
 
     return labels_train, labels_val, labels_test
 
@@ -252,7 +239,6 @@ def transform_image(image_size, vision=None, augment=True):
         transforms.append(RandomRotation(degrees=10))
 
     transforms.append(CenterCrop((size, size)))
-    transforms.append(Resize((IMAGE_SIZE, IMAGE_SIZE)))
 
     if vision == 'vit':
         processor = ViTImageProcessor.from_pretrained(
@@ -275,8 +261,7 @@ class MultimodalDataset(Dataset):
         self.vision = vision
         self.data_dict = data_dict
 
-        if vision is not None: 
-            self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
+        self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
         
         self.properties = [x[0] for x in list(self.data_dict.keys())]
 
@@ -292,13 +277,11 @@ class MultimodalDataset(Dataset):
         return image
 
     def __getitem__(self, idx):
-
-        if idx >= len(self.data_dict):
-            raise IndexError(f"Index {idx} out of range. Dataset has {len(self.data_dict)} samples.")
         
         # Get the subject_id and study_id for this index
         property_cluster_pair = list(self.data_dict.keys())[idx]
         property, cluster = property_cluster_pair
+        adv_id = self.data_dict[property_cluster_pair]['advertisement_id']
 
         # Get the paths for the PA and Lateral images
         path_0 = self.data_dict[(property, 0)]['pathname']
@@ -337,6 +320,8 @@ class MultimodalDataset(Dataset):
             inputs['x_4'] = image_4
             inputs['x_5'] = image_5
 
+        inputs['adv_id'] = adv_id
+
         return inputs
     
     def get_labels(self):
@@ -344,6 +329,12 @@ class MultimodalDataset(Dataset):
         for idx in range(len(self)):
             labels.append(self.__getitem__(idx)['labels'])
         return torch.stack(labels)
+    
+    def get_adv_ids(self):
+        adv_ids = []
+        for idx in range(len(self)):
+            adv_ids.append(self.__getitem__(idx)['adv_id'])
+        return adv_ids
     
     def count_black_images(self):
         mean = 0
@@ -391,59 +382,46 @@ class MultimodalDataset(Dataset):
 
             if 'x_5' in batch[0]:
                 inputs['x_5'] = torch.stack([x['x_5'] for x in batch if 'x_5' in x])
-
             
         return inputs
 
 # ---------------------------------------- MAIN FUNCTIONS ---------------------------------------- #
     
-def prepare_data(reduce_dataset): 
+def prepare_data(reduce, cv = '1'): 
     '''
     Load and pre-process tabular data and labels.
     Split into train/val/test sets.
     Filter images based on tabular data.
     '''
-    print(f'\tPREPARING DATA\n')
     
     # Load image labels, files and metadata
     cluster_data = pd.read_csv(CLUSTERED_PATH)
-    if reduce_dataset:
-        print('*' * 20, 'Reducing dataset size', '*' * 20)
-        print("the length of the cluster_data is: ", len(cluster_data))
-        properties = cluster_data.groupby('Property Reference Id').first().reset_index()['Property Reference Id']
-        properties = properties.sample(frac=0.01, random_state=42)
-        cluster_data = cluster_data[cluster_data['Property Reference Id'].isin(properties)]
-        print("the length of the cluster_data is: ", len(cluster_data))
-        print('Reduced dataset size')
+    cluster_data = reduce_dataset(cluster_data) if reduce else cluster_data
 
-    data = load_images_data(cluster_data)
+    data = load_images_data(cluster_data) # this has adv id
 
     # Split labels into train/val/test sets
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
-    print(f'Split data into train/val/test sets:\nTrain: {len(lab_train)}\nValidation: {len(lab_val)}\nTest: {len(lab_test)}')
+    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=30, cv = cv)
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
     image_data_train = join_multi(lab_train) 
     
     image_data = {'train': image_data_train, 'val': image_data_val, 'test': image_data_test}
-    print(f'Loaded image data:\nTrain: {len(image_data_train)}\nValidation: {len(image_data_val)}\nTest: {len(image_data_test)}')
         
     return image_data
 
+def reduce_dataset(data):
+    print('*' * 20, 'Reducing dataset size', '*' * 20)
+    properties = data.groupby('Property Reference Id').first().reset_index()['Property Reference Id']
+    properties = properties.sample(frac=0.01, random_state=42)
+    data = data[data['Property Reference Id'].isin(properties)]
+    return data
+    
 def load_data(image_data, vision=None):
-    '''
-    Create datasets for each split.
-    Arguments: 
-        image_data (dict): Dictionary with keys = 'train', 'val', 'test' and values = image data
-        vision (str): Type of vision encoder 'resnet50', 'densenet121' or 'vit' (Default: None --> No images)
-    '''
-    print(f'LOADING DATA (vision: {vision})')
-
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
-    print(f'Created datasets:\tTrain: {len(train_data)}\tValidation: {len(val_data)}\tTest: {len(test_data)} samples.')
 
     train_black_images = train_data.count_black_images()
     val_black_images = val_data.count_black_images()
@@ -453,10 +431,32 @@ def load_data(image_data, vision=None):
 
     return train_data, val_data, test_data
 
+def compute_mean_and_std(dataset, batch_size=16):
+    # DataLoader to load the dataset in batches
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
+
+    mean = 0.
+    std = 0.
+    n_samples = 0.
+
+    for batch in tqdm(dataloader, desc="Computing mean and std"):
+        batch_images = torch.cat([batch['x_0'], batch['x_1'], batch['x_2'], batch['x_3'], batch['x_4'], batch['x_5']], dim=0)
+        batch_images = batch_images.view(batch_images.size(0), batch_images.size(1), -1)  # Flatten the images
+        
+        mean += batch_images.mean(2).sum(0)  # Compute mean per channel
+        std += batch_images.std(2).sum(0)    # Compute std per channel
+        n_samples += batch_images.size(0)
+
+    mean /= n_samples
+    std /= n_samples
+
+    return mean, std
+
 if __name__ == '__main__': 
 
-    image_data = prepare_data()
+    image_data = prepare_data(True, cv = '1')
     train_data, val_data, test_data = load_data(image_data, vision='vit')
+
 
 
 
