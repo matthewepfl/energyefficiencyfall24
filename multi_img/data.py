@@ -97,7 +97,6 @@ def load_efficiency():
     
     # Calculate the Efficiency per listing
     efficiency = Efficiency(efficiency)
-    print(efficiency.head())
 
     # Merge Demand in listings and the images_df on the Property Reference Id
     images_df = images_df[['pathname', 'Property Reference Id']].merge(efficiency[['Property Reference Id', 'PropertyFE', 'Advertisement Id']], on = 'Property Reference Id', how = 'inner')
@@ -114,14 +113,15 @@ def load_images_data(cluster_data):
         raise ValueError(f'Images folder not found in {IMAGES_PATH}.')
     
     labels_data = load_efficiency()
-    print(cluster_data.head())
+    print(labels_data.head(), cluster_data.head())
     image_files = list_images(IMAGES_PATH)
     
     properties = cluster_data['Property Reference Id'].unique()
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in properties]
 
     labels_data = labels_data[labels_data['Property Reference Id'].isin([image_file.split(os.sep)[-1][:-5] for image_file in image_files])]
-    labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster', 'pathname', 'Advertisement Id']], on = 'Property Reference Id', how = 'inner')
+    print(labels_data.head())
+    labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster', 'pathname']], on = 'Property Reference Id', how = 'inner')
     labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'PropertyFE', 'pathname'])
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
 
