@@ -75,7 +75,7 @@ def Efficiency(efficiency):
 
     efficiency = efficiency.groupby(["Advertisement Id"]).last().reset_index()
     efficiency = efficiency.groupby(["Property Reference Id", "PropertyFE"]).size().reset_index(name='counts').drop(columns="counts") # change this too # use more
-
+    
     return efficiency
 
 def list_images(base_path):
@@ -97,6 +97,7 @@ def load_efficiency():
     
     # Calculate the Efficiency per listing
     efficiency = Efficiency(efficiency)
+    print(efficiency.head())
 
     # Merge Demand in listings and the images_df on the Property Reference Id
     images_df = images_df[['pathname', 'Property Reference Id']].merge(efficiency[['Property Reference Id', 'PropertyFE', 'Advertisement Id']], on = 'Property Reference Id', how = 'inner')
