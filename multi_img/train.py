@@ -269,11 +269,8 @@ if __name__ == '__main__':
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
-    cv = args.cv
-    reduce = args.reduce_dataset
-    image_data = prepare_data(reduce_dataset, cv = cv)
-    vision = args.vision
-    train_data, val_data, test_data = load_data(image_data, vision=vision)
+    image_data = prepare_data(args.reduce_dataset, cv = args.cv)
+    train_data, val_data, test_data = load_data(image_data, vision=args.vision)
     grid_search(train_data, val_data, test_data, **vars(args))
     
     
