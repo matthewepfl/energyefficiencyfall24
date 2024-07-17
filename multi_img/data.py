@@ -449,11 +449,17 @@ if __name__ == '__main__':
     data = load_images_data(cluster_data)
 
     # Split labels into train/val/test sets
+    print("Starting creating the cv splits")
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=30, cv = '1')
+    print("First split done")
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=40, cv = '2')
+    print("Second split done")
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=50, cv = '3')
+    print("Third split done")
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=60, cv = '4')
+    print("Fourth split done")
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=70, cv = '5')
+    print("Fifth split done")
 
 
 
