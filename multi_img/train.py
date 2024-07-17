@@ -83,15 +83,16 @@ def create_trainer(model,
         run_name=run_name,
         report_to='wandb',
         output_dir=output_dir,
-        evaluation_strategy="epoch",
-        save_strategy='epoch',
+        evaluation_strategy="steps",
+        eval_steps=1000,
+        save_strategy='steps',
+        save_steps=1000,
         save_total_limit=3,
         logging_dir='./logs',
         logging_first_step=True,
-        logging_steps=1,
-        logging_strategy='epoch',
+        logging_steps=1000,
+        logging_strategy='steps',
         load_best_model_at_end=True,
-
     )
 
     trainer = MultimodalTrainer(

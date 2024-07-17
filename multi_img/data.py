@@ -444,7 +444,7 @@ if __name__ == '__main__':
 
     # # mean, std = compute_mean_and_std(train_data)
     # # print(f'Mean: {mean}, Std: {std}')
-
+    print("Starting the data preparation")
     cluster_data = pd.read_csv(CLUSTERED_PATH)
     data = load_images_data(cluster_data)
 
