@@ -141,6 +141,7 @@ def create_image_labels_mapping(labels_data):
     image_labels_mapping = {}
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
+        print(labels.head())
         propertyFE = labels['PropertyFE'].values[0]
         advertisement_id = labels['Advertisement Id'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
