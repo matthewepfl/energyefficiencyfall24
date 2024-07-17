@@ -449,11 +449,11 @@ if __name__ == '__main__':
     data = load_images_data(cluster_data)
 
     # Split labels into train/val/test sets
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=30)
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=40)
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=50)
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=60)
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=70)
+    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=30, cv = '1')
+    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=40, cv = '2')
+    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=50, cv = '3')
+    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=60, cv = '4')
+    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=70, cv = '5')
 
 
 
