@@ -181,7 +181,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
     '''
     paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
     
-    if False:#all([os.path.exists(path) for path in paths]):
+    if all([os.path.exists(path) for path in paths]):
         labels_train = pd.read_csv(LABELS_TRAIN_PATH)
         labels_val = pd.read_csv(LABELS_VAL_PATH)
         labels_test = pd.read_csv(LABELS_TEST_PATH)
