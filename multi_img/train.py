@@ -274,7 +274,7 @@ if __name__ == '__main__':
     parser.add_argument('--checkpoint_path', type=str, default=None)
     parser.add_argument('--mask_branch', type=mask_branch_type, default=[], help='Which layers to turn off in the vision encoder.')
     parser.add_argument('--reduce_dataset', action='store_true', help='Reduce the dataset size for testing purposes.')
-    parser.add_argument('--cv', type=int, default='1', help='Number of cross-validation folds.')
+    parser.add_argument('--cv', type=str, default='1', help='Number of cross-validation folds.')
 
     args = parser.parse_args()
 
