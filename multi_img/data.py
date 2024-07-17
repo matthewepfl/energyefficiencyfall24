@@ -122,7 +122,6 @@ def load_images_data(cluster_data):
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster', 'pathname']], on = 'Property Reference Id', how = 'inner')
     labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'PropertyFE', 'pathname'])
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
-    print('last print of load images data * \n ', labels_data.head())
 
     if image_files == []:
         raise ValueError(f'No image files found in {IMAGES_PATH}.')
@@ -393,6 +392,7 @@ def prepare_data(reduce, cv = '1'):
     cluster_data = reduce_dataset(cluster_data) if reduce else cluster_data
 
     data = load_images_data(cluster_data)
+    print('data * \n ', data.head())
 
     # Split labels into train/val/test sets
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42, cv = cv)
