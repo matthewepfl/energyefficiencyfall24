@@ -150,24 +150,27 @@ def evaluate_model(model, train_data, val_data, test_data, lr, weight_decay, num
     # Predictions: Test
     test_predictions = trainer.predict(test_data)
     test_labels = test_data.get_labels()
+    test_adv_id = test_data.get_adv_id()
 
     # Train
     train_predictions = trainer.predict(train_data)
     train_labels = train_data.get_labels()
+    train_adv_id = train_data.get_adv_id()
 
     # Validation
     eval_predictions = trainer.predict(val_data)
     eval_labels = val_data.get_labels()
+    eval_adv_id = val_data.get_adv_id()
 
     # convert to list 
-    test_predictions, test_labels = test_predictions.predictions.tolist(), test_labels.tolist()
-    train_predictions, train_labels = train_predictions.predictions.tolist(), train_labels.tolist()
-    eval_predictions, eval_labels = eval_predictions.predictions.tolist(), eval_labels.tolist()
+    test_predictions, test_labels, test_adv_id  = test_predictions.predictions.tolist(), test_labels.tolist(), test_adv_id.tolist()
+    train_predictions, train_labels, train_adv_id = train_predictions.predictions.tolist(), train_labels.tolist(), train_adv_id.tolist()
+    eval_predictions, eval_labels, eval_adv_id = eval_predictions.predictions.tolist(), eval_labels.tolist(), eval_adv_id.tolist()
 
     # save predictions
     predictions_path = os.path.join(CHECKPOINTS_DIR, f'predictions_{run_name}.pkl')
     with open(predictions_path, 'wb') as f:
-        pickle.dump({'train': (train_predictions, train_labels), 'val': (eval_predictions, eval_labels), 'test': (test_predictions, test_labels)}, f)
+        pickle.dump({'train': (train_predictions, train_labels, train_adv_id), 'val': (eval_predictions, eval_labels, eval_adv_id), 'test': (test_predictions, test_labels, test_adv_id)}, f)
 
 def grid_search(vision: List[str] = ['resnet50'],
             hidden_dims: List[int] = ['512-256'],
@@ -182,7 +185,7 @@ def grid_search(vision: List[str] = ['resnet50'],
             checkpoint_path: Optional[str] = None,
             mask_branch: List[int] = [],
             reduce_dataset = False,
-            cross_val = False
+            cv = '1'
             ):
     '''
     Grid search for radiology diagnosis using joint image encoders. 
@@ -202,7 +205,7 @@ def grid_search(vision: List[str] = ['resnet50'],
 
     # Load data
     print('Data:\tLoading data')
-    image_data = prepare_data(reduce_dataset)
+    image_data = prepare_data(reduce_dataset, cv=cv)
     train_data, val_data, test_data = load_data(image_data, vision=vision)
     # property_data = train_data[:]['property'], val_data[:]['property'], test_data[:]['property']
 
@@ -271,6 +274,7 @@ if __name__ == '__main__':
     parser.add_argument('--checkpoint_path', type=str, default=None)
     parser.add_argument('--mask_branch', type=mask_branch_type, default=[], help='Which layers to turn off in the vision encoder.')
     parser.add_argument('--reduce_dataset', action='store_true', help='Reduce the dataset size for testing purposes.')
+    parser.add_argument('--cv', type=int, default='1', help='Number of cross-validation folds.')
 
     args = parser.parse_args()
 
