@@ -113,14 +113,13 @@ def load_images_data(cluster_data):
         raise ValueError(f'Images folder not found in {IMAGES_PATH}.')
     
     labels_data = load_efficiency()
-    print(labels_data.head())
+    print(cluster_data.head())
     image_files = list_images(IMAGES_PATH)
     
     properties = cluster_data['Property Reference Id'].unique()
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in properties]
 
     labels_data = labels_data[labels_data['Property Reference Id'].isin([image_file.split(os.sep)[-1][:-5] for image_file in image_files])]
-    print(labels_data.head())
     labels_data = labels_data.merge(cluster_data[['Property Reference Id', 'cluster', 'pathname', 'Advertisement Id']], on = 'Property Reference Id', how = 'inner')
     labels_data = labels_data.drop_duplicates(subset = ['Property Reference Id', 'cluster', 'PropertyFE', 'pathname'])
     image_files = [image_file for image_file in image_files if image_file.split(os.sep)[-1][:-5] in labels_data['Property Reference Id'].unique()]
