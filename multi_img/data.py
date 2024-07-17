@@ -415,6 +415,10 @@ def load_data(image_data, vision=None):
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
 
+    # see 10 data in the train set
+    for i in range(10):
+        print(train_data.__getitem__(i))
+
     train_black_images = train_data.count_black_images()
     val_black_images = val_data.count_black_images()
     test_black_images = test_data.count_black_images()
