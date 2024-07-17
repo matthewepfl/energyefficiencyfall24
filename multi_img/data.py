@@ -65,7 +65,7 @@ ENERGY_PATH = os.path.join(DATA_DIR, 'Listings_FE.csv')
 LABELS_TRAIN_PATH = os.path.join(DATA_DIR, f'train_data_properties{minim_amount_classes}')
 LABELS_VAL_PATH = os.path.join(DATA_DIR, f'val_data_properties{minim_amount_classes}')
 LABELS_TEST_PATH = os.path.join(DATA_DIR, f'test_data_properties{minim_amount_classes}')
-CLUSTERED_PATH = os.path.join(DATA_DIR, f'Clusters_images/clean_clustered_images_greater{minim_amount_classes}')
+CLUSTERED_PATH = os.path.join(DATA_DIR, f'Clusters_images/clean_clustered_images_greater{minim_amount_classes}.csv')
 
 # ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
 
@@ -175,16 +175,16 @@ def join_multi(labels_data):
 # ---------------------------------------- PREPROCESSING ---------------------------------------- #
 
 # correct
-def split(labels, val_size=0.15, test_size=0.20, seed=42):
+def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = 1):
     '''
     Split tabular data and labels into train, val, and test sets.
     '''
-    paths = [LABELS_TRAIN_PATH, LABELS_VAL_PATH, LABELS_TEST_PATH]
+    paths = [LABELS_TRAIN_PATH + cv + '.csv', LABELS_VAL_PATH + cv + '.csv', LABELS_TEST_PATH + cv + '.csv']
     
     if False:# all([os.path.exists(path) for path in paths]):
-        labels_train = pd.read_csv(LABELS_TRAIN_PATH)
-        labels_val = pd.read_csv(LABELS_VAL_PATH)
-        labels_test = pd.read_csv(LABELS_TEST_PATH)
+        labels_train = pd.read_csv(LABELS_TRAIN_PATH + cv + '.csv')
+        labels_val = pd.read_csv(LABELS_VAL_PATH + cv + '.csv')
+        labels_test = pd.read_csv(LABELS_TEST_PATH + cv + '.csv')
 
     else:
         # Split the study_ids into train, val, and test sets
@@ -205,9 +205,9 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42):
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
 
-        labels_train.to_csv(LABELS_TRAIN_PATH, index=False)
-        labels_val.to_csv(LABELS_VAL_PATH, index=False)
-        labels_test.to_csv(LABELS_TEST_PATH, index=False)
+        labels_train.to_csv(LABELS_TRAIN_PATH + cv + '.csv', index=False)
+        labels_val.to_csv(LABELS_VAL_PATH + cv + '.csv', index=False)
+        labels_test.to_csv(LABELS_TEST_PATH + cv + '.csv', index=False)
 
     return labels_train, labels_val, labels_test
 
