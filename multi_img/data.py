@@ -454,7 +454,7 @@ def compute_mean_and_std(dataset, batch_size=16):
 
 if __name__ == '__main__': 
 
-    image_data = prepare_data(False, cv = '1')
+    image_data = prepare_data(True, cv = '1')
     train_data, val_data, test_data = load_data(image_data, vision='vit')
 
 
