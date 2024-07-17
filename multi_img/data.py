@@ -141,7 +141,6 @@ def create_image_labels_mapping(labels_data):
     image_labels_mapping = {}
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
-        print(labels.head())
         propertyFE = labels['PropertyFE'].values[0]
         advertisement_id = labels['Advertisement Id'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
@@ -187,10 +186,9 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = '1'):
     '''
     Split tabular data and labels into train, val, and test sets.
     '''
-    print("labels * \n ", labels.head())
     paths = [LABELS_TRAIN_PATH + cv + '.csv', LABELS_VAL_PATH + cv + '.csv', LABELS_TEST_PATH + cv + '.csv']
     
-    if False:# all([os.path.exists(path) for path in paths]):
+    if all([os.path.exists(path) for path in paths]):
         labels_train = pd.read_csv(LABELS_TRAIN_PATH + cv + '.csv')
         labels_val = pd.read_csv(LABELS_VAL_PATH + cv + '.csv')
         labels_test = pd.read_csv(LABELS_TEST_PATH + cv + '.csv')
@@ -211,7 +209,6 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = '1'):
 
         # Get the tabular data and labels for the train, val, and test sets
         labels_train = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_train)]
-        print('labels_train * \n ', labels_train.head())
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
 
@@ -397,7 +394,6 @@ def prepare_data(reduce, cv = '1'):
 
     # Split labels into train/val/test sets
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=30, cv = cv)
-    print('lab_train * \n ', lab_train.head())
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
