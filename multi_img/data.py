@@ -188,7 +188,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = 1):
     '''
     paths = [LABELS_TRAIN_PATH + cv + '.csv', LABELS_VAL_PATH + cv + '.csv', LABELS_TEST_PATH + cv + '.csv']
     
-    if False:# all([os.path.exists(path) for path in paths]):
+    if all([os.path.exists(path) for path in paths]):
         labels_train = pd.read_csv(LABELS_TRAIN_PATH + cv + '.csv')
         labels_val = pd.read_csv(LABELS_VAL_PATH + cv + '.csv')
         labels_test = pd.read_csv(LABELS_TEST_PATH + cv + '.csv')
@@ -379,7 +379,7 @@ class MultimodalDataset(Dataset):
 
 # ---------------------------------------- MAIN FUNCTIONS ---------------------------------------- #
     
-def prepare_data(reduce): 
+def prepare_data(reduce, cv = 1): 
     '''
     Load and pre-process tabular data and labels.
     Split into train/val/test sets.
@@ -393,7 +393,7 @@ def prepare_data(reduce):
     data = load_images_data(cluster_data)
 
     # Split labels into train/val/test sets
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42)
+    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42, cv = cv)
 
     image_data_test = join_multi(lab_test)
     image_data_val = join_multi(lab_val)
@@ -446,7 +446,7 @@ def compute_mean_and_std(dataset, batch_size=16):
 
 if __name__ == '__main__': 
 
-    image_data = prepare_data(True)
+    image_data = prepare_data(True, cv = 1)
     train_data, val_data, test_data = load_data(image_data, vision='vit')
 
 
