@@ -207,11 +207,6 @@ def grid_search(vision: List[str] = ['resnet50'],
     print('Data:\tLoading data')
     image_data = prepare_data(reduce_dataset, cv=cv)
     train_data, val_data, test_data = load_data(image_data, vision=vision)
-    # property_data = train_data[:]['property'], val_data[:]['property'], test_data[:]['property']
-
-    # train_data.pop('property')
-    # val_data.pop('property')
-    # test_data.pop('property')
 
     print('Grid search:\tStarting grid search')
     for vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay in itertools.product(vision, hidden_dims, dropout_prob, batch_norm, lr, weight_decay):
@@ -280,6 +275,8 @@ if __name__ == '__main__':
 
     print(f'Cuda is available: {torch.cuda.is_available()}')
 
+    image_data = prepare_data(True, cv = '1')
+    train_data, val_data, test_data = load_data(image_data, vision='vit')
     grid_search(**vars(args))
     
     

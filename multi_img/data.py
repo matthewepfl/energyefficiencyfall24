@@ -261,8 +261,7 @@ class MultimodalDataset(Dataset):
         self.vision = vision
         self.data_dict = data_dict
 
-        if vision is not None: 
-            self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
+        self.transform = lambda img_size: transform_image(img_size, vision=vision, augment=augment)
         
         self.properties = [x[0] for x in list(self.data_dict.keys())]
 
@@ -423,9 +422,6 @@ def load_data(image_data, vision=None):
     train_data = MultimodalDataset(vision, image_data['train'], augment=True)
     val_data = MultimodalDataset(vision, image_data['val'], augment=False)
     test_data = MultimodalDataset(vision, image_data['test'], augment=False)
-
-    # see 10 data in the train set
-    print(train_data.__getitem__(1))
 
     train_black_images = train_data.count_black_images()
     val_black_images = val_data.count_black_images()
