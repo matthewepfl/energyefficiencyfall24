@@ -221,7 +221,6 @@ class SixVisionEncoder(nn.Module):
         combined_features = torch.cat(LIST_FEATURES, dim=1)
         return combined_features
 
-
 class JointEncoder(nn.Module):
     '''
     Joint Encoder: Encodes image data separately, 

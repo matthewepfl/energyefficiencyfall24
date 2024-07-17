@@ -18,6 +18,8 @@ from PIL import Image
 from torchvision.transforms import Compose
 import albumentations as A
 
+from helpers import *
+
 from torchvision.transforms import (
     RandomHorizontalFlip,
     RandomVerticalFlip,
@@ -67,7 +69,7 @@ LABELS_VAL_PATH = os.path.join(DATA_DIR, f'val_data_properties{minim_amount_clas
 LABELS_TEST_PATH = os.path.join(DATA_DIR, f'test_data_properties{minim_amount_classes}')
 CLUSTERED_PATH = os.path.join(DATA_DIR, f'Clusters_images/clean_clustered_images_greater{minim_amount_classes}.csv')
 
-# ---------------------------------------- HELPER FUNCTIONS ---------------------------------------- #
+# ---------------------------------------- DATA LOADING ---------------------------------------- #
 
 def Efficiency(efficiency):
 
@@ -140,15 +142,19 @@ def create_image_labels_mapping(labels_data):
     for property in tqdm(labels_data['Property Reference Id'].unique()):
         labels = labels_data[labels_data['Property Reference Id'] == property]
         propertyFE = labels['PropertyFE'].values[0]
+        advertisement_id = labels['Advertisement Id'].values[0]
         for classes in [0, 1, 2, 3, 4, 5]:
             if classes not in labels['cluster'].values:
                 path = BASE_DIR + 'images_full_data/black.png'
-                labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 'cluster': classes, 'pathname': path}
+                labels_out = {'Property Reference Id': property, 'PropertyFE': propertyFE, 
+                              'cluster': classes, 'advertisement_id': advertisement_id,
+                              'pathname': path}
                 unique_index = (property , classes)
                 image_labels_mapping[unique_index] = labels_out
             else:
                 labels_row = labels[labels['cluster'] == classes]
                 labels_out = labels_row.iloc[0].to_dict()
+                labels_out['advertisement_id'] = advertisement_id
                 unique_index = (property , classes)
                 image_labels_mapping[unique_index] = labels_out
 
@@ -172,9 +178,10 @@ def join_multi(labels_data):
 
     return dict_img
     
+
+
 # ---------------------------------------- PREPROCESSING ---------------------------------------- #
 
-# correct
 def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = 1):
     '''
     Split tabular data and labels into train, val, and test sets.
@@ -439,27 +446,10 @@ def compute_mean_and_std(dataset, batch_size=16):
 
 if __name__ == '__main__': 
 
-    # image_data = prepare_data(False)
-    # train_data, val_data, test_data = load_data(image_data, vision='vit')
+    image_data = prepare_data(True)
+    train_data, val_data, test_data = load_data(image_data, vision='vit')
 
-    # # mean, std = compute_mean_and_std(train_data)
-    # # print(f'Mean: {mean}, Std: {std}')
-    print("Starting the data preparation")
-    cluster_data = pd.read_csv(CLUSTERED_PATH)
-    data = load_images_data(cluster_data)
 
-    # Split labels into train/val/test sets
-    print("Starting creating the cv splits")
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=30, cv = '1')
-    print("First split done")
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=40, cv = '2')
-    print("Second split done")
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=50, cv = '3')
-    print("Third split done")
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=60, cv = '4')
-    print("Fourth split done")
-    lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=70, cv = '5')
-    print("Fifth split done")
 
 
 

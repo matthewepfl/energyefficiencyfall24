@@ -26,8 +26,7 @@ else:
     BASE_DIR = '/Users/silviaromanato/Desktop/'
     
 CHECKPOINTS_DIR = os.path.join(BASE_DIR, 'checkpoints')
-BATCH_SIZE = 32
-
+BATCH_SIZE = 64
 print("the batch size is: ", BATCH_SIZE)
 
 # ---------------------------------------- TRAINING FUNCTIONS ---------------------------------------- #
