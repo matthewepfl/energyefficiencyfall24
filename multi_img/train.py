@@ -271,6 +271,9 @@ if __name__ == '__main__':
 
     image_data = prepare_data(args.reduce_dataset, cv = args.cv)
     train_data, val_data, test_data = load_data(image_data, vision=args.vision)
+
+    del args.reduce_dataset
+    del args.cv
     grid_search(train_data, val_data, test_data, **vars(args))
     
     
