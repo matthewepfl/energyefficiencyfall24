@@ -187,6 +187,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = '1'):
     '''
     Split tabular data and labels into train, val, and test sets.
     '''
+    print("labels * \n ", labels.head())
     paths = [LABELS_TRAIN_PATH + cv + '.csv', LABELS_VAL_PATH + cv + '.csv', LABELS_TEST_PATH + cv + '.csv']
     
     if all([os.path.exists(path) for path in paths]):
@@ -210,6 +211,7 @@ def split(labels, val_size=0.15, test_size=0.20, seed=42, cv = '1'):
 
         # Get the tabular data and labels for the train, val, and test sets
         labels_train = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_train)]
+        print('labels_train * \n ', labels_train.head())
         labels_val = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_val)]
         labels_test = labels[labels['Property Reference Id'].str.split('.').str[0].astype(int).isin(study_ids_test)]
 
@@ -391,8 +393,7 @@ def prepare_data(reduce, cv = '1'):
     cluster_data = pd.read_csv(CLUSTERED_PATH)
     cluster_data = reduce_dataset(cluster_data) if reduce else cluster_data
 
-    data = load_images_data(cluster_data)
-    print('data * \n ', data.head())
+    data = load_images_data(cluster_data) # this has adv id
 
     # Split labels into train/val/test sets
     lab_train, lab_val, lab_test = split(data, val_size=0.1, test_size=0.15, seed=42, cv = cv)
