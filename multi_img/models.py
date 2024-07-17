@@ -130,29 +130,79 @@ class SixVisionEncoder(nn.Module):
         else:
             raise ValueError(f'Vision encoder type {vision} not supported.')
 
-        self.flatten = nn.Flatten()
-        self.norm = nn.LayerNorm(IMAGE_EMBEDDING_DIM)
-        self.dropout = nn.Dropout(0.5)
-        self.dense = nn.Linear(IMAGE_EMBEDDING_DIM, IMAGE_EMBEDDING_DIM)
+        self.flatten_0 = nn.Flatten()
+        self.norm_0 = nn.LayerNorm(IMAGE_EMBEDDING_DIM)
+        self.dropout_0 = nn.Dropout(0.5)
+        self.dense_0 = nn.Linear(IMAGE_EMBEDDING_DIM, IMAGE_EMBEDDING_DIM)
+
+        self.flatten_1 = nn.Flatten()
+        self.norm_1 = nn.LayerNorm(IMAGE_EMBEDDING_DIM)
+        self.dropout_1 = nn.Dropout(0.5)
+        self.dense_1 = nn.Linear(IMAGE_EMBEDDING_DIM, IMAGE_EMBEDDING_DIM)
+
+        self.flatten_2 = nn.Flatten()
+        self.norm_2 = nn.LayerNorm(IMAGE_EMBEDDING_DIM)
+        self.dropout_2 = nn.Dropout(0.5)
+        self.dense_2 = nn.Linear(IMAGE_EMBEDDING_DIM, IMAGE_EMBEDDING_DIM)
+
+        self.flatten_3 = nn.Flatten()
+        self.norm_3 = nn.LayerNorm(IMAGE_EMBEDDING_DIM)
+        self.dropout_3 = nn.Dropout(0.5)
+        self.dense_3 = nn.Linear(IMAGE_EMBEDDING_DIM, IMAGE_EMBEDDING_DIM)
+
+        self.flatten_4 = nn.Flatten()
+        self.norm_4 = nn.LayerNorm(IMAGE_EMBEDDING_DIM)
+        self.dropout_4 = nn.Dropout(0.5)
+        self.dense_4 = nn.Linear(IMAGE_EMBEDDING_DIM, IMAGE_EMBEDDING_DIM)
+
+        self.flatten_5 = nn.Flatten()
+        self.norm_5 = nn.LayerNorm(IMAGE_EMBEDDING_DIM)
+        self.dropout_5 = nn.Dropout(0.5)
+        self.dense_5 = nn.Linear(IMAGE_EMBEDDING_DIM, IMAGE_EMBEDDING_DIM)
 
     def forward(self, x_0, x_1, x_2, x_3, x_4, x_5):
-        def process_input(model, x):
-            features = model(x)
-            if self.vision == 'vit':
-                features = features.logits
-            features = self.norm(features)
-            features = self.dropout(features)
-            features = self.dense(features)
-            return features
 
-        features_0 = process_input(self.model_0, x_0)
-        features_1 = process_input(self.model_1, x_1)
-        features_2 = process_input(self.model_2, x_2)
-        features_3 = process_input(self.model_3, x_3)
-        features_4 = process_input(self.model_4, x_4)
-        features_5 = process_input(self.model_5, x_5)
+        features_0 = self.model_0(x_0)
+        if self.vision == 'vit':
+            features_0 = features_0.logits
+        features_0 = self.norm_0(features_0)
+        features_0 = self.dropout_0(features_0)
+        features_0 = self.dense_0(features_0)
 
+        features_1 = self.model_1(x_1)
+        if self.vision == 'vit':
+            features_1 = features_1.logits
+        features_1 = self.norm_1(features_1)
+        features_1 = self.dropout_1(features_1)
+        features_1 = self.dense_1(features_1)
 
+        features_2 = self.model_2(x_2)
+        if self.vision == 'vit':
+            features_2 = features_2.logits
+        features_2 = self.norm_2(features_2)
+        features_2 = self.dropout_2(features_2)
+        features_2 = self.dense_2(features_2)
+
+        features_3 = self.model_3(x_3)
+        if self.vision == 'vit':
+            features_3 = features_3.logits
+        features_3 = self.norm_3(features_3)
+        features_3 = self.dropout_3(features_3)
+        features_3 = self.dense_3(features_3)
+
+        features_4 = self.model_4(x_4)
+        if self.vision == 'vit':
+            features_4 = features_4.logits
+        features_4 = self.norm_4(features_4)
+        features_4 = self.dropout_4(features_4)
+        features_4 = self.dense_4(features_4)
+
+        features_5 = self.model_5(x_5)
+        if self.vision == 'vit':
+            features_5 = features_5.logits
+        features_5 = self.norm_5(features_5)
+        features_5 = self.dropout_5(features_5)
+        features_5 = self.dense_5(features_5)
 
         LIST_FEATURES = [features_0, features_1, features_2, features_3, features_4, features_5]
         if 0 in self.mask_branch:

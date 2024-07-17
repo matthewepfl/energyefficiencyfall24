@@ -64,7 +64,7 @@ def create_trainer(model,
     model.to(device)
  
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
-    scheduler = lr_scheduler.LinearLR(optimizer)
+    scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=len(train_data) * epochs)
 
     training_args = TrainingArguments(
 
@@ -100,7 +100,7 @@ def create_trainer(model,
         train_dataset=train_data,
         eval_dataset=val_data,
         data_collator=val_data.collate_fn,
-        callbacks = [EarlyStoppingCallback(early_stopping_patience=8)],
+        callbacks = [EarlyStoppingCallback(early_stopping_patience=10)],
         optimizers=(optimizer, scheduler)
     )
 
