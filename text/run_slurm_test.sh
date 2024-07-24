@@ -16,14 +16,14 @@
 module load python/3.8
 
 # Activate the virtual environment
-source /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text/venv/bin/activate
+source /scratch/izar/mmorvan/EnergyEfficiencyPrediction/text/venv/bin/activate
 
 # Navigate to the directory containing train.py
 #cd /path/to/your/cloned/repository/model/models
-cd /scratch/izar/mmorvan/EnergyEfficiencyPredictionMatthew/text
+cd /scratch/izar/mmorvan/EnergyEfficiencyPrediction/text
 
 # Run the train.py script
-python train_exp_bert_2.py
+python train_bert_all_features_24.py
 
 # Deactivate the virtual environment
 deactivate

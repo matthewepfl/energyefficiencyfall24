@@ -51,7 +51,7 @@ class BERTRegressor(nn.Module):
         self.bert = BertModel.from_pretrained(bert_model)
         self.regressor = nn.Sequential(
             nn.Linear(self.bert.config.hidden_size, 128),
-            nn.Dropout(0.2),
+            nn.Dropout(0.3),
             nn.Linear(128, 1)
         )
 
