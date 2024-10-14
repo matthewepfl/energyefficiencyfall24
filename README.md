@@ -3,7 +3,7 @@
 
 This repository contains a multi-modal model that predicts energy efficiency from property listings using a combination of **images**, **text**, and **tabular data**. The architecture is designed to combine data from multiple modalities using specialized encoders for each input type. The goal is to use information from property images, descriptive text, and numerical/tabular data to improve the accuracy of the energy efficiency prediction.
 
-![Model Architecture](Screenshot 2024-10-14 at 10.06.09.png)
+![Model Architecture](https://private-user-images.githubusercontent.com/151882909/376159541-efb25917-3589-4289-8ad1-3d29a9095ea6.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Mjg4OTQ2ODYsIm5iZiI6MTcyODg5NDM4NiwicGF0aCI6Ii8xNTE4ODI5MDkvMzc2MTU5NTQxLWVmYjI1OTE3LTM1ODktNDI4OS04YWQxLTNkMjlhOTA5NWVhNi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMDE0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTAxNFQwODI2MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yZDc3NTUwMDYyZTQ0Mzk5ZDU2MTA4NDRmNjkyMDc3MTE4MzFhOWNkOTVjMzQ4MWU5YzFhNGM0NGU1NGQzZmVhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.74B4HZKp9953qwfsDRIqJ6O3UawRmPs1VVyrzFaWynM)
 
 ## Model Overview
 
