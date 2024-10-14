@@ -75,11 +75,3 @@ The input data consists of three main types:
 ├── requirements.txt
 ├── README.md
 ```
-
-## Contributions
-
-Contributions are welcome! Please submit a pull request or raise an issue if you encounter any bugs or have suggestions for improvements.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
