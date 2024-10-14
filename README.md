@@ -63,12 +63,6 @@ The input data consists of three main types:
    ```bash
    pip install -r requirements.txt
    ```
-4. Prepare your data and follow the instructions in the `scripts/` folder to preprocess the images, text, and tabular data.
-5. Run the training script:
-   ```bash
-   python train.py
-   ```
-
 ## Directory Structure
 
 ```
